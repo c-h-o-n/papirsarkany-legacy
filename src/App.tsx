@@ -1,4 +1,4 @@
-import { Link, Route, Routes } from 'react-router-dom';
+import { NavLink, Route, Routes } from 'react-router-dom';
 import CartPage from './pages/CartPage';
 import DualLinePage from './pages/DualLinePage';
 import LandingPage from './pages/LandingPage';
@@ -12,20 +12,20 @@ function App() {
       <nav>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <Link to="/anyagok">Anyagok</Link>
+            <NavLink to="/anyagok">Anyagok</NavLink>
           </li>
           <li>
-            <Link to="/ketzsinoros">Kétzsinóros</Link>
+            <NavLink to="/ketzsinoros">Kétzsinóros</NavLink>
           </li>
 
           <li>
-            <Link to="/egyzsinoros">Egyzsinóros</Link>
+            <NavLink to="/egyzsinoros">Egyzsinóros</NavLink>
           </li>
           <li>
-            <Link to="/kosar">🛒</Link>
+            <NavLink to="/kosar">🛒</NavLink>
           </li>
         </ul>
       </nav>
