@@ -1,0 +1,1 @@
+# papirsarkany.hu client
