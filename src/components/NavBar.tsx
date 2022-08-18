@@ -1,21 +1,79 @@
+import { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-export default function NavBar() {
-  return (
-    <nav className="relative container mx-auto p-6">
-      <div className="hidden md:flex items-center justify-between">
-        <div className="flex space-x-12">
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/anyagok">Anyagok</NavLink>
-          <NavLink to="/ketzsinoros">Kétzsinóros</NavLink>
-          <NavLink to="/egyzsinoros">Egyzsinóros</NavLink>
-        </div>
+// assets
+// TODO add basket svg
+import hamburgerMenu from '../hamburger-menu.svg';
+import logo from '../logo.svg';
 
-        <NavLink to="/kosar">🛒</NavLink>
+export default function NavBar() {
+  const sideBarRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleSideBar = () => {
+    setIsOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      console.log(sideBarRef);
+      console.log(event);
+      if (sideBarRef.current && !sideBarRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [sideBarRef]);
+
+  return (
+    <nav>
+      <div className="hidden md:block">
+        <div className="flex justify-between  p-6 bg-sky-50">
+          <div className="flex justify-center">
+            <NavLink to="/" className={'w-16'}>
+              <img src={logo} alt="logo" />
+            </NavLink>
+          </div>
+          <div className="flex items-center space-x-6">
+            <NavLink to="/egyzsinoros">Egyzsinóros</NavLink>
+            <NavLink to="/ketzsinoros">Kétzsinóros</NavLink>
+            <NavLink to="/anyagok">Anyagok</NavLink>
+            <NavLink to="/kosar">🛒</NavLink>
+          </div>
+        </div>
       </div>
-      <button id="menu-btn" className="block md:hidden">
-        Hamburger button works!
-      </button>
+
+      <div className="block md:hidden">
+        {isOpen ? (
+          <div className="fixed flex flex-col bg-sky-300 w-52 h-screen justify-between p-6" ref={sideBarRef}>
+            <div className="flex justify-center">
+              <NavLink to="/" className={'w-16'}>
+                <img src={logo} alt="logo" onClick={toggleSideBar} />
+              </NavLink>
+            </div>
+            <div className="flex flex-col justify-between space-y-6 items-center">
+              <NavLink to="/egyzsinoros">Egyzsinóros</NavLink>
+              <NavLink to="/ketzsinoros" onClick={toggleSideBar}>
+                Kétzsinóros
+              </NavLink>
+              <NavLink to="/anyagok" onClick={toggleSideBar}>
+                Anyagok
+              </NavLink>
+              <NavLink to="/kosar" onClick={toggleSideBar}>
+                🛒
+              </NavLink>
+            </div>
+          </div>
+        ) : (
+          <button id="menu-btn" className="absolute bottom-2 left-5" onClick={toggleSideBar}>
+            <img src={hamburgerMenu} alt="hamburger menu" />
+          </button>
+        )}
+      </div>
     </nav>
   );
 }
