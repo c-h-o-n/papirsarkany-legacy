@@ -56,7 +56,9 @@ export default function NavBar() {
               </NavLink>
             </div>
             <div className="flex flex-col justify-between space-y-6 items-center">
-              <NavLink to="/egyzsinoros">Egyzsinóros</NavLink>
+              <NavLink to="/egyzsinoros" onClick={toggleSideBar}>
+                Egyzsinóros
+              </NavLink>
               <NavLink to="/ketzsinoros" onClick={toggleSideBar}>
                 Kétzsinóros
               </NavLink>
