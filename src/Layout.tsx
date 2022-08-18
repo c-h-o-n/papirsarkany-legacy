@@ -3,13 +3,11 @@ import NavBar from './components/NavBar';
 
 export default function Layout() {
   return (
-    <>
+    <div className="bg-sky-50 h-screen flex flex-col">
       <NavBar />
-      <div className="bg-sky-50 h-screen">
-        <div className="container mx-auto">
-          <Outlet />
-        </div>
+      <div className="container mx-auto flex-grow">
+        <Outlet />
       </div>
-    </>
+    </div>
   );
 }

@@ -1,3 +1,7 @@
 export default function DualLinePage() {
-  return <h1>Jelengleg nincsenek kétzsinóros sárkányok.</h1>;
+  return (
+    <div className="flex justify-center items-center h-full">
+      <h1 className="text-5xl text-center">Jelengleg nincsenek kétzsinóros sárkányok.</h1>
+    </div>
+  );
 }

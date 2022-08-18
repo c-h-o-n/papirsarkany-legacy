@@ -34,7 +34,7 @@ export default function NavBar() {
     <nav>
       {/* Desktop Navbar */}
       <div className="hidden md:block">
-        <div className="flex justify-between  p-6 bg-sky-50">
+        <div className="flex justify-between  p-6">
           <div className="flex justify-center">
             <NavLink to="/" className={'w-16'}>
               <img src={logo} alt="logo" />
