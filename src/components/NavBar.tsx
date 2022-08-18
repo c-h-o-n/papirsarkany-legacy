@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 // assets
 // TODO add basket svg
-import hamburgerMenu from '../hamburger-menu.svg';
-import logo from '../logo.svg';
+import hamburgerMenu from '../assets/hamburger-menu.svg';
+import logo from '../assets/logo.svg';
 
 export default function NavBar() {
   const sideBarRef = useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -30,7 +30,9 @@ export default function NavBar() {
   }, [sideBarRef]);
 
   return (
+    // TODO NEEDS REWORK
     <nav>
+      {/* Desktop Navbar */}
       <div className="hidden md:block">
         <div className="flex justify-between  p-6 bg-sky-50">
           <div className="flex justify-center">
@@ -47,6 +49,7 @@ export default function NavBar() {
         </div>
       </div>
 
+      {/* Mobile SideBar */}
       <div className="block md:hidden">
         {isOpen ? (
           <div className="fixed flex flex-col bg-sky-300 w-52 h-screen justify-between p-6" ref={sideBarRef}>
@@ -71,7 +74,7 @@ export default function NavBar() {
             </div>
           </div>
         ) : (
-          <button id="menu-btn" className="absolute bottom-2 left-5" onClick={toggleSideBar}>
+          <button id="menu-btn" className="fixed bottom-2 left-5" onClick={toggleSideBar}>
             <img src={hamburgerMenu} alt="hamburger menu" />
           </button>
         )}
