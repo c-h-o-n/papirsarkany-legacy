@@ -16,8 +16,6 @@ export default function NavBar() {
 
   useEffect(() => {
     function handleClickOutside(event: any) {
-      console.log(sideBarRef);
-      console.log(event);
       if (sideBarRef.current && !sideBarRef.current.contains(event.target)) {
         setIsOpen(false);
       }
@@ -54,7 +52,7 @@ export default function NavBar() {
         {isOpen ? (
           <div className="fixed flex flex-col bg-sky-300 w-52 h-screen justify-between p-6" ref={sideBarRef}>
             <div className="flex justify-center">
-              <NavLink to="/" className={'w-16'}>
+              <NavLink to="/" className={'w-20'}>
                 <img src={logo} alt="logo" onClick={toggleSideBar} />
               </NavLink>
             </div>
