@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 // assets
-// TODO add basket svg
 import hamburgerMenu from '../assets/hamburger-menu.svg';
 import logo from '../assets/logo.svg';
+import basket from '../assets/basket.svg';
 
 export default function NavBar() {
   const sideBarRef = useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -42,7 +42,9 @@ export default function NavBar() {
             <NavLink to="/egyzsinoros">Egyzsinóros</NavLink>
             <NavLink to="/ketzsinoros">Kétzsinóros</NavLink>
             <NavLink to="/anyagok">Anyagok</NavLink>
-            <NavLink to="/kosar">🛒</NavLink>
+            <NavLink to="/kosar">
+              <img src={basket} alt="kosár" className="w-6" />
+            </NavLink>
           </div>
         </div>
       </div>
