@@ -52,17 +52,18 @@ export default function SingleLinePage() {
       wind: 'strong strong',
     },
   ]);
+
   return (
-    <>
-      <h1 className="text-3xl font-bold text-center">Egyzsinóros sárkányok</h1>
+    <div>
+      <h1 className="text-3xl font-bold text-center my-6">Egyzsinóros sárkányok</h1>
 
       <div className="flex flex-wrap justify-center">
         {kites.map(kite => (
-          <div key={kite.id} className="m-6">
+          <div key={kite.id} className="m-6 first:mt-0 lg:first:mt-6">
             <KiteCard kite={kite} />
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }
