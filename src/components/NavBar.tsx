@@ -30,7 +30,7 @@ export default function NavBar() {
 
   return (
     // TODO NEEDS REWORK
-    <nav>
+    <nav className="z-50">
       {/* Desktop Navbar */}
       <div className="hidden md:block">
         <div className="flex justify-between  p-6">
@@ -76,7 +76,7 @@ export default function NavBar() {
               </div>
             </div>
 
-            <img className="absolute -bottom-16 right-0 bottom-kite-bounce w-36" src={bottomKite} alt="bottom-kite" />
+            <img className="fixed -bottom-16 right-0 bottom-kite-bounce w-36" src={bottomKite} alt="bottom-kite" />
           </>
         ) : (
           <button className="fixed bottom-2 left-5" id="menu-btn" onClick={toggleSideBar}>
