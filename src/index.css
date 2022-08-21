@@ -4,13 +4,11 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 
 /* Custom Counter */
 input[type='number']::-webkit-inner-spin-button,
@@ -28,22 +26,27 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 /* Bottom Kite animation */
-
-
 @keyframes bounce {
-  0%, 100% {
-      transform: translateY(-15%);
-      /* TODO better bezier curve */
-      animation-timing-function: cubic-bezier(0.8,0,1,1);
+  0%,
+  100% {
+    transform: translateY(-15%);
+    /* TODO better bezier curve */
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
   }
   50% {
-      transform: none;
-      animation-timing-function: cubic-bezier(0,0,0.2,1);
+    transform: none;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
   }
 }
 .bottom-kite-bounce {
   animation: bounce 2s infinite;
 }
 
-
-
+/* multiline truncate */
+.multiline-truncate-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

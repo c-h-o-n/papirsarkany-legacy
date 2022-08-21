@@ -1,3 +1,21 @@
+import AboutCard from '../components/AboutCard';
+import logo from '../assets/logo.svg';
+
 export default function LandingPage() {
-  return <h1 className="text-3xl font-bold text-red-500 self-center text-center">Landing Page Works!</h1>;
+  return (
+    <div>
+      <div className="flex justify-center">
+        <img src={logo} alt="cover" className="m-12" />
+      </div>
+      <div className="grid auto-rows-auto -space-y-24 md:space-y-0 md:grid-cols-3 md:gap-4  m-2 ">
+        <AboutCard />
+        <AboutCard />
+        <AboutCard />
+        <AboutCard />
+        <AboutCard />
+        <AboutCard />
+        <AboutCard />
+      </div>
+    </div>
+  );
 }
