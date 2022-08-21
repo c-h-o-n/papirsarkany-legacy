@@ -12,13 +12,7 @@ body {
 }
 
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-
-
+/* Custom Counter */
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -32,3 +26,24 @@ input[type='number']::-webkit-outer-spin-button {
 .custom-number-input button:focus {
   outline: none !important;
 }
+
+/* Bottom Kite animation */
+
+
+@keyframes bounce {
+  0%, 100% {
+      transform: translateY(-15%);
+      /* TODO better bezier curve */
+      animation-timing-function: cubic-bezier(0.8,0,1,1);
+  }
+  50% {
+      transform: none;
+      animation-timing-function: cubic-bezier(0,0,0.2,1);
+  }
+}
+.bottom-kite-bounce {
+  animation: bounce 2s infinite;
+}
+
+
+

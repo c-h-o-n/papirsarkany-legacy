@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import hamburgerMenu from '../assets/hamburger-menu.svg';
 import logo from '../assets/logo.svg';
 import basket from '../assets/basket.svg';
+import bottomKite from '../assets/bottom-kite.svg';
 
 export default function NavBar() {
   const sideBarRef = useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -52,29 +53,33 @@ export default function NavBar() {
       {/* Mobile SideBar */}
       <div className="block md:hidden">
         {isOpen ? (
-          <div className="fixed flex flex-col bg-sky-300 w-52 h-screen justify-between p-6" ref={sideBarRef}>
-            <div className="flex justify-center">
-              <NavLink to="/" className={'w-20'}>
-                <img src={logo} alt="logo" onClick={toggleSideBar} />
-              </NavLink>
+          <>
+            <div className="fixed flex flex-col bg-sky-300 w-52 h-screen justify-between p-6" ref={sideBarRef}>
+              <div className="flex justify-center">
+                <NavLink to="/" className={'w-20'}>
+                  <img src={logo} alt="logo" onClick={toggleSideBar} />
+                </NavLink>
+              </div>
+              <div className="flex flex-col justify-between space-y-6 items-center">
+                <NavLink to="/egyzsinoros" onClick={toggleSideBar}>
+                  Egyzsinóros
+                </NavLink>
+                <NavLink to="/ketzsinoros" onClick={toggleSideBar}>
+                  Kétzsinóros
+                </NavLink>
+                <NavLink to="/anyagok" onClick={toggleSideBar}>
+                  Anyagok
+                </NavLink>
+                <NavLink to="/kosar" onClick={toggleSideBar}>
+                  🛒
+                </NavLink>
+              </div>
             </div>
-            <div className="flex flex-col justify-between space-y-6 items-center">
-              <NavLink to="/egyzsinoros" onClick={toggleSideBar}>
-                Egyzsinóros
-              </NavLink>
-              <NavLink to="/ketzsinoros" onClick={toggleSideBar}>
-                Kétzsinóros
-              </NavLink>
-              <NavLink to="/anyagok" onClick={toggleSideBar}>
-                Anyagok
-              </NavLink>
-              <NavLink to="/kosar" onClick={toggleSideBar}>
-                🛒
-              </NavLink>
-            </div>
-          </div>
+
+            <img className="absolute -bottom-16 right-0 bottom-kite-bounce w-36" src={bottomKite} alt="bottom-kite" />
+          </>
         ) : (
-          <button id="menu-btn" className="fixed bottom-2 left-5" onClick={toggleSideBar}>
+          <button className="fixed bottom-2 left-5" id="menu-btn" onClick={toggleSideBar}>
             <img src={hamburgerMenu} alt="hamburger menu" />
           </button>
         )}
