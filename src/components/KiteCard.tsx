@@ -2,9 +2,10 @@ import { Kite } from '../pages/SingleLinePage';
 
 import kiteImage from '../assets/kite-placeholder.png';
 import addItem from '../assets/add-item.svg';
+
 export default function KiteCard({ kite }: { kite: Kite }) {
   return (
-    <div className="bg-white  rounded-3xl  shadow-md border-black p-6 max-w-sm relative">
+    <div className="bg-white rounded-3xl shadow-md k p-6 max-w-sm relative">
       <h1 className="text-lg text-center font-medium mb-3">{kite.name}</h1>
 
       <div className="mb-3">
