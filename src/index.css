@@ -42,6 +42,7 @@ input[type='number']::-webkit-outer-spin-button {
   animation: bounce 2s infinite;
 }
 
+/* TODO https://github.com/tailwindlabs/tailwindcss-line-clamp */
 /* multiline truncate */
 .multiline-truncate-4 {
   display: -webkit-box;

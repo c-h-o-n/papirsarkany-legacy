@@ -1,9 +1,12 @@
 import { Kite } from '../pages/SingleLinePage';
+import { useCart } from '../context/CartContext';
 
 import kiteImage from '../assets/kite-placeholder.png';
 import addItem from '../assets/add-item.svg';
 
 export default function KiteCard({ kite }: { kite: Kite }) {
+  const { increaseCartQuantity } = useCart();
+
   return (
     <div className="bg-white rounded-3xl shadow-md k p-6 max-w-sm relative">
       <h1 className="text-lg text-center font-medium mb-3">{kite.name}</h1>
@@ -15,7 +18,7 @@ export default function KiteCard({ kite }: { kite: Kite }) {
       <div className="text-center text-3xl font-bold text-sky-500">{kite.price} Ft</div>
 
       <div className=" absolute bottom-6 right-6 flex items-center justify-end space-x-3">
-        <button>
+        <button onClick={() => increaseCartQuantity(kite.id)}>
           <img src={addItem} alt="add-item" className="w-8" />
         </button>
       </div>

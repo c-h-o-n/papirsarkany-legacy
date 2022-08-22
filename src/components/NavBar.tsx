@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 // assets
 import hamburgerMenu from '../assets/hamburger-menu.svg';
 import logo from '../assets/logo.svg';
-import basket from '../assets/basket.svg';
 import bottomKite from '../assets/bottom-kite.svg';
+import Cart from './Cart';
 
 export default function NavBar() {
   const sideBarRef = useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -44,7 +45,7 @@ export default function NavBar() {
             <NavLink to="/ketzsinoros">Kétzsinóros</NavLink>
             <NavLink to="/anyagok">Anyagok</NavLink>
             <NavLink to="/kosar">
-              <img src={basket} alt="kosár" className="w-6" />
+              <Cart />
             </NavLink>
           </div>
         </div>
@@ -71,7 +72,7 @@ export default function NavBar() {
                   Anyagok
                 </NavLink>
                 <NavLink to="/kosar" onClick={toggleSideBar}>
-                  🛒
+                  <Cart />
                 </NavLink>
               </div>
             </div>
