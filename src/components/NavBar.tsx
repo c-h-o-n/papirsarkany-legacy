@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
 
 // assets
 import hamburgerMenu from '../assets/hamburger-menu.svg';
@@ -8,17 +7,15 @@ import logo from '../assets/logo.svg';
 import bottomKite from '../assets/bottom-kite.svg';
 import Cart from './Cart';
 
+// HACK z-indexes
 export default function NavBar() {
-  const sideBarRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-
   const [isOpen, setIsOpen] = useState(false);
-  const toggleSideBar = () => {
-    setIsOpen(!isOpen);
-  };
+
+  const sideBarRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   useEffect(() => {
     function handleClickOutside(event: any) {
-      if (sideBarRef.current && !sideBarRef.current.contains(event.target)) {
+      if (sideBarRef.current && !sideBarRef.current.contains(event.target) && window.innerWidth <= 768) {
         setIsOpen(false);
       }
     }
@@ -29,62 +26,55 @@ export default function NavBar() {
     };
   }, [sideBarRef]);
 
+  const toggleSideBar = () => {
+    // THINK more maintainable way
+    if (window.innerWidth <= 768) {
+      setIsOpen(!isOpen);
+    }
+  };
+
   return (
-    // TODO NEEDS REWORK
-    <nav className="z-50">
-      {/* Desktop Navbar */}
-      <div className="hidden md:block">
-        <div className="flex justify-between  p-6">
-          <div className="flex justify-center">
-            <NavLink to="/" className={'w-16'}>
-              <img src={logo} alt="logo" />
-            </NavLink>
-          </div>
-          <div className="flex items-center space-x-6">
-            <NavLink to="/egyzsinoros">Egyzsinóros</NavLink>
-            <NavLink to="/ketzsinoros">Kétzsinóros</NavLink>
-            <NavLink to="/anyagok">Anyagok</NavLink>
-            <NavLink to="/kosar">
-              <Cart />
-            </NavLink>
+    <>
+      <nav className="z-50">
+        <div className={`${isOpen ? ' block' : 'hidden'} md:block`}>
+          <div
+            className="fixed  flex flex-col bg-sky-300 w-52 h-full justify-between p-6 md:flex md:flex-row md:bg-sky-50 md:static md:w-full md:h-auto"
+            ref={sideBarRef}
+          >
+            <div className="flex justify-center">
+              <NavLink to="/" className={'w-20 md:w-16'}>
+                <img src={logo} alt="logo" onClick={toggleSideBar} />
+              </NavLink>
+            </div>
+            <div className="flex flex-col justify-between space-y-6 items-center md:flex-row md:space-y-0 md:space-x-12">
+              <NavLink to="/egyzsinoros" onClick={toggleSideBar}>
+                Egyzsinóros
+              </NavLink>
+              <NavLink to="/ketzsinoros" onClick={toggleSideBar}>
+                Kétzsinóros
+              </NavLink>
+              <NavLink to="/anyagok" onClick={toggleSideBar}>
+                Anyagok
+              </NavLink>
+              <NavLink to="/kosar" onClick={toggleSideBar}>
+                <Cart />
+              </NavLink>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Mobile SideBar */}
-      <div className="block md:hidden">
-        {isOpen ? (
-          <>
-            <div className="fixed flex flex-col bg-sky-300 w-52 h-screen justify-between p-6" ref={sideBarRef}>
-              <div className="flex justify-center">
-                <NavLink to="/" className={'w-20'}>
-                  <img src={logo} alt="logo" onClick={toggleSideBar} />
-                </NavLink>
-              </div>
-              <div className="flex flex-col justify-between space-y-6 items-center">
-                <NavLink to="/egyzsinoros" onClick={toggleSideBar}>
-                  Egyzsinóros
-                </NavLink>
-                <NavLink to="/ketzsinoros" onClick={toggleSideBar}>
-                  Kétzsinóros
-                </NavLink>
-                <NavLink to="/anyagok" onClick={toggleSideBar}>
-                  Anyagok
-                </NavLink>
-                <NavLink to="/kosar" onClick={toggleSideBar}>
-                  <Cart />
-                </NavLink>
-              </div>
-            </div>
+        {/* Bottom Flying Kite */}
+        <div className={`${isOpen ? 'block' : 'hidden'}`}>
+          <img className="fixed -bottom-16 -right-6 bottom-kite-bounce w-36 md:hidden" src={bottomKite} alt="bottom-kite" />
+        </div>
 
-            <img className="fixed -bottom-16 right-0 bottom-kite-bounce w-36" src={bottomKite} alt="bottom-kite" />
-          </>
-        ) : (
-          <button className="fixed bottom-2 left-5" id="menu-btn" onClick={toggleSideBar}>
+        {/* Hamburger menu */}
+        <div className={`${isOpen ? ' hidden' : 'block'}`}>
+          <button className={`fixed bottom-2 left-5  md:hidden`} id="menu-btn" onClick={toggleSideBar}>
             <img src={hamburgerMenu} alt="hamburger menu" />
           </button>
-        )}
-      </div>
-    </nav>
+        </div>
+      </nav>
+    </>
   );
 }
