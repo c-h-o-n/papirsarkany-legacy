@@ -7,7 +7,7 @@ type CartItemProps = {
 };
 
 export default function CartCard({ item }: CartItemProps) {
-  const { increaseCartQuantity, decreaseCartQuantity, removeItemFromCart } = useCart();
+  const { getItemQuantity, removeItemFromCart, decreaseCartQuantity, increaseCartQuantity } = useCart();
 
   return (
     <div className="flex justify-between items-center m-6" key={item.id}>
@@ -15,7 +15,11 @@ export default function CartCard({ item }: CartItemProps) {
 
       <div className="">Quantity {item.quantity}</div>
 
-      <Counter initialValue={item.id} increase={increaseCartQuantity} decrease={decreaseCartQuantity} />
+      <Counter
+        value={getItemQuantity(item.id)}
+        increaseValue={() => increaseCartQuantity(item.id)}
+        decreaseValue={() => decreaseCartQuantity(item.id)}
+      />
 
       <button className="w-10 " onClick={() => removeItemFromCart(item.id)}>
         <img src={removeItem} alt="remove-cart-item" />

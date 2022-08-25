@@ -1,4 +1,4 @@
-// TODO find a better name for this
+// THINK design a better landing page design
 export default function AboutCard() {
   return (
     <div className="bg-white rounded-3xl border-black border-solid border-4  p-6  ">

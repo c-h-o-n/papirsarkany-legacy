@@ -4,7 +4,7 @@ type CartProviderProps = {
   children: ReactNode;
 };
 
-type CartContext = {
+type CartContextType = {
   getItemQuantity: (id: number) => number;
   increaseCartQuantity: (id: number) => void;
   decreaseCartQuantity: (id: number) => void;
@@ -18,8 +18,7 @@ export type CartItem = {
   quantity: number;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-redeclare
-const CartContext = createContext({} as CartContext);
+const CartContext = createContext({} as CartContextType);
 
 export function useCart() {
   return useContext(CartContext);

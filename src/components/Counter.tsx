@@ -1,32 +1,25 @@
-import { useState } from 'react';
-import { useCart } from '../context/CartContext';
-
 type CounterProps = {
-  initialValue: number;
-  increase: any;
-  decrease: any;
+  value: number;
+  increaseValue: () => any;
+  decreaseValue: () => any;
 };
 
-export default function Counter({ initialValue, decrease, increase }: CounterProps) {
-  const { getItemQuantity, decreaseCartQuantity, increaseCartQuantity } = useCart();
-
+export default function Counter({ value, decreaseValue, increaseValue }: CounterProps) {
   return (
     <div className="custom-number-input h-10 w-32">
       <div className="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
         <button
           className=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
-          onClick={() => decreaseCartQuantity(initialValue)}
+          onClick={decreaseValue}
         >
           <span className="m-auto text-2xl font-thin">−</span>
         </button>
 
-        <div className="text-center w-full font-bold bg-gray-300 flex justify-center items-center">
-          {getItemQuantity(initialValue)}
-        </div>
+        <div className="text-center w-full font-bold bg-gray-300 flex justify-center items-center">{value}</div>
 
         <button
           className="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
-          onClick={() => increaseCartQuantity(initialValue)}
+          onClick={increaseValue}
         >
           <span className="m-auto text-2xl font-thin">+</span>
         </button>
