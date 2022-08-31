@@ -61,6 +61,9 @@ export default function NavBar() {
               </NavLink>
             </div>
           </div>
+
+          {/* Backdrop */}
+          <div className="absolute -z-10  w-screen h-screen md:hidden"></div>
         </div>
 
         {/* Bottom Flying Kite */}

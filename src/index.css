@@ -46,7 +46,7 @@ input[type='number']::-webkit-outer-spin-button {
 /* multiline truncate */
 .multiline-truncate-4 {
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 8;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
