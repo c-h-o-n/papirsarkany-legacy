@@ -1,7 +1,7 @@
 {
-  "name": "express-api-starter-ts",
-  "version": "1.2.0",
-  "description": " A basic starter for an express.js API with Typescript",
+  "name": "papirsarkany-server",
+  "version": "0.0.0",
+  "description": " A basic express.js API with Typescript",
   "main": "src/index.ts",
   "scripts": {
     "start": "ts-node src/index.ts",
@@ -11,18 +11,16 @@
     "test": "jest"
   },
   "keywords": [],
-  "author": "CJ R. <cj@null.computer> (https://w3cj.now.sh)",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/w3cj/express-api-starter.git"
-  },
+  "author": "chon",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.2",
     "express": "^4.18.1",
     "helmet": "^6.0.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "pg": "^8.8.0",
+    "zod": "^3.18.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
@@ -30,6 +28,7 @@
     "@types/jest": "^28.1.8",
     "@types/morgan": "^1.9.3",
     "@types/node": "^18.7.14",
+    "@types/pg": "^8.6.5",
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
