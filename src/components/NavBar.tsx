@@ -38,7 +38,7 @@ export default function NavBar() {
       <nav className="z-50">
         <div className={`${isOpen ? ' block' : 'hidden'} md:block`}>
           <div
-            className="fixed  flex flex-col bg-sky-300 w-52 h-full justify-between p-6 md:flex md:flex-row md:bg-sky-50 md:static md:w-full md:h-auto"
+            className="fixed  flex flex-col bg-sky-300 w-52 h-full justify-between p-6 md:flex md:flex-row md:bg-transparent md:static md:w-full md:h-auto"
             ref={sideBarRef}
           >
             <div className="flex justify-center">

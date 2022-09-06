@@ -25,7 +25,13 @@ export function useCart() {
 }
 
 export function CartProvider({ children }: CartProviderProps) {
-  const [cartItems, setCartItems] = useState<CartItem[]>([{ id: 0, quantity: 2 }]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([
+    { id: 0, quantity: 2 },
+    { id: 1, quantity: 1 },
+    { id: 2, quantity: 3 },
+  ]);
+
+  const cartQuantity = cartItems.reduce((quantity, item) => item.quantity + quantity, 0);
 
   const getItemQuantity = (id: number): number => {
     return cartItems.find(item => item.id === id)?.quantity || 0;
@@ -65,17 +71,15 @@ export function CartProvider({ children }: CartProviderProps) {
     setCartItems(currentItems => currentItems.filter(item => item.id !== id));
   };
 
-  const cartQuantity = cartItems.reduce((quantity, item) => item.quantity + quantity, 0);
-
   return (
     <CartContext.Provider
       value={{
+        cartItems,
+        cartQuantity,
         getItemQuantity,
         increaseCartQuantity: increaseCartQuantity,
         decreaseCartQuantity: decreaseCartQuantity,
         removeItemFromCart: removeFromCart,
-        cartItems,
-        cartQuantity,
       }}
     >
       {children}

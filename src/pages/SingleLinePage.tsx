@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import KiteCard from '../components/KiteCard';
 
 export type Kite = {
   id: number;
-  image: any;
+  imageUrl: any;
   name: string;
   size: string;
   material: string;
@@ -17,7 +17,7 @@ export default function SingleLinePage() {
   const [kites, setKites] = useState<Kite[]>([
     {
       id: 0,
-      image: 'image about the kite',
+      imageUrl: 'image about the kite',
       details:
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores quaerat vel tenetur iure dolorum sunt corporis minima officiis exercitationem ipsam!',
       isBeginner: true,
@@ -29,7 +29,7 @@ export default function SingleLinePage() {
     },
     {
       id: 1,
-      image: 'image about the kite',
+      imageUrl: 'image about the kite',
       details:
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores quaerat vel tenetur iure dolorum sunt corporis minima officiis exercitationem ipsam!',
       isBeginner: true,
@@ -41,7 +41,7 @@ export default function SingleLinePage() {
     },
     {
       id: 2,
-      image: 'image about the kite',
+      imageUrl: 'image about the kite',
       details:
         'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores quaerat vel tenetur iure dolorum sunt corporis minima officiis exercitationem ipsam!',
       isBeginner: true,
@@ -52,6 +52,12 @@ export default function SingleLinePage() {
       wind: 'strong strong',
     },
   ]);
+
+  useEffect(() => {
+    fetch('localhost:5000/api/v1/kites').then(resp => console.log(resp.json));
+
+    return () => {};
+  }, []);
 
   return (
     <div>
