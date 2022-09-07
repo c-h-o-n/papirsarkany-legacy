@@ -9,7 +9,7 @@ describe('GET /api/v1', () => {
       {
         message: 'API - 👋🌎🌍🌏',
       },
-      done
+      done,
     );
   });
 });
