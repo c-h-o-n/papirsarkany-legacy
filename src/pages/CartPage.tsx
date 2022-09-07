@@ -28,7 +28,8 @@ export default function CartPage() {
   }, [cartItems, kites]);
 
   return (
-    <div>
+    <>
+      {/* LATER remove Dev Controls  */}
       <div className="flex items-center space-x-2">
         <h1>Dev Controls:</h1>
         <button className="bg-blue-400 p-2" onClick={prev}>
@@ -42,7 +43,7 @@ export default function CartPage() {
       <Steps startsFrom={1}>
         {/* Step 1 */}
         <>
-          <div className="grid divide-y">
+          <div className="divide-y">
             {cartItems.map(item => (
               <CartItem key={item.id} {...item} kites={kites} />
             ))}
@@ -67,6 +68,6 @@ export default function CartPage() {
           </div>
         </div>
       </Steps>
-    </div>
+    </>
   );
 }

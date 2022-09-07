@@ -5,7 +5,7 @@ import handcraftDeltoid from '../assets/photos/handcraft-deltoid.png';
 
 export default function LandingPage() {
   return (
-    <div>
+    <>
       <div className="flex justify-center">
         <img src={logo} alt="cover" className="m-12" />
       </div>
@@ -125,6 +125,6 @@ export default function LandingPage() {
           </p>
         </AboutCard>
       </div>
-    </div>
+    </>
   );
 }

@@ -22,9 +22,10 @@ export default function CartItem({ id, quantity, kites }: CartItemProps) {
   if (item == null) return null;
 
   return (
+    // TODO mobile first design
     <div className="flex justify-between items-center p-6">
       {/* LATER remove me */}
-      <div className="">{id}</div>
+      {/* <div className="">{id}</div> */}
 
       <div className="w-32">
         <img src={item.imageUrl} alt={`${item.name}`} />
@@ -32,15 +33,17 @@ export default function CartItem({ id, quantity, kites }: CartItemProps) {
 
       <div className="">Name: {item.name}</div>
 
-      <Counter
-        value={quantity}
-        increaseValue={() => increaseCartQuantity(id)}
-        decreaseValue={() => decreaseCartQuantity(id)}
-      />
+      <div className="w-28 h-10 ">
+        <Counter
+          value={quantity}
+          increaseValue={() => increaseCartQuantity(id)}
+          decreaseValue={() => decreaseCartQuantity(id)}
+        />
+      </div>
 
       <div className="">{item.price * quantity + ' Ft'}</div>
 
-      <button className="w-10 min-w-[2rem]" onClick={() => removeItemFromCart(id)}>
+      <button className="w-10 " onClick={() => removeItemFromCart(id)}>
         <img src={removeItem} alt="remove-cart-item" />
       </button>
     </div>

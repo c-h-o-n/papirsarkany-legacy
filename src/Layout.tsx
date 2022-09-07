@@ -3,10 +3,9 @@ import NavBar from './components/NavBar';
 
 export default function Layout() {
   return (
-    // FIXME background size bug on smaller screen widths
-    <div className="bg-sky-50 min-h-screen flex flex-col ">
+    <div className="bg-sky-500 min-h-screen min-w-full absolute flex flex-col ">
       <NavBar />
-      <div className="container mx-auto flex-grow grid">
+      <div className="container mx-auto">
         <Outlet />
       </div>
     </div>
