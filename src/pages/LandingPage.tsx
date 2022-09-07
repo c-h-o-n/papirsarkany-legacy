@@ -6,7 +6,7 @@ import handcraftDeltoid from '../assets/photos/handcraft-deltoid.png';
 export default function LandingPage() {
   return (
     <>
-      <div className="flex justify-center">
+      <div className="flex justify-center mx-4">
         <img src={logo} alt="cover" className="m-12" />
       </div>
 
