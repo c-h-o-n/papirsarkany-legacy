@@ -63,9 +63,9 @@ export default function SingleLinePage() {
     <>
       <h1 className="text-3xl font-bold text-center my-6">Egyzsinóros sárkányok</h1>
 
-      <div className="flex flex-wrap justify-center">
+      <div className="flex flex-wrap justify-center gap-6">
         {kites.map(kite => (
-          <div key={kite.id} className="m-6 first:mt-0 lg:first:mt-6">
+          <div key={kite.id} className="">
             <KiteCard kite={kite} />
           </div>
         ))}

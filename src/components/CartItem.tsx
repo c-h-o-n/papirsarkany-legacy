@@ -3,6 +3,7 @@ import Counter from './Counter';
 import removeItem from '../assets/remove-cart-item.svg';
 import { Kite } from '../pages/SingleLinePage';
 import { useEffect, useState } from 'react';
+import { formatCurrency } from '../utilities/formatters';
 
 type CartItemProps = {
   kites: Kite[];
@@ -23,29 +24,31 @@ export default function CartItem({ id, quantity, kites }: CartItemProps) {
 
   return (
     // TODO mobile first design
-    <div className="flex justify-between items-center p-6">
-      {/* LATER remove me */}
-      {/* <div className="">{id}</div> */}
+    <div className="py-6 space-y-2">
+      <div className="flex justify-between ">
+        <div className="flex space-x-2">
+          <div className="w-32 flex-shrink-0">
+            <img src={item.imageUrl} alt={`${item.name}`} />
+          </div>
 
-      <div className="w-32">
-        <img src={item.imageUrl} alt={`${item.name}`} />
+          <div className="text-sm md:text-lg ">{item.name}</div>
+        </div>
+
+        <button className="w-10 flex-shrink-0 " onClick={() => removeItemFromCart(id)}>
+          <img src={removeItem} alt="remove-cart-item" />
+        </button>
       </div>
 
-      <div className="">Name: {item.name}</div>
-
-      <div className="w-28 h-10 ">
-        <Counter
-          value={quantity}
-          increaseValue={() => increaseCartQuantity(id)}
-          decreaseValue={() => decreaseCartQuantity(id)}
-        />
+      <div className="flex items-center justify-between">
+        <div className="w-32 h-12 self-center">
+          <Counter
+            value={quantity}
+            increaseValue={() => increaseCartQuantity(id)}
+            decreaseValue={() => decreaseCartQuantity(id)}
+          />
+        </div>
+        <div className="font-bold ">{formatCurrency(item.price * quantity)}</div>
       </div>
-
-      <div className="">{item.price * quantity + ' Ft'}</div>
-
-      <button className="w-10 " onClick={() => removeItemFromCart(id)}>
-        <img src={removeItem} alt="remove-cart-item" />
-      </button>
     </div>
   );
 }

@@ -5,7 +5,7 @@ export default function Layout() {
   return (
     <div className="bg-sky-50 min-h-screen min-w-full absolute flex flex-col ">
       <NavBar />
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4">
         <Outlet />
       </div>
     </div>

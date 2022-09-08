@@ -9,6 +9,7 @@ import CheckOut from '../components/CheckOut';
 
 import { Steps, useSteps } from 'react-step-builder';
 import CartSummary from '../components/CartSummary';
+import { formatCurrency } from '../utilities/formatters';
 
 export default function CartPage() {
   const { next, prev, current } = useSteps();
@@ -30,7 +31,7 @@ export default function CartPage() {
   return (
     <>
       {/* LATER remove Dev Controls  */}
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-2 m-6">
         <h1>Dev Controls:</h1>
         <button className="bg-blue-400 p-2" onClick={prev}>
           Prev
@@ -49,7 +50,7 @@ export default function CartPage() {
             ))}
           </div>
 
-          <div className="">Összeg: {total} Ft</div>
+          <div className="">Összeg: {formatCurrency(total)}</div>
 
           <button className="bg-red-400 p-4" onClick={next}>
             Tovabb a penztarhoz
