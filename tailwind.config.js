@@ -1,10 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 
-// TODO Customize sky colors
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        sky: {
+          200: '#C0E1F1',
+          300: '#96CCE8',
+        },
+      },
+    },
   },
   plugins: [],
 };

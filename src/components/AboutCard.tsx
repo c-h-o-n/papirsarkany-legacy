@@ -3,7 +3,6 @@ import closeIcon from '../assets/close.svg';
 
 type AboutCardProps = {
   title?: string;
-
   children: ReactNode;
 };
 
