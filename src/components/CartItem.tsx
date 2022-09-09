@@ -4,26 +4,31 @@ import removeItem from '../assets/remove-cart-item.svg';
 import { Kite } from '../pages/SingleLinePage';
 import { useEffect, useState } from 'react';
 import { formatCurrency } from '../utilities/formatters';
+import { useModalContext } from '../context/ModalContext';
 
 type CartItemProps = {
   kites: Kite[];
 } & CartItemType;
 
 export default function CartItem({ id, quantity, kites }: CartItemProps) {
+  const { showModal } = useModalContext();
   const { removeItemFromCart, decreaseCartQuantity, increaseCartQuantity } = useCart();
-
   const [item, setItem] = useState<Kite>();
 
   useEffect(() => {
     setItem(kites.find(kite => kite.id === id));
-
-    return () => {};
   }, [id, kites]);
+
+  const confirmModal = () => {
+    showModal('ConfirmModal', {
+      title: '',
+      onConfirm: () => removeItemFromCart(id),
+    });
+  };
 
   if (item == null) return null;
 
   return (
-    // TODO mobile first design
     <div className="py-6 space-y-2">
       <div className="flex justify-between ">
         <div className="flex space-x-2">
@@ -34,7 +39,7 @@ export default function CartItem({ id, quantity, kites }: CartItemProps) {
           <div className="text-sm md:text-lg ">{item.name}</div>
         </div>
 
-        <button className="w-10 flex-shrink-0 " onClick={() => removeItemFromCart(id)}>
+        <button className="w-10 flex-shrink-0 " onClick={confirmModal}>
           <img src={removeItem} alt="remove-cart-item" />
         </button>
       </div>

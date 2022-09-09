@@ -1,8 +1,10 @@
-import { Route, Routes } from 'react-router-dom';
-import { StepsProvider } from 'react-step-builder';
-import { CartProvider } from './context/CartContext';
+import { ReactNode } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import Layout from './Layout';
+//providers
+import { ModalProvider } from './context/ModalContext';
+import { CartProvider } from './context/CartContext';
+import { StepsProvider } from 'react-step-builder';
 
 // pages
 import CartPage from './pages/CartPage';
@@ -12,11 +14,13 @@ import MaterialPage from './pages/MaterialPage';
 import NotFoundPage from './pages/NotFoundPage';
 import SingleLine from './pages/SingleLinePage';
 
+import Layout from './Layout';
+
 // TODO install & config linter
 function App() {
   return (
-    <StepsProvider>
-      <CartProvider>
+    <Providers>
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<LandingPage />}></Route>
@@ -27,8 +31,18 @@ function App() {
             <Route path="*" element={<NotFoundPage />}></Route>
           </Route>
         </Routes>
-      </CartProvider>
-    </StepsProvider>
+      </BrowserRouter>
+    </Providers>
+  );
+}
+
+function Providers({ children }: { children: ReactNode }) {
+  return (
+    <ModalProvider>
+      <StepsProvider>
+        <CartProvider>{children}</CartProvider>
+      </StepsProvider>
+    </ModalProvider>
   );
 }
 

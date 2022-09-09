@@ -9,8 +9,9 @@ export default function Counter({ value, decreaseValue, increaseValue }: Counter
     <div className="custom-number-input h-full">
       <div className="flex flex-row h-full w-full rounded-lg relative bg-transparent">
         <button
-          className=" bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
+          className="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none disabled:text-gray-400 disabled:hover:bg-gray-300 disabled:cursor-not-allowed"
           onClick={decreaseValue}
+          disabled={value <= 1}
         >
           <span className="m-auto text-2xl font-thin">−</span>
         </button>

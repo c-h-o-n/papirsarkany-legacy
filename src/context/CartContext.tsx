@@ -1,10 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
 
-type CartProviderProps = {
-  children: ReactNode;
-};
-
-type CartContextType = {
+type CartContext = {
   getItemQuantity: (id: number) => number;
   increaseCartQuantity: (id: number) => void;
   decreaseCartQuantity: (id: number) => void;
@@ -18,7 +14,11 @@ export type CartItem = {
   quantity: number;
 };
 
-const CartContext = createContext({} as CartContextType);
+type CartProviderProps = {
+  children: ReactNode;
+};
+
+const CartContext = createContext({} as CartContext);
 
 export function useCart() {
   return useContext(CartContext);
@@ -55,7 +55,7 @@ export function CartProvider({ children }: CartProviderProps) {
   const decreaseCartQuantity = (id: number): void => {
     setCartItems((currentItems: CartItem[]) => {
       if (currentItems.find(item => item.id === id)?.quantity === 1) {
-        return currentItems.filter(item => item.id !== id);
+        return currentItems;
       }
 
       return currentItems.map(item => {
