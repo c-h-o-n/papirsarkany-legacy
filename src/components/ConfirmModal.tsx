@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { useModalContext } from '../context/ModalContext';
 
 type ConfirmProps = {
@@ -16,6 +17,7 @@ export default function ConfirmModal() {
         <h1>{title || 'Megerősítés'}</h1>
         <button
           className="p-2 bg-green-400"
+          type={'button'}
           onClick={() => {
             onConfirm();
             hideModal();
@@ -23,7 +25,7 @@ export default function ConfirmModal() {
         >
           Yes!
         </button>
-        <button className="p-2 bg-red-400" onClick={hideModal}>
+        <button className="p-2 bg-red-400" type={'button'} onClick={hideModal}>
           No
         </button>
       </div>

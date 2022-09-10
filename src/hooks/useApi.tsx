@@ -1,4 +1,5 @@
-import { Kite } from '../pages/SingleLinePage';
+/* eslint-disable global-require */
+import { Kite } from '../types/Kite';
 
 export function useApi() {
   // TODO fetch from API

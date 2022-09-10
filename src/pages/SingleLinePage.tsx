@@ -1,17 +1,7 @@
 import { useEffect, useState } from 'react';
 import KiteCard from '../components/KiteCard';
 
-export type Kite = {
-  id: number;
-  imageUrl: any;
-  name: string;
-  size: string;
-  material: string;
-  wind: string;
-  isBeginner: boolean;
-  details: string;
-  price: number;
-};
+import { Kite } from '../types/Kite';
 
 export default function SingleLinePage() {
   const [kites, setKites] = useState<Kite[]>([
@@ -54,9 +44,9 @@ export default function SingleLinePage() {
   ]);
 
   useEffect(() => {
-    fetch('localhost:5000/api/v1/kites').then(resp => console.log(resp.json));
-
-    return () => {};
+    fetch('http:/localhost:5000/api/v1/kites').then((resp) => {
+      console.log(resp.json);
+    });
   }, []);
 
   return (
@@ -64,7 +54,7 @@ export default function SingleLinePage() {
       <h1 className="text-3xl font-bold text-center my-6">Egyzsinóros sárkányok</h1>
 
       <div className="flex flex-wrap justify-center gap-6">
-        {kites.map(kite => (
+        {kites.map((kite) => (
           <div key={kite.id} className="">
             <KiteCard kite={kite} />
           </div>

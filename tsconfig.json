@@ -14,7 +14,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "removeComments": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", ".eslintrc.js"]
+  "include": ["src", ".eslintrc.js", "./tailwind.config.js"]
 }

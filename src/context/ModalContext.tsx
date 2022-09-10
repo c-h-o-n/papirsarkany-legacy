@@ -1,19 +1,20 @@
-import React, { useState, createContext, useContext, ReactNode } from 'react';
+/* eslint-disable import/no-cycle */
+import { useState, createContext, useContext, ReactNode, useMemo, useCallback } from 'react';
+import { ModalTypes } from '../types/Modal';
 import ConfirmModal from '../components/ConfirmModal';
 
-export type ModalTypes = 'ConfirmModal';
-
 const ModalComponents: Record<ModalTypes, React.FC> = {
-  ConfirmModal: ConfirmModal,
+  ConfirmModal,
 };
 
 type Store = {
   modalType: ModalTypes | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   modalProps?: any;
 };
 
-type ModalContext = {
-  showModal: (modalType: ModalTypes, modalProps?: any) => void;
+type ModalContextType = {
+  showModal: (modalType: ModalTypes, modalProps?: unknown) => void;
   hideModal: () => void;
   store: Store;
 };
@@ -22,7 +23,7 @@ type ModalProviderProps = {
   children: ReactNode;
 };
 
-const initalState: ModalContext = {
+const initalState: ModalContextType = {
   showModal: () => {},
   hideModal: () => {},
   store: { modalType: null },
@@ -36,34 +37,52 @@ export function useModalContext() {
 
 export function ModalProvider({ children }: ModalProviderProps) {
   const [store, setStore] = useState<Store>({ modalType: null });
-  const { modalType, modalProps } = store || {};
 
-  const showModal = (modalType: ModalTypes, modalProps: any = {}) => {
-    setStore({
-      ...store,
-      modalType,
-      modalProps,
-    });
+  const renderComponent = () => {
+    const { modalType, modalProps } = store || {};
+
+    if (!modalType) {
+      return null;
+    }
+
+    const ModalComponent = ModalComponents[modalType];
+
+    if (!ModalComponent) {
+      return null;
+    }
+
+    return <ModalComponent {...modalProps} />;
   };
 
-  const hideModal = () => {
+  const showModal = useCallback(
+    (modalType: ModalTypes, modalProps: unknown = {}) => {
+      setStore({
+        ...store,
+        modalType,
+        modalProps,
+      });
+    },
+    [store]
+  );
+
+  const hideModal = useCallback(() => {
     setStore({
       ...store,
       modalType: null,
       modalProps: {},
     });
-  };
+  }, [store]);
 
-  const renderComponent = () => {
-    const ModalComponent = ModalComponents[modalType!];
-    if (!modalType || !ModalComponent) {
-      return null;
-    }
-    return <ModalComponent id="global-modal" {...modalProps} />;
-  };
+  const value = useMemo(() => {
+    return {
+      store,
+      showModal,
+      hideModal,
+    };
+  }, [hideModal, showModal, store]);
 
   return (
-    <ModalContext.Provider value={{ store, showModal, hideModal }}>
+    <ModalContext.Provider value={value}>
       {renderComponent()}
       {children}
     </ModalContext.Provider>

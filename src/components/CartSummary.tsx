@@ -1,7 +1,7 @@
+import { useEffect, useState } from 'react';
 import { CartItem as CartItemType } from '../context/CartContext';
 
-import { Kite } from '../pages/SingleLinePage';
-import { useEffect, useState } from 'react';
+import { Kite } from '../types/Kite';
 
 type CartItemProps = {
   kites: Kite[];
@@ -12,7 +12,7 @@ export default function CartSummary({ id, quantity, kites }: CartItemProps) {
   const [item, setItem] = useState<Kite>();
 
   useEffect(() => {
-    setItem(kites.find(kite => kite.id === id));
+    setItem(kites.find((kite) => kite.id === id));
 
     return () => {};
   }, [id, kites]);
@@ -29,7 +29,7 @@ export default function CartSummary({ id, quantity, kites }: CartItemProps) {
         <div className="">Name: {item.name}</div>
         <div className="">{quantity} db</div>
       </div>
-      <div className="">{item.price * quantity + ' Ft'}</div>
+      <div className="">{`${item.price * quantity} Ft`}</div>
     </div>
   );
 }

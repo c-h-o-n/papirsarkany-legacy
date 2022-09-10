@@ -1,10 +1,7 @@
-import { ReactNode } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-//providers
-import { ModalProvider } from './context/ModalContext';
-import { CartProvider } from './context/CartContext';
-import { StepsProvider } from 'react-step-builder';
+import Layout from './Layout';
+import Providers from './Providers';
 
 // pages
 import CartPage from './pages/CartPage';
@@ -14,8 +11,6 @@ import MaterialPage from './pages/MaterialPage';
 import NotFoundPage from './pages/NotFoundPage';
 import SingleLine from './pages/SingleLinePage';
 
-import Layout from './Layout';
-
 // TODO install & config linter
 function App() {
   return (
@@ -23,26 +18,16 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<LandingPage />}></Route>
-            <Route path="/egyzsinoros" element={<SingleLine />}></Route>
-            <Route path="/ketzsinoros" element={<DualLinePage />}></Route>
-            <Route path="/anyagok" element={<MaterialPage />}></Route>
-            <Route path="/kosar" element={<CartPage />}></Route>
-            <Route path="*" element={<NotFoundPage />}></Route>
+            <Route index element={<LandingPage />} />
+            <Route path="/egyzsinoros" element={<SingleLine />} />
+            <Route path="/ketzsinoros" element={<DualLinePage />} />
+            <Route path="/anyagok" element={<MaterialPage />} />
+            <Route path="/kosar" element={<CartPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
     </Providers>
-  );
-}
-
-function Providers({ children }: { children: ReactNode }) {
-  return (
-    <ModalProvider>
-      <StepsProvider>
-        <CartProvider>{children}</CartProvider>
-      </StepsProvider>
-    </ModalProvider>
   );
 }
 

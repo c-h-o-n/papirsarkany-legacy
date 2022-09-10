@@ -1,10 +1,15 @@
-import { CartItem as CartItemType, useCart } from '../context/CartContext';
-import Counter from './Counter';
-import removeItem from '../assets/remove-cart-item.svg';
-import { Kite } from '../pages/SingleLinePage';
 import { useEffect, useState } from 'react';
-import { formatCurrency } from '../utilities/formatters';
+
+import removeItem from '../assets/remove-cart-item.svg';
+
+import { CartItem as CartItemType, useCart } from '../context/CartContext';
 import { useModalContext } from '../context/ModalContext';
+
+import Counter from './Counter';
+
+import { Kite } from '../types/Kite';
+
+import { formatCurrency } from '../utilities/formatters';
 
 type CartItemProps = {
   kites: Kite[];
@@ -16,7 +21,7 @@ export default function CartItem({ id, quantity, kites }: CartItemProps) {
   const [item, setItem] = useState<Kite>();
 
   useEffect(() => {
-    setItem(kites.find(kite => kite.id === id));
+    setItem(kites.find((kite) => kite.id === id));
   }, [id, kites]);
 
   const confirmModal = () => {
@@ -39,7 +44,7 @@ export default function CartItem({ id, quantity, kites }: CartItemProps) {
           <div className="text-sm md:text-lg ">{item.name}</div>
         </div>
 
-        <button className="w-10 flex-shrink-0 " onClick={confirmModal}>
+        <button className="w-10 flex-shrink-0 " type={'button'} onClick={confirmModal}>
           <img src={removeItem} alt="remove-cart-item" />
         </button>
       </div>

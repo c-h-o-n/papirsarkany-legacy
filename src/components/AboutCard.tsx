@@ -2,7 +2,7 @@ import { ReactNode, useState } from 'react';
 import closeIcon from '../assets/close.svg';
 
 type AboutCardProps = {
-  title?: string;
+  title: string;
   children: ReactNode;
 };
 
@@ -21,15 +21,21 @@ export default function AboutCard({ title, children }: AboutCardProps) {
 
   return (
     <div className={isOpen ? 'fixed inset-2 z-50 !m-0' : ' '}>
-      <div className="bg-white rounded-3xl border-black border-solid border-4 p-6 h-full" onClick={open}>
+      <div
+        className="bg-white rounded-3xl border-black border-solid border-4 p-6 h-full cursor-auto"
+        role={'button'}
+        tabIndex={0}
+        onKeyPress={open}
+        onClick={open}
+      >
         <div className="overflow-auto flex flex-col h-full">
-          <h1 className="font-bold text-lg">{title || 'Missing Title!'}</h1>
+          <h1 className="font-bold text-lg">{title}</h1>
           <div className={`mx-2 mt-2 flex flex-col flex-grow ${isOpen || 'multiline-truncate-4'}`}>{children}</div>
         </div>
       </div>
 
       {isOpen && (
-        <button className="absolute top-2 right-2" onClick={() => close()}>
+        <button className="absolute top-2 right-2" type="button" onClick={() => close()}>
           <img className="w-12" src={closeIcon} alt="close-button" />
         </button>
       )}

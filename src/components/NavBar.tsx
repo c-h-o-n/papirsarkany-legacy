@@ -14,8 +14,8 @@ export default function NavBar() {
   const sideBarRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   useEffect(() => {
-    function handleClickOutside(event: any) {
-      if (sideBarRef.current && !sideBarRef.current.contains(event.target) && window.innerWidth <= 768) {
+    function handleClickOutside(event: Event) {
+      if (sideBarRef.current && !sideBarRef.current.contains(event.target as Node) && window.innerWidth <= 768) {
         setIsOpen(false);
       }
     }
@@ -41,8 +41,8 @@ export default function NavBar() {
           ref={sideBarRef}
         >
           <div className="flex justify-center">
-            <NavLink to="/" className={'w-20 md:w-16'}>
-              <img src={logo} alt="logo" onClick={toggleSideBar} />
+            <NavLink to="/" className="w-20 md:w-16" onClick={toggleSideBar}>
+              <img src={logo} alt="logo" />
             </NavLink>
           </div>
           <div className="flex flex-col justify-between space-y-6 items-center md:flex-row md:space-y-0 md:space-x-12">
@@ -62,17 +62,21 @@ export default function NavBar() {
         </div>
 
         {/* Backdrop */}
-        <div className="absolute -z-10  w-screen h-screen md:hidden"></div>
+        <div className="absolute -z-10  w-screen h-screen md:hidden" />
       </div>
 
       {/* Bottom Flying Kite */}
       <div className={`${isOpen ? 'block' : 'hidden'}`}>
-        <img className="fixed -bottom-16 -right-6 bottom-kite-bounce w-36 md:hidden" src={bottomKite} alt="bottom-kite" />
+        <img
+          className="fixed -bottom-16 -right-6 bottom-kite-bounce w-36 md:hidden"
+          src={bottomKite}
+          alt="bottom-kite"
+        />
       </div>
 
       {/* Hamburger menu */}
       <div className={`${isOpen ? ' hidden' : 'block'}`}>
-        <button className={`fixed bottom-2 left-5  md:hidden`} id="menu-btn" onClick={toggleSideBar}>
+        <button id="menu-btn" className="fixed bottom-2 left-5 md:hidden" type="button" onClick={toggleSideBar}>
           <img src={hamburgerMenu} alt="hamburger menu" />
         </button>
       </div>

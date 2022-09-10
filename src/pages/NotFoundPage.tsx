@@ -8,7 +8,7 @@ export default function NotFoundPage() {
         <h1 className="text-base">
           Vissza a{' '}
           <span className="font-bold underline text-sky-400">
-            <Link to={'/'}>főoldalra</Link>
+            <Link to="/">főoldalra</Link>
           </span>{' '}
           🪁
         </h1>
