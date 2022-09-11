@@ -1,4 +1,4 @@
-/* eslint-disable import/no-cycle */
+// eslint-disable-next-line import/no-cycle
 import { useModalContext } from '../context/ModalContext';
 
 type ConfirmProps = {
