@@ -1,15 +1,19 @@
-// eslint-disable-next-line import/no-cycle
-import { useModalContext } from '../context/ModalContext';
+import { useEffect } from 'react';
 
 type ConfirmProps = {
-  title: string;
-  onConfirm: () => void;
+  hideModal: () => void;
+  title?: string;
+  onConfirm?: () => void;
 };
 
-export default function ConfirmModal() {
-  const { hideModal, store } = useModalContext();
-  const { modalProps } = store || {};
-  const { title, onConfirm } = (modalProps as ConfirmProps) || {};
+export default function ConfirmModal({ hideModal, title = 'asd', onConfirm = () => {} }: ConfirmProps) {
+  useEffect(() => {
+    console.log('init', title);
+
+    return () => {
+      console.log('wrap', title);
+    };
+  }, [title]);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50 ">

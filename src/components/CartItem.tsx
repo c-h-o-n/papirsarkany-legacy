@@ -26,7 +26,7 @@ export default function CartItem({ id, quantity, kites }: CartItemProps) {
 
   const confirmModal = () => {
     showModal('ConfirmModal', {
-      title: '',
+      title: 'Test Title',
       onConfirm: () => removeItemFromCart(id),
     });
   };
