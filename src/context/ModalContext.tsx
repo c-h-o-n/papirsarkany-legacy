@@ -15,12 +15,12 @@ const ModalComponents: Record<ModalTypes, React.FC<ModalComponentProps>> = {
 
 type Store = {
   modalType: ModalTypes | null;
-  modalProps?: null | unknown;
+  modalProps?: null | object;
 };
 
 type ModalContextType = {
   store: Store;
-  showModal: (modalType: ModalTypes, modalProps?: unknown) => void;
+  showModal: (modalType: ModalTypes, modalProps?: object) => void;
 };
 
 type ModalProviderProps = {
@@ -61,15 +61,11 @@ export function ModalProvider({ children }: ModalProviderProps) {
       return null;
     }
 
-    if (typeof modalProps !== 'object') {
-      return <ModalComponent hideModal={hideModal} />;
-    }
-
     return <ModalComponent hideModal={hideModal} {...modalProps} />;
   };
 
   const value = useMemo(() => {
-    const showModal = (modalType: ModalTypes, modalProps: unknown) => {
+    const showModal = (modalType: ModalTypes, modalProps?: object) => {
       setStore({
         ...store,
         modalType,
