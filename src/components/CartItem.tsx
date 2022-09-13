@@ -1,22 +1,23 @@
 import { useEffect, useState } from 'react';
+import NiceModal from '@ebay/nice-modal-react';
 
+import { formatCurrency } from '../utilities/formatters';
 import removeItem from '../assets/remove-cart-item.svg';
 
 import { CartItem as CartItemType, useCart } from '../context/CartContext';
-import { useModalContext } from '../context/ModalContext';
 
 import Counter from './Counter';
+import ConfirmModal, { ConfirmModalResponse } from './modals/ConfirmModal';
 
 import { Kite } from '../types/Kite';
-
-import { formatCurrency } from '../utilities/formatters';
 
 type CartItemProps = {
   kites: Kite[];
 } & CartItemType;
 
 export default function CartItem({ id, quantity, kites }: CartItemProps) {
-  const { showModal } = useModalContext();
+  const modal = NiceModal.useModal(ConfirmModal, { title: 'Megerősítés' });
+
   const { removeItemFromCart, decreaseCartQuantity, increaseCartQuantity } = useCart();
   const [item, setItem] = useState<Kite>();
 
@@ -24,10 +25,13 @@ export default function CartItem({ id, quantity, kites }: CartItemProps) {
     setItem(kites.find((kite) => kite.id === id));
   }, [id, kites]);
 
+  // LATER remove unnecessery modal (experimental purposes)
   const confirmModal = () => {
-    showModal('ConfirmModal', {
-      title: 'Test Title',
-      onConfirm: () => removeItemFromCart(id),
+    modal.show({ title: 'Biztosan törli?' }).then((res) => {
+      if ((res as ConfirmModalResponse) === 'yes') {
+        removeItemFromCart(id);
+      }
+      modal.remove();
     });
   };
 
