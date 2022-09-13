@@ -1,7 +1,7 @@
-import AboutCard from '../components/AboutCard';
 import logo from '../assets/logo.svg';
-
 import handcraftDeltoid from '../assets/photos/handcraft-deltoid.png';
+
+import InfoCard from '../components/InfoCard';
 
 export default function LandingPage() {
   return (
@@ -13,7 +13,7 @@ export default function LandingPage() {
       <div className="grid gap-4 m-4 lg:grid-cols-2 xl:grid-cols-3">
         {/* TODO Sarkanyepito foglalkozasok [x] | Tervrajzok | A vallalkozasrol [x] | Elerhetoseg [x] | Fotok  */}
 
-        <AboutCard title="A vállalkozásról">
+        <InfoCard title="A vállalkozásról">
           <div className="space-y-6">
             <p>Üzletem nincs, ezért postai utánvétellel szállítok, melynek költsége a megrendelőt terheli.</p>
 
@@ -40,9 +40,9 @@ export default function LandingPage() {
               Ducsai Barnabás
             </p>
           </div>
-        </AboutCard>
+        </InfoCard>
 
-        <AboutCard title="Sárkányépítő foglalkozások">
+        <InfoCard title="Sárkányépítő foglalkozások">
           <div className="space-y-6">
             <p>
               A sárkánykészítés és -repítés régebben mindennapos dolog volt a gyerekek hétköznapjaiban. Ez a
@@ -56,9 +56,9 @@ export default function LandingPage() {
             <p>A SÁRKÁNYÉPÍTÉSI FOGLALKOZÁSON KÉSZÍTHETŐ SÁRKÁNYOK</p>
             <img src={handcraftDeltoid} alt="deltoid" />
           </div>
-        </AboutCard>
+        </InfoCard>
 
-        <AboutCard title="Elérhetőség">
+        <InfoCard title="Elérhetőség">
           <div className="">Email: mail@papirsarkany.hu</div>
           <div className="">Telefon: 0630 9754 786</div>
           <iframe
@@ -66,9 +66,9 @@ export default function LandingPage() {
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1131.6105816797208!2d18.87852618960264!3d47.57870829362802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xceefc53f4870d42e!2swww.papirsarkany.hu!5e0!3m2!1shu!2shu!4v1579197549648!5m2!1shu!2shu"
             className="rounded-3xl w-full flex-grow "
           />
-        </AboutCard>
+        </InfoCard>
 
-        <AboutCard title="Tervrajzok">
+        <InfoCard title="Tervrajzok">
           <p>Genki-sárkány</p>
           <p>A rajz nem méretarányos!</p>
           <p>
@@ -126,7 +126,7 @@ export default function LandingPage() {
             végéből indulnak a kantárszárak. Úgy kell bekantározni, hogy a négy szál egy pontban találkozzon a sárkány
             középvonalán, oly módon, hogy a lelógatott sárkány a vízszintessel kb. 30 fokos szöget zár be.vv
           </p>
-        </AboutCard>
+        </InfoCard>
       </div>
     </>
   );

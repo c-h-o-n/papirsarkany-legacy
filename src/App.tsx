@@ -11,7 +11,6 @@ import MaterialPage from './pages/MaterialPage';
 import NotFoundPage from './pages/NotFoundPage';
 import SingleLine from './pages/SingleLinePage';
 
-// TODO install & config linter
 function App() {
   return (
     <Providers>

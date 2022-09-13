@@ -7,7 +7,7 @@ type CartItemProps = {
   kites: Kite[];
 } & CartItemType;
 
-// THINK maybe violates DRY
+// THINK violates DRY
 export default function CartSummary({ id, quantity, kites }: CartItemProps) {
   const [item, setItem] = useState<Kite>();
 
