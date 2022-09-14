@@ -68,7 +68,7 @@ export default function NavBar() {
       {/* Bottom Flying Kite */}
       <div className={`${isOpen ? 'block' : 'hidden'}`}>
         <img
-          className="fixed -bottom-16 -right-6 bottom-kite-bounce w-36 md:hidden"
+          className="fixed -bottom-16 -right-6 bottom-kite-float w-36 md:hidden"
           src={bottomKite}
           alt="bottom-kite"
         />

@@ -32,18 +32,17 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 /* Bottom Kite animation */
-@keyframes bounce {
-  0%,
-  100% {
-    transform: translateY(-15%);
-    /* TODO better bezier curve */
-    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+@keyframes float {
+  0% {
+    transform: translatey(0px);
   }
   50% {
-    transform: none;
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    transform: translatey(-15px);
+  }
+  100% {
+    transform: translatey(0px);
   }
 }
-.bottom-kite-bounce {
-  animation: bounce 2s infinite;
+.bottom-kite-float {
+  animation: float 3s ease-in-out infinite;
 }
