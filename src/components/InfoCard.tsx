@@ -24,7 +24,7 @@ export default function InfoCard({ children }: AboutCardProps) {
         onClick={open}
       >
         <div className="h-full cursor-auto">
-          <div className="multiline-truncate-4">{children}</div>
+          <div className="line-clamp-[8]">{children}</div>
         </div>
       </div>
     </div>
