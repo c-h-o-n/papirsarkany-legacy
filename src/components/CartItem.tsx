@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react';
 import NiceModal from '@ebay/nice-modal-react';
 
+// assets
 import { formatCurrency } from '../utilities/formatters';
 import removeItem from '../assets/remove-cart-item.svg';
 
 import { CartItem as CartItemType, useCart } from '../context/CartContext';
 
+// components
 import Counter from './Counter';
 import ConfirmModal, { ConfirmModalResponse } from './modals/ConfirmModal';
 
+// types
 import { Kite } from '../types/Kite';
 
 type CartItemProps = {
@@ -28,7 +31,7 @@ export default function CartItem({ id, quantity, kites }: CartItemProps) {
   // LATER remove unnecessery modal (experimental purposes)
   const confirmModal = () => {
     modal.show({ title: 'Biztosan törli?' }).then((res) => {
-      if ((res as ConfirmModalResponse) === 'yes') {
+      if ((res as ConfirmModalResponse) === 'confirm') {
         removeItemFromCart(id);
       }
       modal.remove();

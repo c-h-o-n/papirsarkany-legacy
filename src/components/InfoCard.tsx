@@ -5,11 +5,10 @@ import { useModal } from '@ebay/nice-modal-react';
 import InfoModal from './modals/InfoModal';
 
 type AboutCardProps = {
-  title: string;
   children: ReactNode;
 };
 
-export default function InfoCard({ title, children }: AboutCardProps) {
+export default function InfoCard({ children }: AboutCardProps) {
   const modal = useModal(InfoModal);
   const open = () => {
     modal.show({ children });
@@ -18,15 +17,14 @@ export default function InfoCard({ title, children }: AboutCardProps) {
   return (
     <div>
       <div
-        className="bg-white rounded-3xl border-black border-solid border-4 p-6 h-full "
+        className="p-6 h-full bg-white border-black border-solid border-4 rounded-3xl"
         role={'button'}
         tabIndex={0}
         onKeyPress={open}
         onClick={open}
       >
-        <div className="overflow-auto flex flex-col h-full">
-          <h1 className="font-bold text-lg">{title}</h1>
-          <div className="mx-2 mt-2 flex flex-col flex-grow multiline-truncate-4 cursor-auto">{children}</div>
+        <div className="h-full cursor-auto">
+          <div className="multiline-truncate-4">{children}</div>
         </div>
       </div>
     </div>

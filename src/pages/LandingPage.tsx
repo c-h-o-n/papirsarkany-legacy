@@ -13,8 +13,9 @@ export default function LandingPage() {
       <div className="grid gap-4 m-4 lg:grid-cols-2 xl:grid-cols-3">
         {/* TODO Sarkanyepito foglalkozasok [x] | Tervrajzok | A vallalkozasrol [x] | Elerhetoseg [x] | Fotok  */}
 
-        <InfoCard title="A vállalkozásról">
+        <InfoCard>
           <div className="space-y-6">
+            <h1 className="font-bold text-lg">A vállalkozásról</h1>
             <p>Üzletem nincs, ezért postai utánvétellel szállítok, melynek költsége a megrendelőt terheli.</p>
 
             <p>
@@ -42,8 +43,10 @@ export default function LandingPage() {
           </div>
         </InfoCard>
 
-        <InfoCard title="Sárkányépítő foglalkozások">
+        <InfoCard>
           <div className="space-y-6">
+            <h1 className="font-bold text-lg">Sárkányépítő foglalkozások</h1>
+
             <p>
               A sárkánykészítés és -repítés régebben mindennapos dolog volt a gyerekek hétköznapjaiban. Ez a
               &quot;tudomány&quot; apáról fiúra szállt, illetve a nagyobbaktól lesték el a kisebbek. A gyerekek mára
@@ -58,7 +61,9 @@ export default function LandingPage() {
           </div>
         </InfoCard>
 
-        <InfoCard title="Elérhetőség">
+        <InfoCard>
+          <h1 className="font-bold text-lg">Elérhetőség</h1>
+
           <div className="">Email: mail@papirsarkany.hu</div>
           <div className="">Telefon: 0630 9754 786</div>
           <iframe
@@ -68,7 +73,9 @@ export default function LandingPage() {
           />
         </InfoCard>
 
-        <InfoCard title="Tervrajzok">
+        <InfoCard>
+          <h1 className="font-bold text-lg">Tervrajzok</h1>
+
           <p>Genki-sárkány</p>
           <p>A rajz nem méretarányos!</p>
           <p>

@@ -4,7 +4,7 @@ type ConfirmProps = {
   title: string;
 };
 
-export type ConfirmModalResponse = 'yes' | 'no';
+export type ConfirmModalResponse = 'confirm' | 'cancel';
 
 function ConfirmModal({ title }: ConfirmProps) {
   const modal = useModal();
