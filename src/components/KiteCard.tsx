@@ -4,7 +4,11 @@ import { useCart } from '../context/CartContext';
 import kiteImage from '../assets/kite-placeholder.png';
 import addItem from '../assets/add-item.svg';
 
-export default function KiteCard({ kite }: { kite: Kite }) {
+type KiteCardProps = {
+  kite: Kite;
+};
+
+export default function KiteCard({ kite }: KiteCardProps) {
   const { increaseCartQuantity } = useCart();
 
   return (

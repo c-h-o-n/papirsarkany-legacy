@@ -12,7 +12,7 @@ import CartSummary from '../components/CartSummary';
 import { formatCurrency } from '../utilities/formatters';
 
 export default function CartPage() {
-  const { next, prev, current } = useSteps();
+  const { next, prev, progress } = useSteps();
   const { getAllKites } = useApi();
 
   const { cartItems } = useCart();
@@ -28,6 +28,10 @@ export default function CartPage() {
     );
   }, [cartItems, kites]);
 
+  useEffect(() => {
+    console.log(progress);
+  }, [progress]);
+
   return (
     <>
       {/* LATER remove Dev Controls  */}
@@ -37,8 +41,25 @@ export default function CartPage() {
           Prev
         </button>
         <button className="bg-red-400 p-2" type={'button'} onClick={next}>
-          Next {current}
+          Next {progress * 100}%
         </button>
+      </div>
+
+      <div className="flex items-center">
+        <div>👨🏻</div>
+        <div className="w-full bg-sky-50 rounded-full h-2.5 flex justify-between items-center relative">
+          <div className="flex flex-grow justify-between items-center z-10 ">
+            <div className="bg-white rounded-full border-2 border-black border-solid w-6 h-6" />
+            <div className="bg-white rounded-full border-2 border-black border-solid w-6 h-6" />
+            <div className="bg-white rounded-full border-2 border-black border-solid w-6 h-6" />
+          </div>
+          <div
+            className="bg-gray-400 h-px rounded-full flex items-center justify-end absolute"
+            style={{ width: `${progress * 100}%`, transition: 'width 2s' }}
+          >
+            <div className="-mr-3 z-20 ">🪁</div>
+          </div>
+        </div>
       </div>
 
       <Steps startsFrom={1}>
@@ -67,6 +88,11 @@ export default function CartPage() {
               <CartSummary key={item.id} {...item} kites={kites} />
             ))}
           </div>
+        </div>
+
+        {/* Step 3 */}
+        <div className="md:grid md:grid-cols-2">
+          <h1>Step 3</h1>
         </div>
       </Steps>
     </>
