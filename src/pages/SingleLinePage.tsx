@@ -1,52 +1,19 @@
 import { useEffect, useState } from 'react';
 import KiteCard from '../components/KiteCard';
+import { useApi } from '../hooks/useApi';
 
 import { Kite } from '../types/Kite';
 
 export default function SingleLinePage() {
-  const [kites, setKites] = useState<Kite[]>([
-    {
-      id: 0,
-      imageUrl: 'image about the kite',
-      details:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores quaerat vel tenetur iure dolorum sunt corporis minima officiis exercitationem ipsam!',
-      isBeginner: true,
-      material: 'steel',
-      name: 'very good kite',
-      price: 6900,
-      size: '56x42',
-      wind: 'strong strong',
-    },
-    {
-      id: 1,
-      imageUrl: 'image about the kite',
-      details:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores quaerat vel tenetur iure dolorum sunt corporis minima officiis exercitationem ipsam!',
-      isBeginner: true,
-      material: 'steel',
-      name: 'very good kite',
-      price: 6900,
-      size: '56x42',
-      wind: 'strong strong',
-    },
-    {
-      id: 2,
-      imageUrl: 'image about the kite',
-      details:
-        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores quaerat vel tenetur iure dolorum sunt corporis minima officiis exercitationem ipsam!',
-      isBeginner: true,
-      material: 'steel',
-      name: 'very good kite',
-      price: 6900,
-      size: '56x42',
-      wind: 'strong strong',
-    },
-  ]);
+  const { getAllKites } = useApi();
+  const [kites] = useState<Kite[]>(getAllKites());
 
   useEffect(() => {
-    fetch('http:/localhost:5000/api/v1/kites').then((resp) => {
-      console.log(resp.json);
-    });
+    fetch('http://localhost:5000/api/v1/kites')
+      .then((resp) => console.log(resp))
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (

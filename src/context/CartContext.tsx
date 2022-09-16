@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useMemo, useContext, useState } from 'react';
+import { createContext, ReactNode, useMemo, useContext, useState, useEffect } from 'react';
 
 type CartContextType = {
   cartItems: CartItem[];
@@ -24,12 +24,18 @@ export function useCart() {
   return useContext(CartContext);
 }
 
+// TODO save/load to localstorage
 export function CartProvider({ children }: CartProviderProps) {
   const [cartItems, setCartItems] = useState<CartItem[]>([
     { id: 0, quantity: 2 },
-    { id: 1, quantity: 1 },
+    // { id: 1, quantity: 1 },
     { id: 2, quantity: 3 },
+    { id: 53, quantity: 4 },
   ]);
+
+  useEffect(() => {
+    console.log(cartItems);
+  }, [cartItems]);
 
   const value = useMemo(() => {
     const getTotalCartQuantity = () => cartItems.reduce((quantity, item) => item.quantity + quantity, 0);

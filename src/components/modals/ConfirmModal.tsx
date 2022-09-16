@@ -17,12 +17,16 @@ function ConfirmModal({ title }: ConfirmProps) {
           className="p-2 bg-green-400"
           type={'button'}
           onClick={() => {
-            modal.resolve('yes' as ConfirmModalResponse);
+            modal.resolve('confirm' as ConfirmModalResponse);
           }}
         >
           Yes!
         </button>
-        <button className="p-2 bg-red-400" type={'button'} onClick={() => modal.resolve('no' as ConfirmModalResponse)}>
+        <button
+          className="p-2 bg-red-400"
+          type={'button'}
+          onClick={() => modal.resolve('cancel' as ConfirmModalResponse)}
+        >
           No
         </button>
       </div>

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import NiceModal from '@ebay/nice-modal-react';
 
 // assets
-import { formatCurrency } from '../utilities/formatters';
+import { currencyFormatter } from '../utilities/formatters';
 import removeItem from '../assets/remove-cart-item.svg';
 
 import { CartItem as CartItemType, useCart } from '../context/CartContext';
@@ -12,21 +12,22 @@ import Counter from './Counter';
 import ConfirmModal, { ConfirmModalResponse } from './modals/ConfirmModal';
 
 // types
-import { Kite } from '../types/Kite';
+import { Product } from '../types/Product';
 
-type CartItemProps = {
-  kites: Kite[];
-} & CartItemType;
+type CartItemProps = CartItemType & {
+  products: Product[];
+  isEditable?: boolean;
+};
 
-export default function CartItem({ id, quantity, kites }: CartItemProps) {
+export default function CartItem({ id, quantity, products, isEditable = true }: CartItemProps) {
   const modal = NiceModal.useModal(ConfirmModal, { title: 'Megerősítés' });
 
   const { removeItemFromCart, decreaseCartQuantity, increaseCartQuantity } = useCart();
-  const [item, setItem] = useState<Kite>();
+  const [item, setItem] = useState<Product>();
 
   useEffect(() => {
-    setItem(kites.find((kite) => kite.id === id));
-  }, [id, kites]);
+    setItem(products.find((product) => product.id === id));
+  }, [id, products]);
 
   // LATER remove unnecessery modal (experimental purposes)
   const confirmModal = () => {
@@ -38,33 +39,37 @@ export default function CartItem({ id, quantity, kites }: CartItemProps) {
     });
   };
 
-  if (item == null) return null;
+  if (item == null) {
+    return null;
+  }
 
   return (
     <div className="py-6 space-y-2">
-      <div className="flex justify-between ">
+      <div className="flex justify-between items-center">
         <div className="flex space-x-2">
-          <div className="w-32 flex-shrink-0">
-            <img src={item.imageUrl} alt={`${item.name}`} />
-          </div>
+          {item.imageUrl && <img className="w-32 h-32 object-contain" src={item.imageUrl} alt={`${item.name}`} />}
 
           <div className="text-sm md:text-lg ">{item.name}</div>
         </div>
 
-        <button className="w-10 flex-shrink-0 " type={'button'} onClick={confirmModal}>
-          <img src={removeItem} alt="remove-cart-item" />
-        </button>
+        {isEditable && (
+          <button className="h-10 w-10" type={'button'} onClick={confirmModal}>
+            <img src={removeItem} alt="remove-cart-item" />
+          </button>
+        )}
       </div>
 
       <div className="flex items-center justify-between">
         <div className="w-32 h-12 self-center">
-          <Counter
-            value={quantity}
-            increaseValue={() => increaseCartQuantity(id)}
-            decreaseValue={() => decreaseCartQuantity(id)}
-          />
+          {isEditable && (
+            <Counter
+              value={quantity}
+              increaseValue={() => increaseCartQuantity(id)}
+              decreaseValue={() => decreaseCartQuantity(id)}
+            />
+          )}
         </div>
-        <div className="font-bold ">{formatCurrency(item.price * quantity)}</div>
+        <div className="font-bold ">{currencyFormatter(item.price * quantity)}</div>
       </div>
     </div>
   );

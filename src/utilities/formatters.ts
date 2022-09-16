@@ -1,4 +1,4 @@
-export function formatCurrency(value: number): string {
+export function currencyFormatter(value: number): string {
   const formatter = Intl.NumberFormat('hu', {
     style: 'currency',
     currency: 'HUF',
@@ -6,4 +6,8 @@ export function formatCurrency(value: number): string {
   });
 
   return formatter.format(value);
+}
+
+export function pricePerMetersFormatter(value: number): string {
+  return `${currencyFormatter(value)}/m`;
 }
