@@ -4,7 +4,8 @@ import helmet from 'helmet';
 import cors from 'cors';
 require('dotenv').config();
 
-import * as middlewares from './middlewares';
+import { notFound } from './api/middlewares/notFound';
+import { errorHandler } from './api/middlewares/errorHandler';
 import api from './api';
 
 import MessageResponse from './interfaces/MessageResponse';
@@ -24,7 +25,7 @@ app.get<{}, MessageResponse>('/', (req, res) => {
 
 app.use('/api/v1', api);
 
-app.use(middlewares.notFound);
-app.use(middlewares.errorHandler);
+app.use(notFound);
+app.use(errorHandler);
 
 export default app;

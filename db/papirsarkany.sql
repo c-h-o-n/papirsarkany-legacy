@@ -41,11 +41,7 @@
   );
 
   CREATE TABLE IF NOT EXISTS "materials" (
-    "id" SERIAL PRIMARY KEY,
-    "name" text NOT NULL,
-    "diameter" integer NOT NULL,
-    "length" integer NOT NULL,
-    "tensile_strength" text NOT NULL
+    
   );
 
   ALTER TABLE "orders" ADD FOREIGN KEY ("customer_id") REFERENCES "customers" ("id");
