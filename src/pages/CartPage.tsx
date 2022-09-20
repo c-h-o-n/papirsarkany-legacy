@@ -34,10 +34,6 @@ export default function CartPage() {
   }, [allMaterials, allkites, cartItems]);
 
   useEffect(() => {
-    console.log('prods', products);
-  }, [products]);
-
-  useEffect(() => {
     setTotal(
       cartItems.reduce((total, cartItem) => {
         const kite = products.find((product) => product.id === cartItem.id);
@@ -63,9 +59,9 @@ export default function CartPage() {
         <div>👨🏻</div>
         <div className="w-full bg-sky-50 rounded-full h-2.5 flex justify-between items-center relative">
           <div className="flex flex-grow justify-between items-center z-10 ">
-            <div className="bg-white rounded-full border-2 border-black border-solid w-6 h-6" />
-            <div className="bg-white rounded-full border-2 border-black border-solid w-6 h-6" />
-            <div className="bg-white rounded-full border-2 border-black border-solid w-6 h-6" />
+            <div className="bg-white rounded-full border-2 border-black  w-6 h-6" />
+            <div className="bg-white rounded-full border-2 border-black  w-6 h-6" />
+            <div className="bg-white rounded-full border-2 border-black  w-6 h-6" />
           </div>
           <div
             className="bg-gray-400 h-px rounded-full flex items-center justify-end absolute"

@@ -17,7 +17,7 @@ export default function InfoCard({ children }: AboutCardProps) {
   return (
     <div>
       <div
-        className="p-6 h-full bg-white border-black border-solid border-4 rounded-3xl"
+        className="p-6 h-full bg-white border-black  border-4 rounded-3xl"
         role={'button'}
         tabIndex={0}
         onKeyPress={open}

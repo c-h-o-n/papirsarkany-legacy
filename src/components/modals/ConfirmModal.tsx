@@ -11,7 +11,7 @@ function ConfirmModal({ title }: ConfirmProps) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50 ">
-      <div className="bg-white p-6 rounded-3xl border-4 border-black border-solid">
+      <div className="bg-white p-6 rounded-3xl border-4 border-black ">
         <h1>{title}</h1>
         <button
           className="p-2 bg-green-400"

@@ -3,6 +3,7 @@ import { Material } from '../types/Material';
 
 // assets
 import addItem from '../assets/add-item.svg';
+import { useAlert } from '../context/AlertContext';
 
 type MaterialCardProps = {
   material: Material;
@@ -11,6 +12,8 @@ type MaterialCardProps = {
 export default function MaterialCard({ material }: MaterialCardProps) {
   const { increaseCartQuantity } = useCart();
 
+  const { showAlert } = useAlert();
+
   return (
     <div className="flex gap-2 items-center  max-w-sm bg-white rounded-3xl shadow-md p-6 relative">
       {material.imageUrl && <img className="min-w-0 max-w-full" src={material.imageUrl} alt={material.name} />}
@@ -18,7 +21,14 @@ export default function MaterialCard({ material }: MaterialCardProps) {
 
       <div className="font-bold text-sky-500 flex-shrink-0">{material.price} Ft</div>
 
-      <button className="flex-shrink-0" type={'button'} onClick={() => increaseCartQuantity(material.id)}>
+      <button
+        className="flex-shrink-0"
+        type={'button'}
+        onClick={() => {
+          increaseCartQuantity(material.id);
+          showAlert('Sikeresen hozzáadva a kosárhoz !');
+        }}
+      >
         <img src={addItem} alt="add-item" className="w-8" />
       </button>
     </div>
