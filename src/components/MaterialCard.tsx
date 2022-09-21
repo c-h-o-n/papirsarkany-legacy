@@ -1,9 +1,11 @@
+import { toast } from 'react-toastify';
+
 import { useCart } from '../context/CartContext';
 import { Material } from '../types/Material';
 
 // assets
 import addItem from '../assets/add-item.svg';
-import { useAlert } from '../context/AlertContext';
+import AddToCartToastMessage from './toasts/AddToCartToast';
 
 type MaterialCardProps = {
   material: Material;
@@ -11,8 +13,6 @@ type MaterialCardProps = {
 
 export default function MaterialCard({ material }: MaterialCardProps) {
   const { increaseCartQuantity } = useCart();
-
-  const { showAlert } = useAlert();
 
   return (
     <div className="flex gap-2 items-center  max-w-sm bg-white rounded-3xl shadow-md p-6 relative">
@@ -26,7 +26,8 @@ export default function MaterialCard({ material }: MaterialCardProps) {
         type={'button'}
         onClick={() => {
           increaseCartQuantity(material.id);
-          showAlert('Sikeresen hozzáadva a kosárhoz !');
+          toast(<AddToCartToastMessage />);
+          toast.clearWaitingQueue();
         }}
       >
         <img src={addItem} alt="add-item" className="w-8" />
