@@ -14,6 +14,7 @@ export default function Layout() {
         autoClose={3000}
         progressStyle={{ background: 'unset' }}
         progressClassName={'!bg-sky-300'}
+        closeButton={false}
       />
       <div className="container mx-auto px-4">
         <Outlet />

@@ -11,7 +11,7 @@ import MaterialPage from './pages/MaterialPage';
 import NotFoundPage from './pages/NotFoundPage';
 import SingleLine from './pages/SingleLinePage';
 
-// TODO ALERT context
+// TODO clean up app
 function App() {
   return (
     <Providers>
