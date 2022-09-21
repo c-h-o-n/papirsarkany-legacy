@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
 
 // assets
@@ -10,6 +10,19 @@ type InfoModalProps = {
 
 function InfoModal({ children }: InfoModalProps) {
   const modal = useModal();
+
+  useEffect(() => {
+    const handleEscEvent = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        modal.remove();
+      }
+    };
+    document.addEventListener('keyup', handleEscEvent);
+
+    return () => {
+      document.removeEventListener('keyup', handleEscEvent);
+    };
+  }, [modal]);
 
   return (
     <div className="fixed flex inset-0 bg-black bg-opacity-30 z-50 ">

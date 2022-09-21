@@ -14,11 +14,11 @@ export default function NavBar() {
   const sideBarRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   useEffect(() => {
-    function handleClickOutside(event: Event) {
+    const handleClickOutside = (event: MouseEvent) => {
       if (sideBarRef.current && !sideBarRef.current.contains(event.target as Node) && window.innerWidth <= 768) {
         setIsOpen(false);
       }
-    }
+    };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
