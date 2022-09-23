@@ -28,8 +28,7 @@ export default function KiteCard({ kite }: KiteCardProps) {
           type={'button'}
           onClick={() => {
             increaseCartQuantity(kite.id);
-            toast(<AddToCartToastMessage />);
-            toast.clearWaitingQueue();
+            toast(<AddToCartToastMessage />, { toastId: 'to-prevent-duplicate' });
           }}
         >
           <img src={addItem} alt="add-item" className="w-8" />

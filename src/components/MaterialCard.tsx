@@ -26,8 +26,7 @@ export default function MaterialCard({ material }: MaterialCardProps) {
         type={'button'}
         onClick={() => {
           increaseCartQuantity(material.id);
-          toast(<AddToCartToastMessage />);
-          toast.clearWaitingQueue();
+          toast(<AddToCartToastMessage />, { toastId: 'to-prevent-duplicate' });
         }}
       >
         <img src={addItem} alt="add-item" className="w-8" />

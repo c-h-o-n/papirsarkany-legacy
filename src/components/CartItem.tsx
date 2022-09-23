@@ -17,9 +17,10 @@ import { Product } from '../types/Product';
 type CartItemProps = CartItemType & {
   products: Product[];
   isEditable?: boolean;
+  isCompact?: boolean;
 };
 
-export default function CartItem({ id, quantity, products, isEditable = true }: CartItemProps) {
+export default function CartItem({ id, quantity, products, isCompact = false, isEditable = true }: CartItemProps) {
   const modal = NiceModal.useModal(ConfirmModal, { title: 'Megerősítés' });
 
   const { removeItemFromCart, decreaseCartQuantity, increaseCartQuantity } = useCart();
@@ -43,6 +44,19 @@ export default function CartItem({ id, quantity, products, isEditable = true }: 
     return null;
   }
 
+  if (isCompact) {
+    return (
+      <div className="py-4 ">
+        <div className="flex justify-between items-center">
+          <div className="text-sm md:text-lg ">
+            {item.name} <span className="text-xs font-bold text-gray-400 ">{quantity} db</span>
+          </div>
+          <div className="font-bold ">{currencyFormatter(item.price)}</div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="py-6 space-y-2">
       <div className="flex justify-between items-center">
@@ -60,7 +74,7 @@ export default function CartItem({ id, quantity, products, isEditable = true }: 
       </div>
 
       <div className="flex items-center justify-between">
-        <div className="w-32 h-12 self-center">
+        <div className="w-32 h-12">
           {isEditable && (
             <Counter
               value={quantity}

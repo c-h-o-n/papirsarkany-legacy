@@ -10,7 +10,6 @@ export default function Layout() {
         position="bottom-center"
         limit={1}
         transition={Slide}
-        enableMultiContainer
         autoClose={3000}
         progressStyle={{ background: 'unset' }}
         progressClassName={'!bg-sky-300'}
