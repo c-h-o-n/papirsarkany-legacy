@@ -6,12 +6,10 @@ import { useCart } from '../context/CartContext';
 import { useApi } from '../hooks/useApi';
 
 // components
-import CartItem from '../components/CartItem';
 import ShippingForm from '../components/forms/ShippingForm';
 
 // misc
 import { Product } from '../types/Product';
-import { currencyFormatter } from '../utilities/formatters';
 import { scrollToTop } from '../utilities/window';
 import PayingForm from '../components/forms/PayingForm';
 import CartSummary from '../components/CartSummary';
@@ -23,7 +21,6 @@ export default function CartPage() {
   const { getAllKites, getAllMaterials } = useApi();
 
   const { cartItems } = useCart();
-  const [total, setTotal] = useState(0);
 
   // TODO products comes from API in the futures
   const [allkites] = useState(getAllKites());
@@ -36,28 +33,13 @@ export default function CartPage() {
     setProducts([...kites, ...materials]);
   }, [allMaterials, allkites, cartItems]);
 
-  useEffect(() => {
-    setTotal(
-      cartItems.reduce((total, cartItem) => {
-        const kite = products.find((product) => product.id === cartItem.id);
-        return total + (kite?.price || 0) * cartItem.quantity;
-      }, 0)
-    );
-  }, [cartItems, products]);
-
   return (
     <>
       <Steps startsFrom={1} onStepChange={scrollToTop}>
         {/* Step 1 */}
         <>
-          <div className="divide-y-2 divide-gray-300 border-b-gray-300 border-b-2 mb-6">
-            {cartItems.map((item) => (
-              <CartItem key={item.id} {...item} products={products} />
-            ))}
-          </div>
-
-          <div className="flex justify-end mb-6">
-            <div className="text-3xl font-bold">Összeg: {currencyFormatter(total)}</div>
+          <div className="mb-6">
+            <CartSummary products={products} />
           </div>
 
           <div className="flex justify-end mb-6">
@@ -73,7 +55,7 @@ export default function CartPage() {
             <ShippingForm nextStep={next} />
           </div>
 
-          <CartSummary products={products} total={total} />
+          <CartSummary products={products} isCompact />
         </div>
 
         {/* Step 3 */}
@@ -82,12 +64,12 @@ export default function CartPage() {
             <PayingForm />
           </div>
 
-          <CartSummary products={products} total={total} />
+          <CartSummary products={products} isCompact />
         </div>
 
         {/* Step 4 */}
         <div className="">
-          <CartSummary products={products} total={total} />
+          <CartSummary products={products} isCompact />
         </div>
       </Steps>
 

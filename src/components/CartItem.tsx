@@ -51,7 +51,7 @@ export default function CartItem({ id, quantity, products, isCompact = false, is
           <div className="text-sm md:text-lg ">
             {item.name} <span className="text-xs font-bold text-gray-400 ">{quantity} db</span>
           </div>
-          <div className="font-bold ">{currencyFormatter(item.price)}</div>
+          <div className="font-bold ">{currencyFormatter(item.price * quantity)}</div>
         </div>
       </div>
     );
