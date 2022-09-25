@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useMemo, useContext, useState } from 'react';
+import { CheckoutFormInput } from '../types/CheckoutFormInput';
 
 type CartContextType = {
   cartItems: CartItem[];
@@ -9,6 +10,8 @@ type CartContextType = {
   increaseCartQuantity: (id: number) => void;
   decreaseCartQuantity: (id: number) => void;
   removeItemFromCart: (id: number) => void;
+  checkoutFormValues: CheckoutFormInput;
+  updateFormValues: (data: Partial<CheckoutFormInput>) => void;
 };
 
 export type CartItem = {
@@ -22,22 +25,48 @@ type CartProviderProps = {
 
 const CartContext = createContext({} as CartContextType);
 
+const initialCheckoutFormValues: CheckoutFormInput = {
+  shipping: {
+    email: '',
+    firstName: '',
+    lastName: '',
+    phone: '',
+    mode: '',
+    postcode: '',
+    city: '',
+    address: '',
+    subaddress: '',
+  },
+  billing: {
+    mode: '',
+    postcode: '',
+    city: '',
+    address: '',
+    subaddress: '',
+  },
+};
+
 export function useCart() {
   return useContext(CartContext);
 }
 
-// TODO save/load to localstorage
+// TODO save/load cartItems to localstorage
+// THINK using cookies for personal information ?! GDPR
 export function CartProvider({ children }: CartProviderProps) {
   const [cartItems, setCartItems] = useState<CartItem[]>([
     { id: 0, quantity: 2 },
-    // { id: 1, quantity: 1 },
     { id: 2, quantity: 3 },
     { id: 53, quantity: 4 },
   ]);
 
   const [shippingCost, setShippingCost] = useState(0);
 
+  const [checkoutFormValues, setCheckoutFormValues] = useState<CheckoutFormInput>(initialCheckoutFormValues);
+
   const value = useMemo<CartContextType>(() => {
+    const updateFormValues = (data: Partial<CheckoutFormInput>) => {
+      setCheckoutFormValues({ ...checkoutFormValues, ...data });
+    };
     const getTotalCartQuantity = () => cartItems.reduce((quantity, item) => item.quantity + quantity, 0);
 
     const updateShippingCost = (value: number) => {
@@ -91,8 +120,10 @@ export function CartProvider({ children }: CartProviderProps) {
       increaseCartQuantity,
       decreaseCartQuantity,
       removeItemFromCart: removeFromCart,
+      checkoutFormValues,
+      updateFormValues,
     };
-  }, [cartItems, shippingCost]);
+  }, [cartItems, checkoutFormValues, shippingCost]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

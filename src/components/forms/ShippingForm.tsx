@@ -1,45 +1,44 @@
 import { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useSteps } from 'react-step-builder';
+
 import { useCart } from '../../context/CartContext';
+import { CheckoutFormInput } from '../../types/CheckoutFormInput';
 
-type FormInput = {
-  email: string;
-  firstName: string;
-  lastName: string;
-  phone: string;
-  shipping: 'personal-pick-up' | 'post';
-  postcode: string;
-  city: string;
-  address: string;
-  subaddress: string;
-};
+type FormInput = CheckoutFormInput['shipping'];
 
-type ShippingFormProps = {
-  nextStep: () => void;
-};
+export default function ShippingForm() {
+  const { next } = useSteps();
 
-export default function ShippingForm({ nextStep }: ShippingFormProps) {
+  const { updateShippingCost, updateFormValues } = useCart();
+
   const { register, handleSubmit, watch } = useForm<FormInput>();
-  const shipping = watch('shipping');
+  const shippingMode = watch('mode');
+
   const onSubmit: SubmitHandler<FormInput> = (data) => {
-    console.log(data);
-    nextStep();
+    updateFormValues({
+      shipping: data,
+      billing: {
+        address: data.address,
+        city: data.city,
+        postcode: data.postcode,
+        subaddress: data.subaddress,
+        mode: '',
+      },
+    });
+    next();
   };
 
-  const { updateShippingCost } = useCart();
-
   useEffect(() => {
-    switch (shipping) {
-      case 'post':
+    switch (shippingMode) {
+      case 'Postai szállítás':
         updateShippingCost(600);
-
         break;
-
       default:
         updateShippingCost(0);
         break;
     }
-  }, [shipping]);
+  }, [shippingMode, updateShippingCost]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -106,7 +105,7 @@ export default function ShippingForm({ nextStep }: ShippingFormProps) {
         {/* Shipping options */}
         <div className="col-span-full flex justify-between">
           <label htmlFor="personal-pick-up">
-            <input {...register('shipping')} id="personal-pick-up" type="radio" value={'personal-pick-up'} required />
+            <input {...register('mode')} id="personal-pick-up" type="radio" value={'Személyes átvétel'} required />
             <span className="ml-2"> Személyes átvétel</span>
             <span className="ml-2">- Nagykovácsi Kazal utca 6.</span>
           </label>
@@ -115,15 +114,15 @@ export default function ShippingForm({ nextStep }: ShippingFormProps) {
 
         <div className="col-span-full flex justify-between">
           <label htmlFor="post">
-            <input {...register('shipping')} id="post" type="radio" value={'post'} required />
-            <span className="ml-2"> Postai utánvét</span>
+            <input {...register('mode')} id="post" type="radio" value={'Postai szállítás'} required />
+            <span className="ml-2"> Postai szállítás</span>
           </label>
 
           <div className="font-bold">Várható költség:</div>
         </div>
 
         {/* Required for shipping */}
-        {shipping === 'post' && (
+        {shippingMode === 'Postai szállítás' && (
           <>
             {/* Postcode */}
             <div className="col-span-1">
@@ -139,6 +138,8 @@ export default function ShippingForm({ nextStep }: ShippingFormProps) {
                 />
               </label>
             </div>
+
+            {/* City */}
             <div className="col-span-3">
               <label htmlFor="city" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                 Város
@@ -152,6 +153,7 @@ export default function ShippingForm({ nextStep }: ShippingFormProps) {
                 />
               </label>
             </div>
+
             {/* Address */}
             <div className="col-span-full">
               <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -166,6 +168,7 @@ export default function ShippingForm({ nextStep }: ShippingFormProps) {
                 />
               </label>
             </div>
+
             {/* Subaddress */}
             <div className="col-span-full">
               <label htmlFor="subaddress" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">

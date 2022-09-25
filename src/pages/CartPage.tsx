@@ -20,7 +20,7 @@ export default function CartPage() {
 
   const { getAllKites, getAllMaterials } = useApi();
 
-  const { cartItems } = useCart();
+  const { cartItems, checkoutFormValues: formValues } = useCart();
 
   // TODO products comes from API in the futures
   const [allkites] = useState(getAllKites());
@@ -52,7 +52,7 @@ export default function CartPage() {
         {/* Step 2 */}
         <div className="md:grid md:grid-cols-2 gap-6">
           <div className="md:sticky top-6 h-min">
-            <ShippingForm nextStep={next} />
+            <ShippingForm />
           </div>
 
           <CartSummary products={products} isCompact />
@@ -70,6 +70,32 @@ export default function CartPage() {
         {/* Step 4 */}
         <div className="">
           <CartSummary products={products} isCompact />
+          <div className="flex">
+            <div className="bg-white p-6">
+              Elérhetőség
+              <div>
+                {formValues.shipping.lastName} {formValues.shipping.firstName}
+              </div>
+              <div>{formValues.shipping.email}</div>
+              <div>{formValues.shipping.phone}</div>
+            </div>
+            <div className="bg-white p-6">
+              Szállítás
+              <div>{formValues.shipping.mode}</div>
+              <div>{formValues.shipping.postcode}</div>
+              <div>{formValues.shipping.city}</div>
+              <div>{formValues.shipping.address}</div>
+              <div>{formValues.shipping.subaddress}</div>
+            </div>
+            <div className="bg-white p-6">
+              Fizetés
+              <div>{formValues.billing.mode}</div>
+              <div>{formValues.billing.postcode}</div>
+              <div>{formValues.billing.city}</div>
+              <div>{formValues.billing.address}</div>
+              <div>{formValues.billing.subaddress}</div>
+            </div>
+          </div>
         </div>
       </Steps>
 
