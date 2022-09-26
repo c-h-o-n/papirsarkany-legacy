@@ -17,4 +17,5 @@ export type CheckoutFormInput = {
     address: string;
     subaddress: string;
   };
+  comment: string;
 };

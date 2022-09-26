@@ -14,7 +14,7 @@ export default function KiteCard({ kite }: KiteCardProps) {
   const { increaseCartQuantity } = useCart();
 
   return (
-    <div className="bg-white rounded-3xl shadow-md k p-6 max-w-sm relative">
+    <div className="bg-white rounded-3xl shadow-md p-6 max-w-sm relative">
       <h1 className="text-lg text-center font-medium mb-3">{kite.name}</h1>
 
       <div className="mb-3">

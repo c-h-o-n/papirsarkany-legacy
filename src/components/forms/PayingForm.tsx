@@ -1,21 +1,25 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSteps } from 'react-step-builder';
 
-import { useCart } from '../../context/CartContext';
 import { CheckoutFormInput } from '../../types/CheckoutFormInput';
 
 type FormInput = CheckoutFormInput['billing'];
 
-export default function PayingForm() {
+type PayingFormProps = {
+  formValues: CheckoutFormInput['billing'];
+  updateFormValues: (values: Partial<CheckoutFormInput>) => void;
+};
+
+export default function PayingForm({ formValues, updateFormValues }: PayingFormProps) {
   const { next } = useSteps();
 
-  const { checkoutFormValues, updateFormValues } = useCart();
   const { register, handleSubmit } = useForm<FormInput>({
     defaultValues: {
-      postcode: checkoutFormValues.billing.postcode,
-      city: checkoutFormValues.billing.city,
-      address: checkoutFormValues.billing.address,
-      subaddress: checkoutFormValues.billing.subaddress,
+      postcode: formValues.postcode,
+      city: formValues.city,
+      address: formValues.address,
+      subaddress: formValues.subaddress,
+      mode: formValues.mode,
     },
   });
 
@@ -69,6 +73,7 @@ export default function PayingForm() {
             />
           </label>
         </div>
+
         {/* City */}
         <div className="col-span-3">
           <label htmlFor="city" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -83,6 +88,7 @@ export default function PayingForm() {
             />
           </label>
         </div>
+
         {/* Address */}
         <div className="col-span-full">
           <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -97,6 +103,7 @@ export default function PayingForm() {
             />
           </label>
         </div>
+
         {/* Subaddress */}
         <div className="col-span-full">
           <label htmlFor="subaddress" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">

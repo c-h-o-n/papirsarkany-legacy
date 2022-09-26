@@ -3,16 +3,34 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSteps } from 'react-step-builder';
 
 import { useCart } from '../../context/CartContext';
+
 import { CheckoutFormInput } from '../../types/CheckoutFormInput';
 
 type FormInput = CheckoutFormInput['shipping'];
 
-export default function ShippingForm() {
+type ShippingFormProps = {
+  formValues: CheckoutFormInput['shipping'];
+  updateFormValues: (values: Partial<CheckoutFormInput>) => void;
+};
+
+export default function ShippingForm({ formValues, updateFormValues }: ShippingFormProps) {
   const { next } = useSteps();
 
-  const { updateShippingCost, updateFormValues } = useCart();
+  const { updateShippingCost } = useCart();
 
-  const { register, handleSubmit, watch } = useForm<FormInput>();
+  const { register, handleSubmit, watch } = useForm<FormInput>({
+    defaultValues: {
+      email: formValues.email,
+      lastName: formValues.lastName,
+      firstName: formValues.firstName,
+      phone: formValues.phone,
+      postcode: formValues.postcode,
+      city: formValues.city,
+      address: formValues.address,
+      subaddress: formValues.subaddress,
+      mode: formValues.mode,
+    },
+  });
   const shippingMode = watch('mode');
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {

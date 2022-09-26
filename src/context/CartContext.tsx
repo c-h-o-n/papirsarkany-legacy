@@ -1,5 +1,4 @@
 import { createContext, ReactNode, useMemo, useContext, useState } from 'react';
-import { CheckoutFormInput } from '../types/CheckoutFormInput';
 
 type CartContextType = {
   cartItems: CartItem[];
@@ -10,8 +9,7 @@ type CartContextType = {
   increaseCartQuantity: (id: number) => void;
   decreaseCartQuantity: (id: number) => void;
   removeItemFromCart: (id: number) => void;
-  checkoutFormValues: CheckoutFormInput;
-  updateFormValues: (data: Partial<CheckoutFormInput>) => void;
+  removeAllItemFormCart: () => void;
 };
 
 export type CartItem = {
@@ -24,27 +22,6 @@ type CartProviderProps = {
 };
 
 const CartContext = createContext({} as CartContextType);
-
-const initialCheckoutFormValues: CheckoutFormInput = {
-  shipping: {
-    email: '',
-    firstName: '',
-    lastName: '',
-    phone: '',
-    mode: '',
-    postcode: '',
-    city: '',
-    address: '',
-    subaddress: '',
-  },
-  billing: {
-    mode: '',
-    postcode: '',
-    city: '',
-    address: '',
-    subaddress: '',
-  },
-};
 
 export function useCart() {
   return useContext(CartContext);
@@ -61,12 +38,7 @@ export function CartProvider({ children }: CartProviderProps) {
 
   const [shippingCost, setShippingCost] = useState(0);
 
-  const [checkoutFormValues, setCheckoutFormValues] = useState<CheckoutFormInput>(initialCheckoutFormValues);
-
   const value = useMemo<CartContextType>(() => {
-    const updateFormValues = (data: Partial<CheckoutFormInput>) => {
-      setCheckoutFormValues({ ...checkoutFormValues, ...data });
-    };
     const getTotalCartQuantity = () => cartItems.reduce((quantity, item) => item.quantity + quantity, 0);
 
     const updateShippingCost = (value: number) => {
@@ -107,8 +79,13 @@ export function CartProvider({ children }: CartProviderProps) {
       });
     };
 
-    const removeFromCart = (id: number): void => {
+    const removeItemFromCart = (id: number): void => {
       setCartItems((currentItems) => currentItems.filter((item) => item.id !== id));
+    };
+
+    const removeAllItemFormCart = (): void => {
+      setCartItems([]);
+      setShippingCost(0);
     };
 
     return {
@@ -119,11 +96,10 @@ export function CartProvider({ children }: CartProviderProps) {
       getItemQuantity,
       increaseCartQuantity,
       decreaseCartQuantity,
-      removeItemFromCart: removeFromCart,
-      checkoutFormValues,
-      updateFormValues,
+      removeItemFromCart,
+      removeAllItemFormCart,
     };
-  }, [cartItems, checkoutFormValues, shippingCost]);
+  }, [cartItems, shippingCost]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

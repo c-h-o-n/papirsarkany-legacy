@@ -1,26 +1,51 @@
 import { useEffect, useState } from 'react';
 import { Steps, useSteps } from 'react-step-builder';
-
-// hooks
-import { useCart } from '../context/CartContext';
-import { useApi } from '../hooks/useApi';
-
-// components
+import CartSummary from '../components/CartSummary';
+import CheckoutFormSummary from '../components/CheckoutFormSummary';
+import OrderForm from '../components/forms/OrderForm';
+import PayingForm from '../components/forms/PayingForm';
 import ShippingForm from '../components/forms/ShippingForm';
 
-// misc
+import { useCart } from '../context/CartContext';
+import { useApi } from '../hooks/useApi';
+import { CheckoutFormInput } from '../types/CheckoutFormInput';
 import { Product } from '../types/Product';
 import { scrollToTop } from '../utilities/window';
-import PayingForm from '../components/forms/PayingForm';
-import CartSummary from '../components/CartSummary';
 
-// TODO save/load current step to session storage
+const initialFormValues: CheckoutFormInput = {
+  shipping: {
+    email: '',
+    firstName: '',
+    lastName: '',
+    phone: '',
+    mode: '',
+    postcode: '',
+    city: '',
+    address: '',
+    subaddress: '',
+  },
+  billing: {
+    mode: '',
+    postcode: '',
+    city: '',
+    address: '',
+    subaddress: '',
+  },
+  comment: '',
+};
+
 export default function CartPage() {
-  const { next, prev, progress } = useSteps();
+  const [formValues, setFormValues] = useState<CheckoutFormInput>(initialFormValues);
+  const updateFormValues = (values: Partial<CheckoutFormInput>) => {
+    setFormValues({ ...formValues, ...values });
+  };
+  const resetFormValues = () => {
+    setFormValues(initialFormValues);
+  };
 
   const { getAllKites, getAllMaterials } = useApi();
 
-  const { cartItems, checkoutFormValues: formValues } = useCart();
+  const { cartItems } = useCart();
 
   // TODO products comes from API in the futures
   const [allkites] = useState(getAllKites());
@@ -32,72 +57,57 @@ export default function CartPage() {
 
     setProducts([...kites, ...materials]);
   }, [allMaterials, allkites, cartItems]);
-
+  const { next, prev, progress } = useSteps();
   return (
     <>
-      <Steps startsFrom={1} onStepChange={scrollToTop}>
-        {/* Step 1 */}
-        <>
-          <div className="mb-6">
-            <CartSummary products={products} />
-          </div>
-
-          <div className="flex justify-end mb-6">
-            <button className="bg-amber-400 p-4" type="button" onClick={next}>
-              🚚 Tovabb a szállításhoz
-            </button>
-          </div>
-        </>
-
-        {/* Step 2 */}
-        <div className="md:grid md:grid-cols-2 gap-6">
-          <div className="md:sticky top-6 h-min">
-            <ShippingForm />
-          </div>
-
-          <CartSummary products={products} isCompact />
-        </div>
-
-        {/* Step 3 */}
-        <div className="md:grid md:grid-cols-2 gap-6">
-          <div className="md:sticky top-6 h-min">
-            <PayingForm />
-          </div>
-
-          <CartSummary products={products} isCompact />
-        </div>
-
-        {/* Step 4 */}
-        <div className="">
-          <CartSummary products={products} isCompact />
-          <div className="flex">
-            <div className="bg-white p-6">
-              Elérhetőség
-              <div>
-                {formValues.shipping.lastName} {formValues.shipping.firstName}
-              </div>
-              <div>{formValues.shipping.email}</div>
-              <div>{formValues.shipping.phone}</div>
+      <div className="mt-4">
+        <Steps onStepChange={scrollToTop}>
+          {/* Step 1 */}
+          <>
+            <div className="mb-6">
+              <CartSummary products={products} />
             </div>
-            <div className="bg-white p-6">
-              Szállítás
-              <div>{formValues.shipping.mode}</div>
-              <div>{formValues.shipping.postcode}</div>
-              <div>{formValues.shipping.city}</div>
-              <div>{formValues.shipping.address}</div>
-              <div>{formValues.shipping.subaddress}</div>
+
+            <div className="flex justify-end mb-6">
+              <button className="bg-amber-400 p-4" type="button" onClick={next}>
+                🚚 Tovabb a szállításhoz
+              </button>
             </div>
-            <div className="bg-white p-6">
-              Fizetés
-              <div>{formValues.billing.mode}</div>
-              <div>{formValues.billing.postcode}</div>
-              <div>{formValues.billing.city}</div>
-              <div>{formValues.billing.address}</div>
-              <div>{formValues.billing.subaddress}</div>
+          </>
+
+          {/* Step 2 */}
+          <div className="md:grid md:grid-cols-2 gap-6">
+            <div className="md:sticky top-6 h-min">
+              <ShippingForm formValues={formValues.shipping} updateFormValues={updateFormValues} />
             </div>
+
+            <CartSummary products={products} isCompact />
           </div>
-        </div>
-      </Steps>
+
+          {/* Step 3 */}
+          <div className="md:grid md:grid-cols-2 gap-6">
+            <div className="md:sticky top-6 h-min">
+              <PayingForm formValues={formValues.billing} updateFormValues={updateFormValues} />
+            </div>
+
+            <CartSummary products={products} isCompact />
+          </div>
+
+          {/* Step 4 */}
+          <div>
+            <div className="mb-6">
+              <CheckoutFormSummary formValues={formValues} />
+            </div>
+            <div className="mb-6">
+              <CartSummary products={products} isCompact />
+            </div>
+
+            <OrderForm formValues={formValues} resetFormValues={resetFormValues} />
+          </div>
+          {/* Step 5 */}
+          <div className="text-3xl flex justify-center">Sikeres rendelés</div>
+        </Steps>
+      </div>
 
       {/* LATER remove Dev Controls  */}
       <div className="flex items-center space-x-2 m-6">
