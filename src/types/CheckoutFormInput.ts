@@ -1,9 +1,11 @@
 export type CheckoutFormInput = {
-  shipping: {
+  contact: {
     email: string;
     firstName: string;
     lastName: string;
     phone: string;
+  };
+  shipping: {
     mode: 'Személyes átvétel' | 'Postai szállítás' | '';
     postcode: string;
     city: string;

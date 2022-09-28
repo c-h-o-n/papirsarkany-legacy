@@ -2,8 +2,8 @@ import { createContext, ReactNode, useMemo, useContext, useState } from 'react';
 
 type CartContextType = {
   cartItems: CartItem[];
-  shippingCost: number;
-  updateShippingCost: (value: number) => void;
+  shippingCost: number | undefined;
+  updateShippingCost: (value: number | undefined) => void;
   getTotalCartQuantity: () => number;
   getItemQuantity: (id: number) => number;
   increaseCartQuantity: (id: number) => void;
@@ -30,18 +30,14 @@ export function useCart() {
 // TODO save/load cartItems to localstorage
 // THINK using cookies for personal information ?! GDPR
 export function CartProvider({ children }: CartProviderProps) {
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    { id: 0, quantity: 2 },
-    { id: 2, quantity: 3 },
-    { id: 53, quantity: 4 },
-  ]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  const [shippingCost, setShippingCost] = useState(0);
+  const [shippingCost, setShippingCost] = useState<CartContextType['shippingCost']>();
 
   const value = useMemo<CartContextType>(() => {
     const getTotalCartQuantity = () => cartItems.reduce((quantity, item) => item.quantity + quantity, 0);
 
-    const updateShippingCost = (value: number) => {
+    const updateShippingCost = (value: number | undefined) => {
       setShippingCost(value);
     };
 
@@ -85,7 +81,7 @@ export function CartProvider({ children }: CartProviderProps) {
 
     const removeAllItemFormCart = (): void => {
       setCartItems([]);
-      setShippingCost(0);
+      setShippingCost(undefined);
     };
 
     return {

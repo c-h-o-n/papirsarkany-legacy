@@ -6,40 +6,47 @@ import { useCart } from '../../context/CartContext';
 
 import { CheckoutFormInput } from '../../types/CheckoutFormInput';
 
-type FormInput = CheckoutFormInput['shipping'];
+type FormInput = CheckoutFormInput['contact'] & CheckoutFormInput['shipping'];
 
 type ShippingFormProps = {
-  formValues: CheckoutFormInput['shipping'];
+  formValues: CheckoutFormInput;
   updateFormValues: (values: Partial<CheckoutFormInput>) => void;
 };
 
 export default function ShippingForm({ formValues, updateFormValues }: ShippingFormProps) {
-  const { next } = useSteps();
+  const { next, prev } = useSteps();
 
   const { updateShippingCost } = useCart();
 
   const { register, handleSubmit, watch } = useForm<FormInput>({
     defaultValues: {
-      email: formValues.email,
-      lastName: formValues.lastName,
-      firstName: formValues.firstName,
-      phone: formValues.phone,
-      postcode: formValues.postcode,
-      city: formValues.city,
-      address: formValues.address,
-      subaddress: formValues.subaddress,
-      mode: formValues.mode,
+      email: formValues.contact.email,
+      lastName: formValues.contact.lastName,
+      firstName: formValues.contact.firstName,
+      phone: formValues.contact.phone,
+      postcode: formValues.shipping.postcode,
+      city: formValues.shipping.city,
+      address: formValues.shipping.address,
+      subaddress: formValues.shipping.subaddress,
+      mode: formValues.shipping.mode,
     },
   });
   const shippingMode = watch('mode');
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
     updateFormValues({
-      shipping: data,
-      billing: {
-        address: data.address,
-        city: data.city,
+      contact: { email: data.email, lastName: data.lastName, firstName: data.firstName, phone: data.phone },
+      shipping: {
         postcode: data.postcode,
+        city: data.city,
+        address: data.address,
+        subaddress: data.subaddress,
+        mode: data.mode,
+      },
+      billing: {
+        postcode: data.postcode,
+        city: data.city,
+        address: data.address,
         subaddress: data.subaddress,
         mode: '',
       },
@@ -52,15 +59,20 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
       case 'Postai szállítás':
         updateShippingCost(600);
         break;
-      default:
+      case 'Személyes átvétel':
         updateShippingCost(0);
+        break;
+      default:
+        updateShippingCost(undefined);
         break;
     }
   }, [shippingMode, updateShippingCost]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="grid gap-x-2 gap-y-4 grid-cols-4">
+      <div className="grid gap-x-2 gap-y-4 grid-cols-4 mb-6">
+        <div className="col-span-full text-lg underline">Szállítás</div>
+
         {/* E-mail */}
         <div className="col-span-full">
           <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -121,7 +133,7 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
         </div>
 
         {/* Shipping options */}
-        <div className="col-span-full flex justify-between">
+        <div className="col-span-full flex justify-between items-center">
           <label htmlFor="personal-pick-up">
             <input {...register('mode')} id="personal-pick-up" type="radio" value={'Személyes átvétel'} required />
             <span className="ml-2"> Személyes átvétel</span>
@@ -130,7 +142,7 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
           <div className="font-bold">Ingyenes</div>
         </div>
 
-        <div className="col-span-full flex justify-between">
+        <div className="col-span-full flex justify-between items-center">
           <label htmlFor="post">
             <input {...register('mode')} id="post" type="radio" value={'Postai szállítás'} required />
             <span className="ml-2"> Postai szállítás</span>
@@ -203,9 +215,14 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
         )}
       </div>
 
-      <button type={'submit'} className="bg-green-400 p-2">
-        💵 Tovább a fizetéshez!
-      </button>
+      <div className="flex flex-wrap justify-between gap-4">
+        <button className="p-3 bg-gray-200 w-full lg:w-auto rounded order-1 lg:-order-1" type={'button'} onClick={prev}>
+          Vissza a kosárhoz
+        </button>
+        <button className="p-3 bg-green-400 w-full lg:w-auto rounded" type={'submit'}>
+          Tovább a fizetéshez
+        </button>
+      </div>
     </form>
   );
 }

@@ -10,10 +10,10 @@ export default function CheckoutFormSummary({ formValues }: CheckoutFormSummaryP
       <div className="w-full  md:max-w-xs bg-white rounded-3xl shadow-md p-6 relative">
         <div className="underline text-lg">Elérhetőség</div>
         <div>
-          {formValues.shipping.lastName} {formValues.shipping.firstName}
+          {formValues.contact.lastName} {formValues.contact.firstName}
         </div>
-        <div>{formValues.shipping.email}</div>
-        <div>{formValues.shipping.phone}</div>
+        <div>{formValues.contact.email}</div>
+        <div>{formValues.contact.phone}</div>
       </div>
       <div className="w-full  md:max-w-xs bg-white rounded-3xl shadow-md p-6 relative">
         <div className="underline text-lg">Szállítás</div>

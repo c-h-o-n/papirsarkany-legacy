@@ -13,10 +13,11 @@ type OrderFormProps = {
 export default function OrderForm({ formValues, resetFormValues }: OrderFormProps) {
   const { register, handleSubmit } = useForm<FormInput>({ defaultValues: { comment: formValues.comment } });
   const { removeAllItemFormCart } = useCart();
-  const { next } = useSteps();
+  const { next, prev } = useSteps();
 
   // TODO post {...formValues, ...data}
   const onSubmit: SubmitHandler<FormInput> = (data) => {
+    console.log({ ...formValues, ...data });
     resetFormValues();
     removeAllItemFormCart();
     next();
@@ -33,9 +34,14 @@ export default function OrderForm({ formValues, resetFormValues }: OrderFormProp
         />
       </label>
 
-      <button type={'submit'} className="p-4 bg-green-400">
-        Megrendelem
-      </button>
+      <div className="flex flex-wrap justify-between gap-4">
+        <button className="p-3 bg-gray-200 w-full lg:w-auto rounded order-1 lg:-order-1" type={'button'} onClick={prev}>
+          Vissza a szállításhoz
+        </button>
+        <button className="p-3 bg-green-400 w-full lg:w-auto rounded" type={'submit'}>
+          Megrendelem
+        </button>
+      </div>
     </form>
   );
 }
