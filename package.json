@@ -3,12 +3,12 @@
   "version": "0.5.0",
   "private": true,
   "dependencies": {
-    "@ebay/nice-modal-react": "^1.2.6",
+    "@ebay/nice-modal-react": "^1.2.7",
     "@fontsource/poppins": "^4.5.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.35.0",
-    "react-router-dom": "^6.3.0",
+    "react-hook-form": "^7.36.1",
+    "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
     "react-step-builder": "^3.0.6",
     "react-toastify": "^9.0.8"
@@ -34,11 +34,11 @@
   },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.2",
-    "@types/react": "^18.0.19",
+    "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
-    "@typescript-eslint/eslint-plugin": "^5.37.0",
-    "@typescript-eslint/parser": "^5.37.0",
-    "eslint": "^8.23.1",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
+    "eslint": "^8.24.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
@@ -49,6 +49,6 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^2.7.1",
     "tailwindcss": "^3.1.8",
-    "typescript": "^4.8.3"
+    "typescript": "^4.8.4"
   }
 }
