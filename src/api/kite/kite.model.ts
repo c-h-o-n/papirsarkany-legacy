@@ -1,15 +1,12 @@
 import { z } from 'zod';
+import { Product } from '../product/product.model';
 
-const Kite = z.object({
-  id: z.number(),
-  name: z.string(),
-  imageUrl: z.string(),
+const Kite = Product.extend({
   dimensions: z.string(),
   materials: z.string(),
   wind: z.string(),
   isBeginner: z.boolean(),
   details: z.string(),
-  price: z.number(),
 });
 
 export type Kite = z.infer<typeof Kite>;
