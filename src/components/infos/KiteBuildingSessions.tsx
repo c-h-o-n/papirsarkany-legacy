@@ -11,8 +11,10 @@ export default function KiteBuildingSessions() {
       </p>
       <p>
         Vállalom sárkányépítő foglalkozások vezetését gyerekrendezvények, -intézmények és céges rendezvények számára.
-        Anyagot biztosítok. (Szelet a megrendelő biztosít.) Ár egyedi megállapodás alapján.
       </p>
+      <p>Anyagot biztosítok. (Szelet a megrendelő biztosít.) Ár egyedi megállapodás alapján.</p>
+
+      {/* <ImageCarousel imageUrls={[photo1, photo2]} /> */}
     </div>
   );
 }

@@ -13,19 +13,17 @@ export default function LandingPage() {
       </div>
 
       <div className="grid gap-4 m-4 lg:grid-cols-2 xl:grid-cols-3">
-        {/* TODO  | Tervrajzok |  | | Fotok  */}
-
-        {/* A vallalkozasrol [x] */}
+        {/* A vallalkozasrol */}
         <InfoCard>
           <AboutBusiness />
         </InfoCard>
 
-        {/* Sarkanyepito foglalkozasok [x] */}
+        {/* Sarkanyepito foglalkozasok */}
         <InfoCard>
           <KiteBuildingSessions />
         </InfoCard>
 
-        {/* Elerhetoseg [x] */}
+        {/* Elerhetoseg */}
         <InfoCard>
           <Contact />
         </InfoCard>
