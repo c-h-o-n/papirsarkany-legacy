@@ -1,7 +1,7 @@
 {
   "name": "papirsarkany-server",
-  "version": "0.1.0",
-  "description": " A basic express.js API with Typescript",
+  "version": "0.2.0",
+  "description": " A simple express.js API with Typescript",
   "main": "src/index.ts",
   "scripts": {
     "start": "ts-node src/index.ts",
