@@ -4,7 +4,7 @@ type CheckoutFormSummaryProps = {
   formValues: CheckoutFormInput;
 };
 
-export default function CheckoutFormSummary({ formValues }: CheckoutFormSummaryProps) {
+export default function CheckoutSummary({ formValues }: CheckoutFormSummaryProps) {
   return (
     <div className="flex flex-col md:flex-row gap-4 justify-evenly break-all">
       <div className="w-full  md:max-w-xs bg-white rounded-3xl shadow-md p-6 relative">
