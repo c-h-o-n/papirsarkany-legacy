@@ -6,9 +6,10 @@ import * as kiteService from './kite.service';
 const router = Router();
 
 // Create kite
-router.post('/', async (req: Request, res: Response<Kite>, next) => {
+router.post('/', async (req: Request<{}, Omit<Kite, 'id'>>, res: Response<Kite>, next) => {
   try {
     const kite = await kiteService.createKite(req.body);
+    res.status(201);
     res.json(kite);
   } catch (error) {
     next(error);
@@ -18,7 +19,6 @@ router.post('/', async (req: Request, res: Response<Kite>, next) => {
 // Get kite
 router.get('/:id', async (req: Request<{ id: string }>, res: Response<Kite>, next) => {
   try {
-    console.log(req.params);
     const kite = await kiteService.getKite(req.params.id);
     res.json(kite);
   } catch (error) {

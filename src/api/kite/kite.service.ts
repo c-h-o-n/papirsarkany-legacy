@@ -5,7 +5,7 @@ import { insertQueryBuilder, updateQueryBuilder } from '../../utilities/queryBui
 import { Kite } from './kite.model';
 
 // Create kite
-export async function createKite(data: Kite & Omit<Kite, 'id'>): Promise<Kite> {
+export async function createKite(data: Omit<Kite, 'id'>): Promise<Kite> {
   const query: QueryConfig = {
     text: insertQueryBuilder('kites', data),
     values: Object.values(data),
@@ -50,6 +50,6 @@ export async function deleteKite(id: string): Promise<Kite> {
     values: [id],
   };
   const { rows } = await db.query<Kite>(query);
-  console.log('deleted', rows);
+
   return rows[0];
 }

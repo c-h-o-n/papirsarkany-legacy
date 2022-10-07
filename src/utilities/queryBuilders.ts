@@ -2,7 +2,7 @@ export function insertQueryBuilder(table: string, columns: object) {
   const query = [`INSERT INTO ${table}(`];
 
   const into: string[] = [];
-  Object.keys(columns).map((key) => into.push(`${key}`));
+  Object.keys(columns).map(key => into.push(`"${key}"`));
   query.push(into.join(', '));
 
   query.push(') VALUES(');
@@ -16,15 +16,15 @@ export function insertQueryBuilder(table: string, columns: object) {
 }
 
 export function updateQueryBuilder(table: string, columns: object) {
-  const query = ['UPDATE ' + table];
+  const query = [`UPDATE ${table}`];
+
   query.push('SET');
-
   const set: string[] = [];
-  Object.keys(columns).map((key, i) => set.push(key + ' = $' + (i + 1)));
-
+  Object.keys(columns).map((key, i) => set.push(`"${key}" = $${i + 1}`));
   query.push(set.join(', '));
 
-  query.push('WHERE id = $' + (set.length + 1));
+  query.push(`WHERE id = $${set.length + 1}`);
+
   query.push('RETURNING *');
 
   return query.join(' ');
