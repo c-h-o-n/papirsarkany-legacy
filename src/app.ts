@@ -19,7 +19,7 @@ app.use(express.json());
 
 app.get<{}, MessageResponse>('/', (req, res) => {
   res.json({
-    message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄',
+    message: 'Go out and fly kites! 🪁 or use (/api/v1)',
   });
 });
 
