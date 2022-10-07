@@ -1,14 +1,13 @@
 import { QueryConfig } from 'pg';
 import { db } from '../../db';
-import { updateQueryBuilder } from '../../utilities/updateQueryBuilder';
+import { insertQueryBuilder, updateQueryBuilder } from '../../utilities/queryBuilders';
 
 import { Kite } from './kite.model';
 
 // Create kite
-// TODO refactor to insertQueryBuilder
 export async function createKite(data: Kite & Omit<Kite, 'id'>): Promise<Kite> {
   const query: QueryConfig = {
-    text: 'INSERT INTO kites(id, name, image_url, dimensions, materials, wind, is_beginner, details, price) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)',
+    text: insertQueryBuilder('kites', data),
     values: Object.values(data),
   };
 
