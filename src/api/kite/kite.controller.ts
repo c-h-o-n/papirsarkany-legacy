@@ -16,21 +16,25 @@ router.post('/', async (req: Request<{}, Omit<Kite, 'id'>>, res: Response<Kite>,
   }
 });
 
-// Get kite
-router.get('/:id', async (req: Request<{ id: string }>, res: Response<Kite>, next) => {
-  try {
-    const kite = await kiteService.getKite(req.params.id);
-    res.json(kite);
-  } catch (error) {
-    next(error);
-  }
-});
-
 // Get all kites
 router.get('/', async (req: Request, res: Response<Kite[]>, next) => {
   try {
     const kites = await kiteService.getAllKites();
     res.json(kites);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Get kite
+router.get('/:id', async (req: Request<{ id: string }>, res: Response<Kite>, next) => {
+  try {
+    const kite = await kiteService.getKite(req.params.id);
+    if (!kite) {
+      res.status(404);
+      throw new Error(`Kite with id ${req.params.id} not found!`);
+    }
+    res.json(kite);
   } catch (error) {
     next(error);
   }
@@ -52,7 +56,7 @@ router.delete('/:id', async (req: Request<{ id: string }>, res: Response<Kite | 
     const kite = await kiteService.deleteKite(req.params.id);
     if (!kite) {
       res.status(404);
-      throw new Error('Kite not found!');
+      throw new Error(`Kite with id ${req.params.id} not found!`);
     }
 
     res.json(kite);
