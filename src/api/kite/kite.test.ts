@@ -3,7 +3,6 @@ import request from 'supertest';
 import app from '../../app';
 import { Kite } from './kite.model';
 
-// TODO create tests for failing usecases
 describe('GET /api/v1/kites', () => {
   it('responds with an array of kites', async () => {
     const response = await request(app).get('/api/v1/kites').set('Accept', 'application/json');
@@ -40,11 +39,22 @@ describe('POST /api/v1/kites', () => {
     id = response.body.id;
   });
 
-  it.todo('responds with an error if the kite is invalid');
+  it('responds with an error if the kite is invalid', async () => {
+    const response = await request(app)
+      .post('/api/v1/kites')
+      .set('Accept', 'application/json')
+      .send({ ...kite, name: '', price: -1 } as Kite);
+
+    expect(response.type).toBe('application/json');
+    expect(response.status).toBe(422);
+
+    expect(response.body).toHaveProperty('message');
+    console.log(response.body.message);
+  });
 });
 
 describe('GET /api/v1/kites/:id', () => {
-  it('responds with a sinngle kite', async () => {
+  it('responds with a single kite', async () => {
     const response = await request(app).get(`/api/v1/kites/${id}`).set('Accept', 'application/json');
 
     expect(response.type).toBe('application/json');
@@ -52,9 +62,29 @@ describe('GET /api/v1/kites/:id', () => {
     Object.keys(kite).map(key => {
       expect(response.body).toHaveProperty(key);
     });
+    console.log(id);
+  });
+
+  it('responds with an invalid id zoderror', async () => {
+    const response = await request(app).get(`/api/v1/kites/invalid-uuid`).set('Accept', 'application/json');
+    expect(response.type).toBe('application/json');
+    expect(response.status).toBe(422);
+
+    expect(response.body).toHaveProperty('message');
+    console.log(response.body.message);
+  });
+
+  it('responds with a not found error', async () => {
+    const response = await request(app)
+      .get(`/api/v1/kites/57d47adc-0512-488a-a568-9309b616ff51`)
+      .set('Accept', 'application/json');
+
+    expect(response.type).toBe('application/json');
+    expect(response.status).toBe(404);
   });
 });
 
+// TODO change to put
 describe('PATCH /api/v1/kites/:id', () => {
   it('responds with a updated kite', async () => {
     const response = await request(app).patch(`/api/v1/kites/${id}`).set('Accept', 'application/json').send({

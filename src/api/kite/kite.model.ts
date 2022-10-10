@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { Product } from '../product/product.model';
 
-const Kite = Product.extend({
+export const Kite = Product.extend({
   dimensions: z.string(),
   materials: z.string(),
   wind: z.string(),
