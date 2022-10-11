@@ -143,7 +143,7 @@ describe('DELETE /api/vi/kites/:id', () => {
   });
 
   it('responds with a not found error', async () => {
-    const response = await request(app).get(`/api/v1/kites/${id}`).set('Accept', 'application/json');
+    const response = await request(app).delete(`/api/v1/kites/${id}`).set('Accept', 'application/json');
 
     expect(response.type).toBe('application/json');
     expect(response.status).toBe(404);
