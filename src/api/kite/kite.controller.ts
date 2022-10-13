@@ -55,7 +55,7 @@ router.get(
 router.put(
   '/:id',
   validateRequest({ params: UUID, body: Kite }),
-  async (req: Request<{ id: string }, Kite, Omit<Kite, 'id'>>, res: Response<Kite>, next: NextFunction) => {
+  async (req: Request<{ id: string }, Kite, Kite>, res: Response<Kite>, next: NextFunction) => {
     try {
       const kite = await kiteService.updateKite(req.params.id, req.body);
       console.log(kite);
@@ -74,7 +74,7 @@ router.put(
 router.delete(
   '/:id',
   validateRequest({ params: UUID }),
-  async (req: Request<{ id: string }>, res: Response<Kite | 'Kite not found!'>, next) => {
+  async (req: Request<{ id: string }>, res: Response<Kite>, next) => {
     try {
       const kite = await kiteService.deleteKite(req.params.id);
       if (!kite) {

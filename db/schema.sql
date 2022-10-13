@@ -43,23 +43,23 @@ CREATE TABLE IF NOT EXISTS "kites" (
   "id" UUID PRIMARY KEY NOT NULL DEFAULT uuid_generate_v4(),
   "name" text NOT NULL,
   "imageUrl" text,
+  "price" integer NOT NULL
   "dimensions" text NOT NULL,
   "materials" text NOT NULL,
   "wind" text NOT NULL,
   "isBeginner" boolean NOT NULL,
   "details" text,
-  "price" integer NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS "materials" (
   "id" UUID PRIMARY KEY NOT NULL DEFAULT uuid_generate_v4(),
   "name" text NOT NULL,
   "imageUrl" text,
+  "price" integer NOT NULL
   "category" "Category" NOT NULL,
   "diameter" integer,
   "availableLength" integer[],
   "details" text,
-  "price" integer NOT NULL
 );
 
 ALTER TABLE "orders" ADD FOREIGN KEY ("customerId") REFERENCES "customers" ("id");
