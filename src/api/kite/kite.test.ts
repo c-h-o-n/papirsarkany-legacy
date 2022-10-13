@@ -1,6 +1,7 @@
 import request from 'supertest';
 
 import app from '../../app';
+
 import { Kite } from './kite.model';
 
 describe('GET /api/v1/kites', () => {
