@@ -35,7 +35,12 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
     updateFormValues({
-      contact: { email: data.email, lastName: data.lastName, firstName: data.firstName, phone: data.phone },
+      contact: {
+        email: data.email,
+        lastName: data.lastName,
+        firstName: data.firstName,
+        phone: data.phone,
+      },
       shipping: {
         postcode: data.postcode,
         city: data.city,
@@ -94,10 +99,11 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
             Vezetéknév
             <input
               {...register('lastName')}
-              type="lastName"
+              autoComplete="family-name"
+              type={'text'}
               id="lastName"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="vezetéknév"
+              placeholder="last name"
               required
             />
           </label>
@@ -109,9 +115,11 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
             Keresztnév
             <input
               {...register('firstName')}
-              type="firstName"
+              autoComplete="given-name"
+              type={'text'}
               id="firstName"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              placeholder="first name"
               required
             />
           </label>
@@ -160,7 +168,7 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
                 Irányítószám
                 <input
                   {...register('postcode')}
-                  type="postcode"
+                  type={'text'}
                   id="postcode"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   placeholder="irányítószám"
