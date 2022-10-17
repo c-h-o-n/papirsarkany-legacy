@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSteps } from 'react-step-builder';
 
@@ -59,20 +58,6 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
     next();
   };
 
-  useEffect(() => {
-    switch (shippingMode) {
-      case 'Postai szállítás':
-        updateShippingCost(600);
-        break;
-      case 'Személyes átvétel':
-        updateShippingCost(0);
-        break;
-      default:
-        updateShippingCost(undefined);
-        break;
-    }
-  }, [shippingMode, updateShippingCost]);
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="grid gap-x-2 gap-y-4 grid-cols-4 mb-6">
@@ -84,7 +69,7 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
             Email
             <input
               {...register('email')}
-              type="email"
+              type={'email'}
               id="email"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               placeholder="email"
@@ -143,7 +128,14 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
         {/* Shipping options */}
         <div className="col-span-full flex justify-between items-center">
           <label htmlFor="personal-pick-up">
-            <input {...register('mode')} id="personal-pick-up" type="radio" value={'Személyes átvétel'} required />
+            <input
+              {...register('mode')}
+              id="personal-pick-up"
+              type="radio"
+              value={'Személyes átvétel'}
+              required
+              onChange={() => updateShippingCost(0)}
+            />
             <span className="ml-2"> Személyes átvétel</span>
             <span className="ml-2">- Nagykovácsi Kazal utca 6.</span>
           </label>
@@ -152,7 +144,14 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
 
         <div className="col-span-full flex justify-between items-center">
           <label htmlFor="post">
-            <input {...register('mode')} id="post" type="radio" value={'Postai szállítás'} required />
+            <input
+              {...register('mode')}
+              id="post"
+              type="radio"
+              value={'Postai szállítás'}
+              required
+              onChange={() => updateShippingCost(600)}
+            />
             <span className="ml-2"> Postai szállítás</span>
           </label>
 
