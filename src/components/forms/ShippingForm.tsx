@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSteps } from 'react-step-builder';
 
@@ -17,7 +18,7 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
 
   const { updateShippingCost } = useCart();
 
-  const { register, handleSubmit, watch } = useForm<FormInput>({
+  const { register, handleSubmit } = useForm<FormInput>({
     defaultValues: {
       email: formValues.contact.email,
       lastName: formValues.contact.lastName,
@@ -30,7 +31,7 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
       mode: formValues.shipping.mode,
     },
   });
-  const shippingMode = watch('mode');
+  const [shippingMode, setShippingMode] = useState('');
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
     updateFormValues({
@@ -134,7 +135,10 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
               type="radio"
               value={'Személyes átvétel'}
               required
-              onChange={() => updateShippingCost(0)}
+              onChange={(event) => {
+                updateShippingCost(0);
+                setShippingMode(event.target.value);
+              }}
             />
             <span className="ml-2"> Személyes átvétel</span>
             <span className="ml-2">- Nagykovácsi Kazal utca 6.</span>
@@ -150,7 +154,10 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
               type="radio"
               value={'Postai szállítás'}
               required
-              onChange={() => updateShippingCost(600)}
+              onChange={(event) => {
+                updateShippingCost(600);
+                setShippingMode(event.target.value);
+              }}
             />
             <span className="ml-2"> Postai szállítás</span>
           </label>
