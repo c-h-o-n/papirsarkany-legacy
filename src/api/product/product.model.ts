@@ -1,11 +1,12 @@
 import { z } from 'zod';
-import { UUID } from '../../interfaces/UUID';
 
 export const Product = z.object({
-  id: UUID.optional(),
+  id: z.string().uuid().optional(),
   name: z.string().min(1),
   imageUrl: z.string().optional(),
   price: z.number().positive(),
+  category: z.enum(['Egyzsinóros', 'Anyag']),
+  description: z.string().optional(),
 });
 
 export type Product = z.infer<typeof Product>;

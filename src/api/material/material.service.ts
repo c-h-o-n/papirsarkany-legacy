@@ -5,22 +5,26 @@ import { Material } from './material.model';
 
 export async function createMaterial(data: Omit<Material, 'id'>): Promise<Material> {
   const query: QueryConfig = {
-    text: insertQueryBuilder('materials', data),
+    text: insertQueryBuilder('products', data),
     values: Object.values(data),
   };
 
-  const { rows } = await db.query(query);
+  const { rows } = await db.query<Material>(query);
   return rows[0];
 }
 
 export async function getAllMaterial(): Promise<Material[]> {
-  const { rows } = await db.query<Material>('SELECT* from "materials"');
+  const query: QueryConfig<[Material['category']]> = {
+    text: 'SELECT * from "products" WHERE "category" = $1;',
+    values: ['Anyag'],
+  };
+  const { rows } = await db.query<Material>(query);
   return rows;
 }
 
 export async function getMaterial(id: string): Promise<Material> {
   const query: QueryConfig = {
-    text: 'SELECT * FROM "materials" WHERE id = $1',
+    text: 'SELECT * FROM "products" WHERE id = $1',
     values: [id],
   };
 
@@ -30,7 +34,7 @@ export async function getMaterial(id: string): Promise<Material> {
 
 export async function updateMaterial(id: string, data: Omit<Material, 'id'>): Promise<Material> {
   const query: QueryConfig = {
-    text: updateQueryBuilder('materials', data),
+    text: updateQueryBuilder('products', data),
     values: [...Object.values(data), id],
   };
 
@@ -40,7 +44,7 @@ export async function updateMaterial(id: string, data: Omit<Material, 'id'>): Pr
 
 export async function deleteMaterial(id: string): Promise<Material> {
   const query: QueryConfig = {
-    text: 'DELETE FROM "materials" WHERE id = $1 RETURNING *',
+    text: 'DELETE FROM "products" WHERE id = $1 RETURNING *',
     values: [id],
   };
   const { rows } = await db.query<Material>(query);

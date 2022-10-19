@@ -18,7 +18,7 @@ let id = '';
 const material: Omit<Material, 'id'> = {
   name: 'inserted by test',
   price: 690,
-  category: 'Zsinórtartók',
+  category: 'Anyag',
 };
 
 describe('POST /api/v1/materials', () => {
@@ -40,6 +40,19 @@ describe('POST /api/v1/materials', () => {
       .post('/api/v1/materials')
       .set('Accept', 'application/json')
       .send({ ...material, name: '', price: -1 } as Material);
+
+    expect(response.type).toBe('application/json');
+    expect(response.status).toBe(422);
+
+    expect(response.body).toHaveProperty('message');
+    console.log(response.body.message);
+  });
+
+  it('responds with an error if the material category is invalid', async () => {
+    const response = await request(app)
+      .post('/api/v1/materials')
+      .set('Accept', 'application/json')
+      .send({ ...material, category: 'invalid-category' });
 
     expect(response.type).toBe('application/json');
     expect(response.status).toBe(422);

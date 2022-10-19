@@ -1,10 +1,14 @@
+import { QueryConfig } from 'pg';
+
 import { db } from '../../db';
-import { Kite } from '../kite/kite.model';
+
 import { Product } from './product.model';
 
 export async function findAll(): Promise<Product[]> {
-  const { rows: kiteRows } = await db.query<Kite>('SELECT "id", "name", "imageUrl", "price"  from "kites"');
-  const { rows: materialRows } = await db.query<any>('SELECT "id", "name", "imageUrl", "price"  from "materials"');
+  const query: QueryConfig = {
+    text: 'SELECT * from "products"',
+  };
 
-  return [...kiteRows, ...materialRows];
+  const { rows } = await db.query<Product>(query);
+  return rows;
 }

@@ -18,12 +18,9 @@ let id = '';
 const kite: Omit<Kite, 'id'> = {
   name: 'kite created with supertest',
   imageUrl: 'no/image',
-  dimensions: '30x30cm',
-  materials: 'bambusz',
-  wind: 'eros',
-  isBeginner: true,
-  details: 'lorem ipsum',
   price: 13000,
+  description: 'lorem ipsum',
+  category: 'Egyzsinóros',
 };
 
 describe('POST /api/v1/kites', () => {
