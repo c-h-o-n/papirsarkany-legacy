@@ -1,7 +1,7 @@
 import console from 'console';
 import { QueryConfig } from 'pg';
 import { db } from '../../db';
-import { insertQueryBuilder, updateQueryBuilder, upsertQueryBuilder } from '../../utilities/queryBuilders';
+import { insertQueryBuilder, upsertQueryBuilder } from '../../utilities/queryBuilders';
 import { Order } from './order.model';
 
 export async function createOrder(data: Omit<Order, 'id'>): Promise<Order> {
@@ -48,30 +48,25 @@ export async function createOrder(data: Omit<Order, 'id'>): Promise<Order> {
 
     const { rows: orderRows } = await db.query(insertOrderQuery);
     console.log(orderRows[0]);
-    const orderItems: any[] = [];
-    products.forEach(product => {
-      orderItems.push({
+
+    for (let i = 0; i < products.length; i++) {
+      const product = products[i];
+      const orderItem = {
         orderId: orderRows[0].id,
         productId: product.id,
         quantity: product.quantity,
-      });
-    });
+      };
 
-    orderItems.map(async orderItem => {
-      try {
-        const insertOrderItemQuery: QueryConfig = {
-          text: insertQueryBuilder('order_items', orderItem),
-          values: Object.values(orderItem),
-        };
-
-        const { rows } = await db.query(insertOrderItemQuery);
-        console.log(rows);
-      } catch (error) {
-        console.log(error);
-      }
-    });
+      const insertOrderItemQuery: QueryConfig = {
+        text: insertQueryBuilder('order_items', orderItem),
+        values: Object.values(orderItem),
+      };
+      const { rows } = await db.query(insertOrderItemQuery);
+      console.table(rows);
+    }
 
     await db.query('COMMIT');
+    console.log('commit');
     return { id: orderRows[0].id, ...data };
   } catch (error) {
     console.warn('rollback');
