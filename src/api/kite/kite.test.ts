@@ -132,7 +132,7 @@ describe('DELETE /api/vi/kites/:id', () => {
   });
 
   it('responds with an invalid id zoderror', async () => {
-    const response = await request(app).delete(`/api/v1/kites/invalid-uuid`).set('Accept', 'application/json');
+    const response = await request(app).delete('/api/v1/kites/invalid-uuid').set('Accept', 'application/json');
     expect(response.type).toBe('application/json');
     expect(response.status).toBe(422);
 

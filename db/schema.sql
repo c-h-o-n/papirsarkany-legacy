@@ -1,4 +1,4 @@
--- VERSION 0.2.0
+-- VERSION 0.2.1
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS "products" (
 
 CREATE TABLE IF NOT EXISTS "orders" (
   "id" SERIAL PRIMARY KEY,
-  "customerId" UUID NOT NULL,
+  "customerId" UUID,
   "status" "Status" NOT NULL,
   "shippingOption" "ShippingMode" NOT NULL,
   "paymentOption" "PaymentMode" NOT NULL,
@@ -64,12 +64,12 @@ CREATE TABLE IF NOT EXISTS "orders" (
 CREATE TABLE IF NOT EXISTS "order_items" (
   "id" SERIAL PRIMARY KEY,
   "orderId" integer NOT NULL,
-  "productId" UUID NOT NULL,
+  "productId" UUID,
   "quantity" integer NOT NULL
 );
 
-ALTER TABLE "orders" ADD FOREIGN KEY ("customerId") REFERENCES "customers" ("id");
+ALTER TABLE "orders" ADD FOREIGN KEY ("customerId") REFERENCES "customers" ("id") ON DELETE SET NULL;
 
-ALTER TABLE "order_items" ADD FOREIGN KEY ("productId") REFERENCES "products" ("id");
+ALTER TABLE "order_items" ADD FOREIGN KEY ("productId") REFERENCES "products" ("id") ON DELETE SET NULL;
 
-ALTER TABLE "order_items" ADD FOREIGN KEY ("orderId") REFERENCES "orders" ("id");
+ALTER TABLE "order_items" ADD FOREIGN KEY ("orderId") REFERENCES "orders" ("id") ON DELETE CASCADE;

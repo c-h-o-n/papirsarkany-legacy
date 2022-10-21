@@ -29,4 +29,22 @@ router.get('/', async (req: Request, res: Response<Order[]>, next: NextFunction)
   }
 });
 
+// Delete order
+router.delete(
+  '/:id',
+  validateRequest({}),
+  async (req: Request<{ id: string }>, res: Response<Order>, next: NextFunction) => {
+    try {
+      const order = await orderService.deleteOrder(req.params.id);
+      if (!order) {
+        res.status(404);
+        throw new Error(`Order with id ${req.params.id} not found!`);
+      }
+      res.json(order);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 export default router;

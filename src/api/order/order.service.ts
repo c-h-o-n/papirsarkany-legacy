@@ -32,7 +32,6 @@ export async function createOrder(data: Omit<Order, 'id'>): Promise<Order> {
       values: Object.values(customer),
     };
     const { rows: cutomerRows } = await db.query(upsertCustomerQuery);
-    console.log(cutomerRows[0]);
 
     const order = {
       customerId: cutomerRows[0].id,
@@ -47,7 +46,6 @@ export async function createOrder(data: Omit<Order, 'id'>): Promise<Order> {
     };
 
     const { rows: orderRows } = await db.query(insertOrderQuery);
-    console.log(orderRows[0]);
 
     for (let i = 0; i < products.length; i++) {
       const product = products[i];
@@ -61,12 +59,11 @@ export async function createOrder(data: Omit<Order, 'id'>): Promise<Order> {
         text: insertQueryBuilder('order_items', orderItem),
         values: Object.values(orderItem),
       };
-      const { rows } = await db.query(insertOrderItemQuery);
-      console.table(rows);
+      await db.query(insertOrderItemQuery);
     }
 
-    await db.query('COMMIT');
     console.log('commit');
+    await db.query('COMMIT');
     return { id: orderRows[0].id, ...data };
   } catch (error) {
     console.warn('rollback');
@@ -82,4 +79,15 @@ export async function getAllOrders(): Promise<Order[]> {
 
   const { rows } = await db.query<Order>(query);
   return rows;
+}
+
+export async function deleteOrder(id: string): Promise<Order> {
+  const query: QueryConfig = {
+    text: 'DELETE from "orders" WHERE "id" = $1 RETURNING *',
+    values: [id],
+  };
+
+  const { rows } = await db.query(query);
+
+  return rows[0];
 }

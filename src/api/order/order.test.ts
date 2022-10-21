@@ -3,6 +3,17 @@ import request from 'supertest';
 import app from '../../app';
 import { Order } from './order.model';
 
+beforeAll(async () => {
+  await request(app).post('/api/v1/kites').set('Accept', 'application/json').send({
+    id: '7e04520b-89a8-4556-8021-e8779437e451',
+    name: 'kite created to test order',
+    imageUrl: 'no/image',
+    price: 13000,
+    category: 'Egyzsinóros',
+    description: 'lorem ipsum',
+  });
+});
+
 describe('GET /api/v1/orders', () => {
   it('responds with an array of orders', async () => {
     const response = await request(app).get('/api/v1/orders').set('Accept', 'application/json');
@@ -58,5 +69,13 @@ describe('POST /api/v1/orders', () => {
     });
 
     id = response.body.id;
+  });
+});
+
+describe('DELETE /api/v1/orders:id', () => {
+  it('responds with a delete order', async () => {
+    await request(app).delete('/api/v1/kites/7e04520b-89a8-4556-8021-e8779437e451').set('Accept', 'application/json');
+
+    const response = await request(app).delete(`/api/v1/orders/${id}`).set('Accept', 'application/json');
   });
 });
