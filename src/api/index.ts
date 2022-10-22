@@ -6,6 +6,7 @@ import kite from './kite/kite.controller';
 import material from './material/material.controller';
 import product from './product/product.controller';
 import order from './order/order.controller';
+import customer from './customer/customer.controller';
 
 const router = express.Router();
 
@@ -19,5 +20,6 @@ router.use('/kites', kite);
 router.use('/materials', material);
 router.use('/products', product);
 router.use('/orders', order);
+router.use('/customers', customer);
 
 export default router;

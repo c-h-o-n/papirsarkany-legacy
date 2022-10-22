@@ -1,5 +1,10 @@
 -- VERSION 0.2.1
 
+-- Reset database
+DROP SCHEMA public CASCADE; 
+CREATE SCHEMA public;
+
+
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TYPE "Status" AS ENUM (

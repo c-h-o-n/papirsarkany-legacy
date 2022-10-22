@@ -1,10 +1,10 @@
 import console from 'console';
 import { QueryConfig } from 'pg';
 import { db } from '../../db';
-import { insertQueryBuilder, upsertQueryBuilder } from '../../utilities/queryBuilders';
-import { Order } from './order.model';
+import { insertQueryBuilder, updateQueryBuilder, upsertQueryBuilder } from '../../utilities/queryBuilders';
+import { NewOrder, Order } from './order.model';
 
-export async function createOrder(data: Omit<Order, 'id'>): Promise<Order> {
+export async function createOrder(data: NewOrder): Promise<Order> {
   const { billing, shipping, contact, comment, paymentOption, shippingOption, products } = data;
 
   const customer = {
@@ -64,7 +64,7 @@ export async function createOrder(data: Omit<Order, 'id'>): Promise<Order> {
 
     console.log('commit');
     await db.query('COMMIT');
-    return { id: orderRows[0].id, ...data };
+    return orderRows[0];
   } catch (error) {
     console.warn('rollback');
     await db.query('ROLLBACK');
@@ -79,6 +79,25 @@ export async function getAllOrders(): Promise<Order[]> {
 
   const { rows } = await db.query<Order>(query);
   return rows;
+}
+
+export async function getOrder(id: string): Promise<Order> {
+  const query: QueryConfig = {
+    text: 'SELECT * FROM "orders" WHERE id = $1',
+    values: [id],
+  };
+
+  const { rows } = await db.query<Order>(query);
+  return rows[0];
+}
+
+export async function updateOrder(id: string, data: Omit<Order, 'id'>): Promise<Order> {
+  const query: QueryConfig = {
+    text: updateQueryBuilder('orders', data),
+    values: [...Object.values(data), id],
+  };
+  const { rows } = await db.query<Order>(query);
+  return rows[0];
 }
 
 export async function deleteOrder(id: string): Promise<Order> {
