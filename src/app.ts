@@ -17,6 +17,8 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
+app.disable('etag');
+
 app.get<{}, MessageResponse>('/', (req, res) => {
   res.json({
     message: 'Go out and fly kites! 🪁 or use (/api/v1)',
