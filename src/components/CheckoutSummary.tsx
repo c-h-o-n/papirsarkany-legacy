@@ -17,7 +17,7 @@ export default function CheckoutSummary({ formValues }: CheckoutFormSummaryProps
       </div>
       <div className="w-full  md:max-w-xs bg-white rounded-3xl shadow-md p-6 relative">
         <div className="underline text-lg">Szállítás</div>
-        <div className="font-bold">{formValues.shipping.mode}</div>
+        <div className="font-bold">{formValues.shippingOption}</div>
         <div>{formValues.shipping.postcode}</div>
         <div>{formValues.shipping.city}</div>
         <div>{formValues.shipping.address}</div>
@@ -25,7 +25,7 @@ export default function CheckoutSummary({ formValues }: CheckoutFormSummaryProps
       </div>
       <div className="  w-full  md:max-w-xs bg-white rounded-3xl shadow-md p-6 relative">
         <div className="underline text-lg">Fizetés</div>
-        <div className="font-bold">{formValues.billing.mode}</div>
+        <div className="font-bold">{formValues.paymentOption}</div>
         <div>{formValues.billing.postcode}</div>
         <div>{formValues.billing.city}</div>
         <div>{formValues.billing.address}</div>

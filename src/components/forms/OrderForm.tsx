@@ -2,30 +2,34 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSteps } from 'react-step-builder';
 import { useCart } from '../../context/CartContext';
 import { CheckoutFormInput } from '../../types/CheckoutFormInput';
+import { Order } from '../../types/Order';
 
-type FormInput = { comment: CheckoutFormInput['comment'] };
+type FormInput = Pick<CheckoutFormInput, 'comment'>;
 
 type OrderFormProps = {
   formValues: CheckoutFormInput;
-  resetFormValues: () => void;
 };
 
-export default function OrderForm({ formValues, resetFormValues }: OrderFormProps) {
-  const { register, handleSubmit } = useForm<FormInput>({ defaultValues: { comment: formValues.comment } });
-  const { removeAllItemFormCart } = useCart();
+export default function OrderForm({ formValues }: OrderFormProps) {
+  const { register, handleSubmit, reset } = useForm<FormInput>({ defaultValues: { comment: formValues.comment } });
+  const { removeAllItemFormCart, cartItems } = useCart();
   const { next, prev } = useSteps();
 
-  // TODO post {...formValues, ...data}
+  // TODO post {...formValues, ...data, ...products}
   const onSubmit: SubmitHandler<FormInput> = (data) => {
-    console.log({ ...formValues, ...data });
-    resetFormValues();
+    // console.log({ ...formValues, ...data, products: [...cartItems] });
+    const orderToSend: Order = { ...formValues, ...data, products: [...cartItems] };
+
+    console.log(orderToSend);
+
+    reset();
     removeAllItemFormCart();
     next();
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="comment" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+      <label htmlFor="comment" className="block mb-6 text-sm font-medium text-gray-900 dark:text-gray-300">
         Megjegyzés
         <textarea
           {...register('comment')}

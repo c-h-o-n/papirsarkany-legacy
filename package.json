@@ -2,35 +2,23 @@
   "name": "papirsarkany-client",
   "version": "0.5.0",
   "private": true,
-  "dependencies": {
-    "@ebay/nice-modal-react": "^1.2.7",
-    "@fontsource/poppins": "^4.5.9",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-hook-form": "^7.36.1",
-    "react-router-dom": "^6.4.1",
-    "react-scripts": "5.0.1",
-    "react-step-builder": "^3.0.6",
-    "react-toastify": "^9.0.8"
-  },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --fix src"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "@ebay/nice-modal-react": "^1.2.7",
+    "@fontsource/poppins": "^4.5.9",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.37.0",
+    "react-router-dom": "^6.4.1",
+    "react-scripts": "5.0.1",
+    "react-step-builder": "^3.0.6",
+    "react-toastify": "^9.0.8"
   },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.2",
@@ -50,5 +38,17 @@
     "prettier": "^2.7.1",
     "tailwindcss": "^3.1.8",
     "typescript": "^4.8.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

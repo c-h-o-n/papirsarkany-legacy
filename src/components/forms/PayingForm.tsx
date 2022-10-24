@@ -4,13 +4,13 @@ import { useSteps } from 'react-step-builder';
 
 import { CheckoutFormInput } from '../../types/CheckoutFormInput';
 
-type FormInput = CheckoutFormInput['billing'];
+type FormInput = CheckoutFormInput['billing'] & Pick<CheckoutFormInput, 'paymentOption'>;
 
 type PayingFormProps = {
   formValues: CheckoutFormInput;
   updateFormValues: (values: Partial<CheckoutFormInput>) => void;
 };
-
+// TODO add billing new contact => restructure ChecoutFormInput type
 export default function PayingForm({ formValues, updateFormValues }: PayingFormProps) {
   const { next, prev } = useSteps();
 
@@ -20,20 +20,21 @@ export default function PayingForm({ formValues, updateFormValues }: PayingFormP
       city: formValues.billing.city,
       address: formValues.billing.address,
       subaddress: formValues.billing.subaddress,
-      mode: formValues.billing.mode,
     },
   });
 
-  const [isSameAdressAsShipping, setIsSameAdressAsShipping] = useState(formValues.shipping.mode === 'Postai szállítás');
+  const [isSameAdressAsShipping, setIsSameAdressAsShipping] = useState(
+    formValues.shippingOption === 'Postai szállítás'
+  );
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
     updateFormValues({
+      paymentOption: data.paymentOption,
       billing: {
         address: data.address,
         city: data.city,
         postcode: data.postcode,
         subaddress: data.subaddress,
-        mode: data.mode,
       },
     });
     next();
@@ -48,17 +49,29 @@ export default function PayingForm({ formValues, updateFormValues }: PayingFormP
         {/* Upon receipt   */}
         <div className="col-span-full">
           <label htmlFor="upon-receipt">
-            <input {...register('mode')} id="upon-receipt" type="radio" value={'Átvételkor készpénzel'} required />
+            <input
+              {...register('paymentOption')}
+              id="upon-receipt"
+              type="radio"
+              value={'Átvételkor készpénzel'}
+              required
+            />
             <span className="ml-2">Átvételkor készpénzel</span>
           </label>
         </div>
 
-        {formValues.shipping.mode === 'Postai szállítás' && (
+        {formValues.shippingOption === 'Postai szállítás' && (
           <>
             {/* Bank transfer */}
             <div className="col-span-full">
               <label htmlFor="bank-transfer">
-                <input {...register('mode')} id="bank-transfer" type="radio" value={'Előreutalással'} required />
+                <input
+                  {...register('paymentOption')}
+                  id="bank-transfer"
+                  type="radio"
+                  value={'Előreutalással'}
+                  required
+                />
                 <span className="ml-2">Előreutalással</span>
               </label>
             </div>

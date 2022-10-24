@@ -1,20 +1,18 @@
 import { useEffect, useState } from 'react';
 import KiteCard from '../components/KiteCard';
 import { useApi } from '../hooks/useApi';
+import { Product } from '../types/Product';
 
-import { Kite } from '../types/Kite';
-
-export default function SingleLinePage() {
+export default function SingleLineKitePage() {
   const { getAllKites } = useApi();
-  const [kites] = useState<Kite[]>(getAllKites());
+
+  const [kites, setKites] = useState<Product[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/v1/kites')
-      .then((resp) => console.log(resp))
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+    getAllKites().then((response) => {
+      console.log(response.json());
+    });
+  }, [getAllKites]);
 
   return (
     <>

@@ -9,7 +9,7 @@ import DualLinePage from './pages/DualLinePage';
 import LandingPage from './pages/LandingPage';
 import MaterialPage from './pages/MaterialPage';
 import NotFoundPage from './pages/NotFoundPage';
-import SingleLine from './pages/SingleLinePage';
+import SingleLine from './pages/SingleLineKitePage';
 
 // TODO clean up app
 function App() {

@@ -6,7 +6,9 @@ import { useCart } from '../../context/CartContext';
 
 import { CheckoutFormInput } from '../../types/CheckoutFormInput';
 
-type FormInput = CheckoutFormInput['contact'] & CheckoutFormInput['shipping'];
+type FormInput = CheckoutFormInput['contact'] &
+  CheckoutFormInput['shipping'] &
+  Pick<CheckoutFormInput, 'shippingOption'>;
 
 type ShippingFormProps = {
   formValues: CheckoutFormInput;
@@ -28,7 +30,7 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
       city: formValues.shipping.city,
       address: formValues.shipping.address,
       subaddress: formValues.shipping.subaddress,
-      mode: formValues.shipping.mode,
+      shippingOption: formValues.shippingOption,
     },
   });
   const [shippingMode, setShippingMode] = useState('');
@@ -41,19 +43,21 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
         firstName: data.firstName,
         phone: data.phone,
       },
+
+      shippingOption: data.shippingOption,
+      paymentOption: '',
+
       shipping: {
         postcode: data.postcode,
         city: data.city,
         address: data.address,
         subaddress: data.subaddress,
-        mode: data.mode,
       },
       billing: {
         postcode: data.postcode,
         city: data.city,
         address: data.address,
         subaddress: data.subaddress,
-        mode: '',
       },
     });
     next();
@@ -130,7 +134,7 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
         <div className="col-span-full flex justify-between items-center">
           <label htmlFor="personal-pick-up">
             <input
-              {...register('mode')}
+              {...register('shippingOption')}
               id="personal-pick-up"
               type="radio"
               value={'Személyes átvétel'}
@@ -149,7 +153,7 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
         <div className="col-span-full flex justify-between items-center">
           <label htmlFor="post">
             <input
-              {...register('mode')}
+              {...register('shippingOption')}
               id="post"
               type="radio"
               value={'Postai szállítás'}

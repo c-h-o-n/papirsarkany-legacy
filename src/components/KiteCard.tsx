@@ -1,13 +1,13 @@
 import { toast } from 'react-toastify';
-import { Kite } from '../types/Kite';
 import { useCart } from '../context/CartContext';
 
 import kiteImage from '../assets/kite-placeholder.png';
 import addItem from '../assets/add-item.svg';
 import AddToCartToastMessage from './toasts/AddToCartToast';
+import { Product } from '../types/Product';
 
 type KiteCardProps = {
-  kite: Kite;
+  kite: Product;
 };
 
 export default function KiteCard({ kite }: KiteCardProps) {

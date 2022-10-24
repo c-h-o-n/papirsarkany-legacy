@@ -5,15 +5,15 @@ type CartContextType = {
   shippingCost: number | undefined;
   updateShippingCost: (value: number | undefined) => void;
   getTotalCartQuantity: () => number;
-  getItemQuantity: (id: number) => number;
-  increaseCartQuantity: (id: number) => void;
-  decreaseCartQuantity: (id: number) => void;
-  removeItemFromCart: (id: number) => void;
+  getItemQuantity: (id: string) => number;
+  increaseCartQuantity: (id: string) => void;
+  decreaseCartQuantity: (id: string) => void;
+  removeItemFromCart: (id: string) => void;
   removeAllItemFormCart: () => void;
 };
 
 export type CartItem = {
-  id: number;
+  id: string;
   quantity: number;
 };
 
@@ -41,11 +41,11 @@ export function CartProvider({ children }: CartProviderProps) {
       setShippingCost(value);
     };
 
-    const getItemQuantity = (id: number): number => {
+    const getItemQuantity = (id: string): number => {
       return cartItems.find((item) => item.id === id)?.quantity || 0;
     };
 
-    const increaseCartQuantity = (id: number): void => {
+    const increaseCartQuantity = (id: string): void => {
       setCartItems((currentItems: CartItem[]) => {
         if (!currentItems.find((item) => item.id === id)) {
           return [...currentItems, { id, quantity: 1 }];
@@ -60,7 +60,7 @@ export function CartProvider({ children }: CartProviderProps) {
       });
     };
 
-    const decreaseCartQuantity = (id: number): void => {
+    const decreaseCartQuantity = (id: string): void => {
       setCartItems((currentItems: CartItem[]) => {
         if (currentItems.find((item) => item.id === id)?.quantity === 1) {
           return currentItems;
@@ -75,7 +75,7 @@ export function CartProvider({ children }: CartProviderProps) {
       });
     };
 
-    const removeItemFromCart = (id: number): void => {
+    const removeItemFromCart = (id: string): void => {
       setCartItems((currentItems) => currentItems.filter((item) => item.id !== id));
     };
 

@@ -12,20 +12,12 @@ import { Product } from '../types/Product';
 export default function CartPage() {
   const { isFirst } = useSteps();
 
-  const { getAllKites, getAllMaterials } = useApi();
+  const { getAllKites, getAllMaterials, getAllProducts } = useApi();
 
   const { cartItems } = useCart();
 
   // TODO products comes from API in the futures
-  const [allkites] = useState(getAllKites());
-  const [allMaterials] = useState(getAllMaterials());
   const [products, setProducts] = useState<Product[]>([]);
-  useEffect(() => {
-    const kites = allkites.filter((kite) => cartItems.some((item) => kite.id === item.id));
-    const materials = allMaterials.filter((material) => cartItems.some((item) => material.id === item.id));
-
-    setProducts([...kites, ...materials]);
-  }, [allMaterials, allkites, cartItems]);
 
   if (!cartItems.length && isFirst) {
     return (

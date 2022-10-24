@@ -1,15 +1,13 @@
-import { Kite, Kites } from '../types/Kite';
-import { Material, Materials } from '../types/Material';
 import { Product } from '../types/Product';
 
 export function useApi() {
   // TODO fetch from API
-  const getAllKites = (): Kite[] => {
-    return Kites;
+  const getAllKites = async () => {
+    return fetch('http.//localhost/5000/api/v1/kites');
   };
 
-  const getAllMaterials = (): Material[] => {
-    return Materials;
+  const getAllMaterials = (): Product[] => {
+    return [];
   };
 
   // returns kites and materials

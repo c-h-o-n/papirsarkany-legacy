@@ -1,3 +1,6 @@
+type ShippingOption = 'Személyes átvétel' | 'Postai szállítás' | '';
+type PaymentOption = 'Átvételkor készpénzel' | 'Előreutalással' | '';
+
 export type CheckoutFormInput = {
   contact: {
     email: string;
@@ -5,15 +8,17 @@ export type CheckoutFormInput = {
     lastName: string;
     phone: string;
   };
+
+  shippingOption: ShippingOption;
+  paymentOption: PaymentOption;
+
   shipping: {
-    mode: 'Személyes átvétel' | 'Postai szállítás' | '';
     postcode: string;
     city: string;
     address: string;
     subaddress: string;
   };
   billing: {
-    mode: 'Átvételkor készpénzel' | 'Előreutalással' | '';
     postcode: string;
     city: string;
     address: string;

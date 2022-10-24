@@ -22,15 +22,16 @@ const initialFormValues: CheckoutFormInput = {
     lastName: '',
     phone: '',
   },
+  paymentOption: '',
+  shippingOption: '',
+
   shipping: {
-    mode: '',
     postcode: '',
     city: '',
     address: '',
     subaddress: '',
   },
   billing: {
-    mode: '',
     postcode: '',
     city: '',
     address: '',
@@ -39,6 +40,7 @@ const initialFormValues: CheckoutFormInput = {
   comment: '',
 };
 
+// TODO ensure autofill to be correct https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete#values
 export default function CheckoutFormWrapper({ products }: CheckoutFormWrapperProps) {
   const { next } = useSteps();
 
@@ -46,10 +48,6 @@ export default function CheckoutFormWrapper({ products }: CheckoutFormWrapperPro
 
   const updateFormValues = (values: Partial<CheckoutFormInput>) => {
     setFormValues({ ...formValues, ...values });
-  };
-
-  const resetFormValues = () => {
-    setFormValues(initialFormValues);
   };
 
   return (
@@ -73,6 +71,7 @@ export default function CheckoutFormWrapper({ products }: CheckoutFormWrapperPro
         <div className="row-start-1 col-start-2">
           <CartSummary products={products} isCompact />
         </div>
+
         <div className="md:sticky md:top-0 h-min row-start-1 col-start-1">
           <ShippingForm formValues={formValues} updateFormValues={updateFormValues} />
         </div>
@@ -90,18 +89,19 @@ export default function CheckoutFormWrapper({ products }: CheckoutFormWrapperPro
       </div>
 
       {/* Step 4 */}
-      <div>
-        <div className="mb-6">
+      <div className="space-y-6">
+        <div>
           <CheckoutSummary formValues={formValues} />
         </div>
+
         <div>
           <CartSummary products={products} isEditable={false} />
         </div>
 
-        <OrderForm formValues={formValues} resetFormValues={resetFormValues} />
+        <OrderForm formValues={formValues} />
       </div>
 
-      {/* Step 5 */}
+      {/* Final step */}
       <div className="absolute grid items-center h-screen inset-0">
         <h1 className="text-2xl md:text-5xl text-center">Sikeres rendelés.</h1>
       </div>

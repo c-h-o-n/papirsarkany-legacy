@@ -1,4 +1,8 @@
-import { Kite } from './Kite';
-import { Material } from './Material';
-
-export type Product = Kite | Material;
+export type Product = {
+  id: string;
+  name: string;
+  imageUrl?: string;
+  price: number;
+  category: 'Egyzsinóros' | 'Anyag';
+  description?: string;
+};

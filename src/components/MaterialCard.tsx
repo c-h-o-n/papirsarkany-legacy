@@ -1,14 +1,14 @@
 import { toast } from 'react-toastify';
 
-import { useCart } from '../context/CartContext';
-import { Material } from '../types/Material';
+import { useCart } from '../context/CartContext'; 
+import { Product } from '../types/Product';
 
 // assets
 import addItem from '../assets/add-item.svg';
 import AddToCartToastMessage from './toasts/AddToCartToast';
 
 type MaterialCardProps = {
-  material: Material;
+  material: Product;
 };
 
 export default function MaterialCard({ material }: MaterialCardProps) {
