@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSteps } from 'react-step-builder';
 
@@ -20,7 +20,7 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
 
   const { updateShippingCost } = useCart();
 
-  const { register, handleSubmit } = useForm<FormInput>({
+  const { register, handleSubmit, watch } = useForm<FormInput>({
     defaultValues: {
       email: formValues.contact.email,
       lastName: formValues.contact.lastName,
@@ -33,7 +33,22 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
       shippingOption: formValues.shippingOption,
     },
   });
-  const [shippingMode, setShippingMode] = useState('');
+
+  const shippingMode = watch('shippingOption');
+
+  useEffect(() => {
+    switch (shippingMode) {
+      case 'Személyes átvétel':
+        updateShippingCost(0);
+        break;
+      case 'Postai szállítás':
+        updateShippingCost(600);
+        break;
+      default:
+        updateShippingCost(undefined);
+        break;
+    }
+  }, [shippingMode, updateShippingCost]);
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
     updateFormValues({
@@ -45,21 +60,26 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
       },
 
       shippingOption: data.shippingOption,
-      paymentOption: '',
 
-      shipping: {
-        postcode: data.postcode,
-        city: data.city,
-        address: data.address,
-        subaddress: data.subaddress,
-      },
-      billing: {
-        postcode: data.postcode,
-        city: data.city,
-        address: data.address,
-        subaddress: data.subaddress,
-      },
+      ...(data.shippingOption === 'Postai szállítás'
+        ? {
+            shipping: {
+              postcode: data.postcode,
+              city: data.city,
+              address: data.address,
+              subaddress: data.subaddress,
+            },
+          }
+        : {
+            shipping: {
+              postcode: '',
+              city: '',
+              address: '',
+              subaddress: '',
+            },
+          }),
     });
+
     next();
   };
 
@@ -139,10 +159,6 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
               type="radio"
               value={'Személyes átvétel'}
               required
-              onChange={(event) => {
-                updateShippingCost(0);
-                setShippingMode(event.target.value);
-              }}
             />
             <span className="ml-2"> Személyes átvétel</span>
             <span className="ml-2">- Nagykovácsi Kazal utca 6.</span>
@@ -152,17 +168,7 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
 
         <div className="col-span-full flex justify-between items-center">
           <label htmlFor="post">
-            <input
-              {...register('shippingOption')}
-              id="post"
-              type="radio"
-              value={'Postai szállítás'}
-              required
-              onChange={(event) => {
-                updateShippingCost(600);
-                setShippingMode(event.target.value);
-              }}
-            />
+            <input {...register('shippingOption')} id="post" type="radio" value={'Postai szállítás'} required />
             <span className="ml-2"> Postai szállítás</span>
           </label>
 

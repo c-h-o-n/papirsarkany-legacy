@@ -1,6 +1,6 @@
 {
   "name": "papirsarkany-client",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "private": true,
   "scripts": {
     "dev": "react-scripts start",
@@ -10,13 +10,13 @@
     "lint": "eslint --fix src"
   },
   "dependencies": {
-    "@ebay/nice-modal-react": "^1.2.7",
-    "@fontsource/poppins": "^4.5.9",
+    "@ebay/nice-modal-react": "^1.2.8",
+    "@fontsource/poppins": "^4.5.10",
     "@tanstack/react-query": "^4.13.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.37.0",
-    "react-router-dom": "^6.4.1",
+    "react-hook-form": "^7.38.0",
+    "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
     "react-step-builder": "^3.0.6",
     "react-toastify": "^9.0.8"

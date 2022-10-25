@@ -38,6 +38,8 @@ const initialFormValues: CheckoutFormInput = {
     subaddress: '',
   },
   comment: '',
+
+  isSameAdressAsShipping: true,
 };
 
 // TODO ensure autofill to be correct https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete#values

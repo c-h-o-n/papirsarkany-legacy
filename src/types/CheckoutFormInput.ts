@@ -25,4 +25,6 @@ export type CheckoutFormInput = {
     subaddress: string;
   };
   comment: string;
+
+  isSameAdressAsShipping?: boolean;
 };

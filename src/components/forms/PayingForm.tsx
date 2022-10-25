@@ -1,21 +1,23 @@
-import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSteps } from 'react-step-builder';
 
 import { CheckoutFormInput } from '../../types/CheckoutFormInput';
 
-type FormInput = CheckoutFormInput['billing'] & Pick<CheckoutFormInput, 'paymentOption'>;
+type FormInput = CheckoutFormInput['billing'] &
+  Pick<CheckoutFormInput, 'paymentOption'> & { isSameAdressAsShipping: boolean };
 
 type PayingFormProps = {
   formValues: CheckoutFormInput;
   updateFormValues: (values: Partial<CheckoutFormInput>) => void;
 };
-// TODO add billing new contact => restructure ChecoutFormInput type
+
 export default function PayingForm({ formValues, updateFormValues }: PayingFormProps) {
   const { next, prev } = useSteps();
 
-  const { register, handleSubmit } = useForm<FormInput>({
+  const { register, handleSubmit, watch } = useForm<FormInput>({
     defaultValues: {
+      isSameAdressAsShipping: formValues.isSameAdressAsShipping,
+      paymentOption: formValues.paymentOption,
       postcode: formValues.billing.postcode,
       city: formValues.billing.city,
       address: formValues.billing.address,
@@ -23,9 +25,7 @@ export default function PayingForm({ formValues, updateFormValues }: PayingFormP
     },
   });
 
-  const [isSameAdressAsShipping, setIsSameAdressAsShipping] = useState(
-    formValues.shippingOption === 'Postai szállítás'
-  );
+  const isSameAdressAsShipping = watch('isSameAdressAsShipping');
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
     updateFormValues({
@@ -36,7 +36,19 @@ export default function PayingForm({ formValues, updateFormValues }: PayingFormP
         postcode: data.postcode,
         subaddress: data.subaddress,
       },
+      isSameAdressAsShipping: data.isSameAdressAsShipping,
+
+      ...(isSameAdressAsShipping &&
+        formValues.shippingOption === 'Postai szállítás' && {
+          billing: {
+            address: formValues.shipping.address,
+            city: formValues.shipping.city,
+            postcode: formValues.shipping.postcode,
+            subaddress: formValues.shipping.subaddress,
+          },
+        }),
     });
+
     next();
     console.log(data);
   };
@@ -79,12 +91,7 @@ export default function PayingForm({ formValues, updateFormValues }: PayingFormP
 
             <div className="col-span-full">
               <label htmlFor="same-as-shpping-address">
-                <input
-                  id="same-as-shpping-address"
-                  type={'checkbox'}
-                  checked={isSameAdressAsShipping}
-                  onChange={() => setIsSameAdressAsShipping(!isSameAdressAsShipping)}
-                />
+                <input {...register('isSameAdressAsShipping')} id="same-as-shpping-address" type={'checkbox'} />
                 <span className="ml-2">A számlázási adataim megegyeznek a szállítási címemmel</span>
               </label>
             </div>
@@ -92,7 +99,7 @@ export default function PayingForm({ formValues, updateFormValues }: PayingFormP
         )}
 
         {/* Billing information */}
-        {!isSameAdressAsShipping && (
+        {(formValues.shippingOption === 'Személyes átvétel' || !isSameAdressAsShipping) && (
           <>
             {/* Postcode */}
             <div className="col-span-1">
