@@ -9,7 +9,7 @@ import DualLinePage from './pages/DualLinePage';
 import LandingPage from './pages/LandingPage';
 import MaterialPage from './pages/MaterialPage';
 import NotFoundPage from './pages/NotFoundPage';
-import SingleLine from './pages/SingleLineKitePage';
+import SingleLineKitePage from './pages/SingleLineKitePage';
 
 // TODO clean up app
 function App() {
@@ -19,7 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<LandingPage />} />
-            <Route path="/egyzsinoros" element={<SingleLine />} />
+            <Route path="/egyzsinoros" element={<SingleLineKitePage />} />
             <Route path="/ketzsinoros" element={<DualLinePage />} />
             <Route path="/anyagok" element={<MaterialPage />} />
             <Route path="/kosar" element={<CartPage />} />
