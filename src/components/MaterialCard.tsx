@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 
-import { useCart } from '../context/CartContext'; 
+import { useCart } from '../context/CartContext';
 import { Product } from '../types/Product';
 
 // assets
