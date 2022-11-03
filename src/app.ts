@@ -7,13 +7,14 @@ require('dotenv').config();
 import { notFound } from './api/middlewares/notFound';
 import { errorHandler } from './api/middlewares/errorHandler';
 import api from './api';
+import path from 'path';
 
 import MessageResponse from './interfaces/MessageResponse';
 
 const app = express();
 
 app.use(morgan('dev'));
-app.use(helmet());
+app.use(helmet({ crossOriginResourcePolicy: {policy: 'cross-origin'}}));
 app.use(cors());
 app.use(express.json());
 
@@ -26,6 +27,7 @@ app.get<{}, MessageResponse>('/', (req, res) => {
 });
 
 app.use('/api/v1', api);
+app.use('/static', express.static(path.join(__dirname + '/public')));
 
 app.use(notFound);
 app.use(errorHandler);
