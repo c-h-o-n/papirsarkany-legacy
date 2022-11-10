@@ -4,14 +4,13 @@ import Layout from './Layout';
 import Providers from './Providers';
 
 // pages
-import CartPage from './pages/CartPage';
+import CheckoutPage from './pages/CheckoutPage';
 import DualLinePage from './pages/DualLinePage';
 import LandingPage from './pages/LandingPage';
 import MaterialPage from './pages/MaterialPage';
 import NotFoundPage from './pages/NotFoundPage';
 import SingleLineKitePage from './pages/SingleLineKitePage';
 
-// TODO clean up app
 function App() {
   return (
     <Providers>
@@ -22,7 +21,7 @@ function App() {
             <Route path="/egyzsinoros" element={<SingleLineKitePage />} />
             <Route path="/ketzsinoros" element={<DualLinePage />} />
             <Route path="/anyagok" element={<MaterialPage />} />
-            <Route path="/kosar" element={<CartPage />} />
+            <Route path="/kosar" element={<CheckoutPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>

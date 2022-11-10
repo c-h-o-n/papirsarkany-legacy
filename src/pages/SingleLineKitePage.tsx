@@ -4,7 +4,7 @@ import KiteCard from '../components/KiteCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { useApi } from '../hooks/useApi';
 import { Product } from '../types/Product';
-import refreshDataIcon from '../assets/icons/refetch-data.svg';
+import FetchError from '../components/FetchError';
 
 export default function SingleLineKitePage() {
   const { getAllKites } = useApi();
@@ -19,14 +19,12 @@ export default function SingleLineKitePage() {
       </div>
     );
   }
+
   if (isError) {
     return (
       <div className="absolute grid items-center h-screen inset-0">
         <div className="mx-auto text-center">
-          <button type={'button'} onClick={() => refetch()}>
-            <img className="w-32" src={refreshDataIcon} alt="" />
-          </button>
-          <p>Nem sikerült lekérni az adatokat.</p>
+          <FetchError refetch={refetch} />
         </div>
       </div>
     );
@@ -34,7 +32,7 @@ export default function SingleLineKitePage() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-center my-6">Egyzsinóros sárkányok</h1>
+      <h1 className="text-3xl font-bold text-center mb-6">Egyzsinóros sárkányok</h1>
 
       <div className="flex flex-wrap justify-center gap-6">
         {data.map((kite) => (

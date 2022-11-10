@@ -15,6 +15,7 @@ export default function CartSummary({ products, isCompact = false, isEditable = 
 
   const { cartItems, shippingCost } = useCart();
 
+  // TODO derive state or usememo
   useEffect(() => {
     setTotal(
       cartItems.reduce((total, cartItem) => {

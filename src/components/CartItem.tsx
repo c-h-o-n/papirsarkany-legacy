@@ -26,6 +26,7 @@ export default function CartItem({ id, quantity, products, isCompact = false, is
   const { removeItemFromCart, decreaseCartQuantity, increaseCartQuantity } = useCart();
   const [item, setItem] = useState<Product>();
 
+  // TODO derive state or usememo
   useEffect(() => {
     setItem(products.find((product) => product.id === id));
   }, [id, products]);

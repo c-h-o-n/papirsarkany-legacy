@@ -36,6 +36,7 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
 
   const shippingMode = watch('shippingOption');
 
+  // TODO derive state or usememo
   useEffect(() => {
     switch (shippingMode) {
       case 'Személyes átvétel':
