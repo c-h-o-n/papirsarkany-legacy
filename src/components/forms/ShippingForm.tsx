@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSteps } from 'react-step-builder';
 
@@ -36,7 +36,7 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
 
   const shippingMode = watch('shippingOption');
 
-  // TODO derive state or usememo
+  // CHECK better way
   useEffect(() => {
     switch (shippingMode) {
       case 'Személyes átvétel':

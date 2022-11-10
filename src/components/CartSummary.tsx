@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { Product } from '../types/Product';
 import { currencyFormatter } from '../utilities/formatters';
@@ -11,19 +11,16 @@ type CartSummaryProps = {
 };
 
 export default function CartSummary({ products, isCompact = false, isEditable = true }: CartSummaryProps) {
-  const [total, setTotal] = useState(0);
-
   const { cartItems, shippingCost } = useCart();
 
-  // TODO derive state or usememo
-  useEffect(() => {
-    setTotal(
+  const total = useMemo(
+    () =>
       cartItems.reduce((total, cartItem) => {
         const product = products.find((product) => product.id === cartItem.id);
         return total + (product?.price || 0) * cartItem.quantity;
-      }, 0) + (shippingCost || 0)
-    );
-  }, [cartItems, products, shippingCost]);
+      }, 0) + (shippingCost || 0),
+    [cartItems, products, shippingCost]
+  );
 
   const [isOpen, setIsOpen] = useState(false);
 

@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import NiceModal from '@ebay/nice-modal-react';
+import { useState } from 'react';
 
 // assets
 import { currencyFormatter } from '../utilities/formatters';
@@ -9,7 +8,6 @@ import { CartItem as CartItemType, useCart } from '../context/CartContext';
 
 // components
 import Counter from './Counter';
-import ConfirmModal, { ConfirmModalResponse } from './modals/ConfirmModal';
 
 // types
 import { Product } from '../types/Product';
@@ -21,25 +19,8 @@ type CartItemProps = CartItemType & {
 };
 
 export default function CartItem({ id, quantity, products, isCompact = false, isEditable = true }: CartItemProps) {
-  const modal = NiceModal.useModal(ConfirmModal, { title: 'Megerősítés' });
-
   const { removeItemFromCart, decreaseCartQuantity, increaseCartQuantity } = useCart();
-  const [item, setItem] = useState<Product>();
-
-  // TODO derive state or usememo
-  useEffect(() => {
-    setItem(products.find((product) => product.id === id));
-  }, [id, products]);
-
-  // LATER remove unnecessery modal (experimental purposes)
-  const confirmModal = () => {
-    modal.show({ title: 'Biztosan törli?' }).then((res) => {
-      if ((res as ConfirmModalResponse) === 'confirm') {
-        removeItemFromCart(id);
-      }
-      modal.remove();
-    });
-  };
+  const [item] = useState(products.find((product) => product.id === id));
 
   if (item == null) {
     return null;
@@ -68,7 +49,7 @@ export default function CartItem({ id, quantity, products, isCompact = false, is
         </div>
 
         {isEditable && (
-          <button className="h-10 w-10" type={'button'} onClick={confirmModal}>
+          <button className="h-10 w-10" type={'button'} onClick={() => removeItemFromCart(id)}>
             <img src={removeItem} alt="remove-cart-item" />
           </button>
         )}
