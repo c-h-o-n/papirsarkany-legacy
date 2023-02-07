@@ -1,6 +1,8 @@
 import { Product } from '../types/Product';
 
-const baseUrl = 'http://localhost:5000/api/v1';
+const { REACT_APP_API_BASE_URL } = process.env;
+
+const baseUrl = REACT_APP_API_BASE_URL;
 
 export function useApi() {
   const getAllKites = async (): Promise<Product[]> => {
