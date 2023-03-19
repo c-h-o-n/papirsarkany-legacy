@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSteps } from 'react-step-builder';
 
@@ -167,14 +167,14 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
           <div className="font-bold">Ingyenes</div>
         </div>
 
-        <div className="col-span-full flex justify-between items-center">
+        {/* <div className="col-span-full flex justify-between items-center">
           <label htmlFor="post">
             <input {...register('shippingOption')} id="post" type="radio" value={'Postai szállítás'} required />
             <span className="ml-2"> Postai szállítás</span>
           </label>
 
           <div className="font-bold">Várható költség:</div>
-        </div>
+        </div> */}
 
         {/* Required for shipping */}
         {shippingMode === 'Postai szállítás' && (
