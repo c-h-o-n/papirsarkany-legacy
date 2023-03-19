@@ -1,4 +1,4 @@
-import { string, z } from 'zod';
+import { z } from 'zod';
 
 const phoneNumberRegexp = /^((?:\+?3|0)6)(\d{9})$/;
 const postCodeRegexp = /^\d{4}$|^$/;
@@ -11,7 +11,7 @@ export const Order = z.object({
   shippingOption: z.enum(['Személyes átvétel', 'Postai szállítás']),
   paymentOption: z.enum(['Átvételkor készpénzel', 'Előreutalással']),
 
-  comment: string(),
+  comment: z.string(),
   createdAt: z.string().optional(),
 });
 
@@ -42,7 +42,7 @@ export const NewOrder = z.object({
     subaddress: z.string(),
   }),
 
-  comment: string(),
+  comment: z.string(),
 
   products: z.array(
     z.object({

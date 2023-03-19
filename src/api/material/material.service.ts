@@ -24,7 +24,7 @@ export async function getAllMaterial(): Promise<Material[]> {
 
 export async function getMaterial(id: string): Promise<Material> {
   const query: QueryConfig = {
-    text: 'SELECT * FROM "products" WHERE id = $1',
+    text: 'SELECT * FROM "products" WHERE id = $1;',
     values: [id],
   };
 

@@ -4,6 +4,7 @@ import { db } from '../../db';
 import { insertQueryBuilder, updateQueryBuilder, upsertQueryBuilder } from '../../utilities/queryBuilders';
 import { NewOrder, Order } from './order.model';
 
+// SEND mail if order transaction is successfully committed
 export async function createOrder(data: NewOrder): Promise<Order> {
   const { billing, shipping, contact, comment, paymentOption, shippingOption, products } = data;
 
@@ -64,6 +65,7 @@ export async function createOrder(data: NewOrder): Promise<Order> {
 
     console.log('commit');
     await db.query('COMMIT');
+
     return orderRows[0];
   } catch (error) {
     console.warn('rollback');

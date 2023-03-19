@@ -75,4 +75,8 @@ typings/
 # Serverless directories
 .serverless
 
+# build
 dist
+
+# sendgrid
+sendgrid.env

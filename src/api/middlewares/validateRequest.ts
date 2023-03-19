@@ -6,6 +6,7 @@ import RequestValidators from '../../interfaces/RequestValidators';
 
 export function validateRequest(validators: RequestValidators) {
   return async (req: Request, res: Response, next: NextFunction) => {
+    console.log('validate this:', req.body);
     try {
       if (validators.params) {
         req.params = await validators.params.parseAsync(req.params);

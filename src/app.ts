@@ -11,13 +11,13 @@ import path from 'path';
 
 import MessageResponse from './interfaces/MessageResponse';
 
+// TODO serve react app from here
 const app = express();
 
 app.use(morgan('dev'));
-app.use(helmet({ crossOriginResourcePolicy: {policy: 'cross-origin'}}));
+app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 app.use(cors());
 app.use(express.json());
-
 app.disable('etag');
 
 app.get<{}, MessageResponse>('/', (req, res) => {
@@ -28,7 +28,6 @@ app.get<{}, MessageResponse>('/', (req, res) => {
 
 app.use('/api/v1', api);
 app.use('/static', express.static(path.join(__dirname + '/public')));
-
 app.use(notFound);
 app.use(errorHandler);
 
