@@ -4,6 +4,7 @@ import { useCart } from '../context/CartContext';
 import addItem from '../assets/add-item.svg';
 import AddToCartToastMessage from './toasts/AddToCartToast';
 import { Product } from '../types/Product';
+import { currencyFormatter } from '../utilities/formatters';
 
 type KiteCardProps = {
   kite: Product;
@@ -18,7 +19,7 @@ export default function KiteCard({ kite }: KiteCardProps) {
 
       <div className="mb-3">{kite.imageUrl && <img src={kite.imageUrl} alt={kite.name} />}</div>
 
-      <div className="text-center text-3xl font-bold text-sky-500">{kite.price} Ft</div>
+      <div className="text-center text-3xl font-bold text-sky-500">{currencyFormatter(kite.price)}</div>
 
       <div className=" absolute bottom-6 right-6 flex items-center justify-end space-x-3">
         <button

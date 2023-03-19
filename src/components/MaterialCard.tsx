@@ -6,6 +6,7 @@ import { Product } from '../types/Product';
 // assets
 import addItem from '../assets/add-item.svg';
 import AddToCartToastMessage from './toasts/AddToCartToast';
+import { currencyFormatter } from '../utilities/formatters';
 
 type MaterialCardProps = {
   material: Product;
@@ -19,7 +20,7 @@ export default function MaterialCard({ material }: MaterialCardProps) {
       {material.imageUrl && <img className="min-w-0 max-w-full" src={material.imageUrl} alt={material.name} />}
       <h1 className="font-medium flex-shrink">{material.name}</h1>
 
-      <div className="font-bold text-sky-500 flex-shrink-0">{material.price} Ft</div>
+      <div className="font-bold text-sky-500 flex-shrink-0">{currencyFormatter(material.price)}</div>
 
       <button
         className="flex-shrink-0"

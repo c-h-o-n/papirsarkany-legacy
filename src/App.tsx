@@ -5,7 +5,6 @@ import Providers from './Providers';
 
 // pages
 import CheckoutPage from './pages/CheckoutPage';
-import DualLinePage from './pages/DualLinePage';
 import LandingPage from './pages/LandingPage';
 import MaterialPage from './pages/MaterialPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -19,7 +18,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<LandingPage />} />
             <Route path="/egyzsinoros" element={<SingleLineKitePage />} />
-            <Route path="/ketzsinoros" element={<DualLinePage />} />
+            {/* <Route path="/ketzsinoros" element={<DualLinePage />} /> */}
             <Route path="/anyagok" element={<MaterialPage />} />
             <Route path="/kosar" element={<CheckoutPage />} />
             <Route path="*" element={<NotFoundPage />} />

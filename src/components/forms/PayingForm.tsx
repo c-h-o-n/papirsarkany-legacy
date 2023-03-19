@@ -50,7 +50,6 @@ export default function PayingForm({ formValues, updateFormValues }: PayingFormP
     });
 
     next();
-    console.log(data);
   };
 
   return (

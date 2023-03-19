@@ -29,6 +29,14 @@ export default function MaterialPage() {
     );
   }
 
+  if (!data.length) {
+    return (
+      <div className="absolute grid items-center h-screen inset-0">
+        <h1 className="text-2xl md:text-5xl text-center">Jelengleg nincsenek anyagok.</h1>
+      </div>
+    );
+  }
+
   return (
     <>
       <h1 className="text-3xl font-bold text-center m-6">Anyagok</h1>

@@ -15,6 +15,13 @@ const queryClient = new QueryClient({
         toast(message, { className: 'text-center' });
       },
     },
+    mutations: {
+      onError: (error) => {
+        const { message } = error as Error;
+
+        toast(message, { className: 'text-center' });
+      },
+    },
   },
 });
 

@@ -49,9 +49,9 @@ export default function NavBar() {
             <NavLink to="/egyzsinoros" onClick={toggleSideBar}>
               Egyzsinóros
             </NavLink>
-            <NavLink to="/ketzsinoros" onClick={toggleSideBar}>
+            {/* <NavLink to="/ketzsinoros" onClick={toggleSideBar}>
               Kétzsinóros
-            </NavLink>
+            </NavLink> */}
             <NavLink to="/anyagok" onClick={toggleSideBar}>
               Anyagok
             </NavLink>
