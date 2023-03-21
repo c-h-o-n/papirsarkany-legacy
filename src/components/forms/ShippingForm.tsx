@@ -98,7 +98,7 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
               type={'email'}
               id="email"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="email"
+              placeholder="mail@papirsarkany.hu"
               required
             />
           </label>
@@ -114,7 +114,6 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
               type={'text'}
               id="lastName"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="last name"
               required
             />
           </label>
@@ -130,7 +129,6 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
               type={'text'}
               id="firstName"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-              placeholder="first name"
               required
             />
           </label>

@@ -109,7 +109,7 @@ export default function PayingForm({ formValues, updateFormValues }: PayingFormP
                   type="postcode"
                   id="postcode"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="irányítószám"
+                  placeholder=""
                   required
                 />
               </label>
@@ -124,7 +124,7 @@ export default function PayingForm({ formValues, updateFormValues }: PayingFormP
                   type={'text'}
                   id="city"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="város"
+                  placeholder=""
                   required
                 />
               </label>
@@ -146,7 +146,7 @@ export default function PayingForm({ formValues, updateFormValues }: PayingFormP
             </div>
 
             {/* Subaddress */}
-            <div className="col-span-full">
+            <div className="col-span-full -mt-3">
               <label htmlFor="subaddress" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                 <input
                   {...register('subaddress')}
