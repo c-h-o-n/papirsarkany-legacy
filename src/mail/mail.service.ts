@@ -10,11 +10,11 @@ export function setSendGridApiKey(apiKey: string | undefined) {
 }
 
 // LATER implement as middleware
-export function sendMail(to: string, json: OrderMail) {
+export function sendMail(to: string, json: OrderMail, templateId: string) {
   const message: MailDataRequired = {
     to,
     from: 'mail@papirsarkany.hu',
-    templateId: 'd-6eee94a3becb45d2b50e5f8d6a1ac491',
+    templateId,
     dynamicTemplateData: json,
   };
 

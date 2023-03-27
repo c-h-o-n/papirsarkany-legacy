@@ -27,14 +27,25 @@ router.post(
         totalPrice += kite.price * product.quantity;
       }
 
+      const vendorTemplateId = 'd-6eee94a3becb45d2b50e5f8d6a1ac491';
+      const customreTemplateId = 'd-c5e1d19e77f54103978a24ff6c90344f';
+
       const sendMe: OrderMail = {
         subject: `Rendelés #${order.id}`,
         ...req.body,
         products: [...kites],
         total: currencyFormatter(totalPrice),
       };
+
+      const sendMeToCustomer: OrderMail = {
+        subject: 'papirsarkany.hu - Köszönöm rendelését.',
+        ...req.body,
+        products: [...kites],
+        total: currencyFormatter(totalPrice),
+      };
       try {
-        mailService.sendMail(ORDER_MAIL!, sendMe);
+        mailService.sendMail(ORDER_MAIL!, sendMe, vendorTemplateId);
+        mailService.sendMail(req.body.contact.email, sendMeToCustomer, customreTemplateId);
       } catch (error) {
         console.log(error);
       }

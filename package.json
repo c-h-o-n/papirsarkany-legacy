@@ -1,6 +1,6 @@
 {
   "name": "papirsarkany-server",
-  "version": "beta-1.0.4",
+  "version": "beta-1.1.0",
   "description": "A simple express.js API with Typescript",
   "main": "src/index.ts",
   "scripts": {
