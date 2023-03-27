@@ -2,8 +2,8 @@ import { createContext, ReactNode, useMemo, useContext, useState } from 'react';
 
 type CartContextType = {
   cartItems: CartItem[];
-  shippingCost: number | undefined;
-  updateShippingCost: (value: number | undefined) => void;
+  shippingCost: number | string | undefined;
+  updateShippingCost: (value: number | string | undefined) => void;
   getTotalCartQuantity: () => number;
   getItemQuantity: (id: string) => number;
   increaseCartQuantity: (id: string) => void;
@@ -37,7 +37,7 @@ export function CartProvider({ children }: CartProviderProps) {
   const value = useMemo<CartContextType>(() => {
     const getTotalCartQuantity = () => cartItems.reduce((quantity, item) => item.quantity + quantity, 0);
 
-    const updateShippingCost = (value: number | undefined) => {
+    const updateShippingCost = (value: number | string | undefined) => {
       setShippingCost(value);
     };
 

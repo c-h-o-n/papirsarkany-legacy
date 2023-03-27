@@ -40,10 +40,10 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
   useEffect(() => {
     switch (shippingMode) {
       case 'Személyes átvétel':
-        updateShippingCost(0);
+        updateShippingCost('Ingyenes');
         break;
       case 'Postai szállítás':
-        updateShippingCost(600);
+        updateShippingCost('+postai szállítás költsége');
         break;
       default:
         updateShippingCost(undefined);
@@ -150,7 +150,7 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
         </div>
 
         {/* Shipping options */}
-        <div className="col-span-full flex justify-between items-center">
+        <div className="col-span-full flex flex-wrap justify-between items-center ">
           <label htmlFor="personal-pick-up">
             <input
               {...register('shippingOption')}
@@ -165,13 +165,13 @@ export default function ShippingForm({ formValues, updateFormValues }: ShippingF
           <div className="font-bold">Ingyenes</div>
         </div>
 
-        <div className="col-span-full flex justify-between items-center text-gray-400">
+        <div className="col-span-full flex flex-wrap justify-between items-center">
           <label htmlFor="post">
-            <input {...register('shippingOption')} id="post" type="radio" value={'Postai szállítás'} disabled />
-            <span className="ml-2"> Házhoz / Csomagpontra szállítás</span>
+            <input {...register('shippingOption')} id="post" type="radio" value={'Postai szállítás'} />
+            <span className="ml-2">Postai szállítás</span>
           </label>
 
-          <div className="font-bold">HAMAROSAN</div>
+          <div className="font-bold">+Postai szállítás költsége</div>
         </div>
 
         {/* Required for shipping */}

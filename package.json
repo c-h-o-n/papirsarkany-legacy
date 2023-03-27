@@ -1,6 +1,6 @@
 {
   "name": "papirsarkany-client",
-  "version": "beta-1.0.3",
+  "version": "beta-1.1.3",
   "private": true,
   "scripts": {
     "dev": "react-scripts start",

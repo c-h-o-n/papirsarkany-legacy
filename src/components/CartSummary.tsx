@@ -18,8 +18,8 @@ export default function CartSummary({ products, isCompact = false, isEditable = 
       cartItems.reduce((total, cartItem) => {
         const product = products.find((product) => product.id === cartItem.id);
         return total + (product?.price || 0) * cartItem.quantity;
-      }, 0) + (shippingCost || 0),
-    [cartItems, products, shippingCost]
+      }, 0),
+    [cartItems, products]
   );
 
   const [isOpen, setIsOpen] = useState(false);
@@ -44,10 +44,10 @@ export default function CartSummary({ products, isCompact = false, isEditable = 
             <CartItem key={item.id} {...item} products={products} isCompact={isCompact} isEditable={isEditable} />
           ))}
 
-          {typeof shippingCost === 'number' && (
+          {shippingCost && (
             <div className="flex justify-between py-4">
               <div>Szállítási költség</div>
-              <div className="font-bold"> {shippingCost ? currencyFormatter(shippingCost) : 'Ingyenes'}</div>
+              <div className="font-bold"> {shippingCost}</div>
             </div>
           )}
 

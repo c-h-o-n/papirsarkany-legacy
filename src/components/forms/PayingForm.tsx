@@ -67,7 +67,7 @@ export default function PayingForm({ formValues, updateFormValues }: PayingFormP
               value={'Átvételkor készpénzel'}
               required
             />
-            <span className="ml-2">Átvételkor készpénzel</span>
+            <span className="ml-2">Utánvétes fizetés</span>
           </label>
         </div>
 

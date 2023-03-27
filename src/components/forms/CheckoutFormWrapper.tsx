@@ -104,8 +104,11 @@ export default function CheckoutFormWrapper({ products }: CheckoutFormWrapperPro
       </div>
 
       {/* Final step */}
-      <div className="absolute grid items-center h-screen inset-0">
-        <h1 className="text-2xl md:text-5xl text-center">Sikeres rendelés.</h1>
+      <div className="absolute grid items-center h-screen inset-0 text-center">
+        <div>
+          <h1 className="text-2xl md:text-5xl">Sikeres rendelés.</h1>
+          <p className="">Hamarosan felveszem önnel a kapcsolatot.</p>
+        </div>
       </div>
     </Steps>
   );
