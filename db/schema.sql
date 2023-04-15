@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS "products" (
   "imageUrl" text,
   "price" integer NOT NULL,
   "category" "Category" NOT NULL,
+  "details" json,
   "description" text
 );
 
