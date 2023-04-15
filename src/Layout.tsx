@@ -4,7 +4,7 @@ import NavBar from './components/NavBar';
 
 export default function Layout() {
   return (
-    <div className="bg-sky-50 min-h-screen min-w-full absolute flex flex-col ">
+    <div className="bg-sky-100 min-h-screen min-w-full absolute flex flex-col ">
       <NavBar />
       <ToastContainer
         position="bottom-center"

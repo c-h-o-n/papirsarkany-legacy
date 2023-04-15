@@ -3,12 +3,22 @@ import { useQuery } from '@tanstack/react-query';
 import KiteCard from '../components/KiteCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { useApi } from '../hooks/useApi';
-import { Product } from '../types/Product';
 import FetchError from '../components/FetchError';
+import { Kite } from '../types/Kite';
 
 export default function SingleLineKitePage() {
   const { getAllKites } = useApi();
-  const { data, isLoading, isError, refetch } = useQuery<Product[], Error>(['kites'], getAllKites);
+  const { data, isLoading, isError, refetch } = useQuery<Kite[], Error>(['kites'], getAllKites);
+
+  const sortByPrice = (a: Kite, b: Kite): number => {
+    if (a.price < b.price) {
+      return -1;
+    }
+    if (a.price === b.price) {
+      return 0;
+    }
+    return 1;
+  };
 
   if (isLoading) {
     return (
@@ -42,11 +52,9 @@ export default function SingleLineKitePage() {
     <>
       <h1 className="text-3xl font-bold text-center mb-6">Egyzsinóros sárkányok</h1>
 
-      <div className="flex flex-wrap justify-center gap-6">
-        {data.map((kite) => (
-          <div key={kite.id} className="">
-            <KiteCard kite={kite} />
-          </div>
+      <div className="columns-1 md:columns-2 lg:columns-3 space-y-6">
+        {data.sort(sortByPrice).map((kite) => (
+          <KiteCard kite={kite} key={kite.id} />
         ))}
       </div>
     </>

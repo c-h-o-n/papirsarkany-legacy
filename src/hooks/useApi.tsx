@@ -1,3 +1,4 @@
+import { Kite } from '../types/Kite';
 import { Order } from '../types/Order';
 import { Product } from '../types/Product';
 
@@ -11,7 +12,7 @@ const { REACT_APP_API_BASE_URL } = process.env;
 const baseUrl = REACT_APP_API_BASE_URL;
 
 export function useApi() {
-  const getAllKites = async (): Promise<Product[]> => {
+  const getAllKites = async (): Promise<Kite[]> => {
     const response = await fetch(`${baseUrl}/kites`);
 
     if (!response.ok) {
