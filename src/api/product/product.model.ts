@@ -7,6 +7,7 @@ export const Product = z.object({
   price: z.number().positive(),
   category: z.enum(['Egyzsinóros', 'Anyag']),
   description: z.string().optional(),
+  deletedat: z.string().optional(),
 });
 
 export type Product = z.infer<typeof Product>;

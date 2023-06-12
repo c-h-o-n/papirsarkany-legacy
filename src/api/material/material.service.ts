@@ -15,7 +15,7 @@ export async function createMaterial(data: Omit<Material, 'id'>): Promise<Materi
 
 export async function getAllMaterial(): Promise<Material[]> {
   const query: QueryConfig<[Material['category']]> = {
-    text: 'SELECT * from "products" WHERE "category" = $1;',
+    text: 'SELECT * from "products" WHERE "category" = $1 AND deletedat IS NULL;',
     values: ['Anyag'],
   };
   const { rows } = await db.query<Material>(query);
@@ -24,7 +24,7 @@ export async function getAllMaterial(): Promise<Material[]> {
 
 export async function getMaterial(id: string): Promise<Material> {
   const query: QueryConfig = {
-    text: 'SELECT * FROM "products" WHERE id = $1;',
+    text: 'SELECT * FROM "products" WHERE id = $1 AND deletedat IS NULL;',
     values: [id],
   };
 

@@ -17,7 +17,7 @@ export async function createKite(data: Omit<Kite, 'id'>): Promise<Kite> {
 
 export async function getAllKites(): Promise<Kite[]> {
   const query: QueryConfig<[Kite['category']]> = {
-    text: 'SELECT * from "products" WHERE "category" = $1;',
+    text: 'SELECT * from "products" WHERE "category" = $1 AND deletedat IS NULL;',
     values: ['Egyzsinóros'],
   };
 
@@ -27,7 +27,7 @@ export async function getAllKites(): Promise<Kite[]> {
 
 export async function getKite(id: string): Promise<Kite> {
   const query: QueryConfig = {
-    text: 'SELECT * FROM "products" WHERE id = $1;',
+    text: 'SELECT * FROM "products" WHERE id = $1 AND deletedat IS NULL;',
     values: [id],
   };
 

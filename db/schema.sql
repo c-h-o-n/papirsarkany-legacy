@@ -54,7 +54,8 @@ CREATE TABLE IF NOT EXISTS "products" (
   "price" integer NOT NULL,
   "category" "Category" NOT NULL,
   "details" json,
-  "description" text
+  "description" text,
+  "deletedat" date
 );
 
 CREATE TABLE IF NOT EXISTS "orders" (
