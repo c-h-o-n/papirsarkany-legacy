@@ -41,9 +41,11 @@ export default function MaterialPage() {
     <>
       <h1 className="text-3xl font-bold text-center m-6">Anyagok</h1>
 
-      <div className="flex flex-wrap gap-6">
+      <div className="columns-1 md:columns-2 lg:columns-3 space-y-6">
         {data.map((material) => (
-          <MaterialCard key={material.id} material={material} />
+          <div className="mx-auto w-fit" key={material.id}>
+            <MaterialCard  material={material} />
+          </div>
         ))}
       </div>
     </>

@@ -1,4 +1,5 @@
 import { Kite } from '../types/Kite';
+import { Material } from '../types/Material';
 import { Order } from '../types/Order';
 import { Product } from '../types/Product';
 
@@ -24,7 +25,7 @@ export function useApi() {
     return data;
   };
 
-  const getAllMaterials = async (): Promise<Product[]> => {
+  const getAllMaterials = async (): Promise<Material[]> => {
     const response = await fetch(`${baseUrl}/materials`);
 
     if (!response.ok) {
