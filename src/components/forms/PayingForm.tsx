@@ -83,7 +83,7 @@ export default function PayingForm({ formValues, updateFormValues }: PayingFormP
                   value={'Előreutalással'}
                   required
                 />
-                <span className="ml-2">Előreutalással</span>
+                <span className="ml-2">Előreutalással (11600006-00000000-76709302)</span>
               </label>
             </div>
             <div className="col-span-full text-lg underline">Számlázási cím</div>

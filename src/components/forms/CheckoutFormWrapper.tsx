@@ -96,8 +96,9 @@ export default function CheckoutFormWrapper({ products }: CheckoutFormWrapperPro
           <CheckoutSummary formValues={formValues} />
         </div>
 
-        <div>
+        <div className="space-y-2">
           <CartSummary products={products} isEditable={false} />
+          <div className="text-xs text-right">14 napos elállási jog a rendelés leadásától számítva</div>
         </div>
 
         <OrderForm formValues={formValues} />
