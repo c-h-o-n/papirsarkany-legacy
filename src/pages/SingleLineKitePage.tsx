@@ -50,7 +50,9 @@ export default function SingleLineKitePage() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-center mb-6">Egyzsinóros sárkányok</h1>
+      <h1 className="text-3xl font-bold text-center mb-2">Egyzsinóros sárkányok</h1>
+      <h4 className="font-bold text-center mb-6">A vételár tartalmaz 100m eresztőzsinórt és fogantyút.</h4>
+
 
       <div className="columns-1 md:columns-2 lg:columns-3 space-y-6">
         {data.sort(sortByPrice).map((kite) => (
